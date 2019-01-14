@@ -1,29 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\piata\\Desktop\\ezBus\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
+            "outputFile": "/Users/Luca/Desktop/LUCA/APPLICAZIONI/ezBus/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\piata\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\51fd02c5984b52854e65a20a512c4c69\\res\\values-v21\\values-v21.xml",
-                    "from": {
-                        "startLines": "2,10,18,26",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,484,910,1333",
-                        "endLines": "9,17,25,33",
-                        "endColumns": "10,10,10,10",
-                        "endOffsets": "479,905,1328,1763"
-                    },
-                    "to": {
-                        "startLines": "284,292,300,308",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "20652,21081,21507,21930",
-                        "endLines": "291,299,307,315",
-                        "endColumns": "10,10,10,10",
-                        "endOffsets": "21076,21502,21925,22360"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\piata\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\63f1c8ffc65b784471d5b2c610807615\\res\\values-v21\\values-v21.xml",
+                    "source": "/Users/Luca/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ebb1ae851aa1aedce00ea5e25e8a2579/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +23,26 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\piata\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\0524cf73b9c0a57441994bb0a67a6e57\\res\\values-v21\\values-v21.xml",
+                    "source": "/Users/Luca/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/d5266d333591727c0c46bcde30746676/res/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2,10,18,26",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,484,910,1333",
+                        "endLines": "9,17,25,33",
+                        "endColumns": "10,10,10,10",
+                        "endOffsets": "479,905,1328,1763"
+                    },
+                    "to": {
+                        "startLines": "284,292,300,308",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "20652,21081,21507,21930",
+                        "endLines": "291,299,307,315",
+                        "endColumns": "10,10,10,10",
+                        "endOffsets": "21076,21502,21925,22360"
+                    }
+                },
+                {
+                    "source": "/Users/Luca/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/8382b7c974e11f1fdcfb755c6ef46c9d/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,19,20,21,22,24,26,27,28,29,30,32,34,36,38,40,42,43,48,50,52,53,54,56,58,59,60,61,62,63,107,110,154,157,160,162,164,166,169,171,174,175,176,179,180,181,182,183,184,187,188,190,192,194,196,200,202,203,204,205,207,211,213,215,216,217,218,219,221,222,223,233,234,235,247",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -61,7 +61,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\piata\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\7c1d5534f0f6543dd887485d418f3cea\\res\\values-v21\\values-v21.xml",
+                    "source": "/Users/Luca/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/0a04f0c9f5398c8108bbff9181a3a27b/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,5,8,11",
                         "startColumns": "4,4,4,4",
@@ -80,7 +80,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\piata\\Desktop\\ezBus\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "source": "/Users/Luca/Desktop/LUCA/APPLICAZIONI/ezBus/app/src/main/res/values-v21/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
