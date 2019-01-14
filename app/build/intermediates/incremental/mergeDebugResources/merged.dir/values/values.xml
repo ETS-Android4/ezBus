@@ -2145,9 +2145,9 @@
     <string name="firebase_database_url" translatable="false">https://ezbus-271cc.firebaseio.com</string>
     <string name="gcm_defaultSenderId" translatable="false">566999320189</string>
     <string name="gcm_fallback_notification_channel_label">Miscellaneous</string>
-    <string name="google_api_key" translatable="false">AIzaSyBVo3-1dBjAcQWtKRoXM7cYLatFUkyF610</string>
+    <string name="google_api_key" translatable="false">AIzaSyC0qpd_SefXDpWyAJvhGE5SwMYNy_mE-Sc</string>
     <string name="google_app_id" translatable="false">1:566999320189:android:97adf5c59eb2d196</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBVo3-1dBjAcQWtKRoXM7cYLatFUkyF610</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC0qpd_SefXDpWyAJvhGE5SwMYNy_mE-Sc</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB5939azRtOYbdMhqcjkb-sZK2BW62rnWM</string>
     <string name="google_storage_bucket" translatable="false">ezbus-271cc.appspot.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
