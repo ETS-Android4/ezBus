@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab1"
+        android:icon="@drawable/ic_menu_map"
+        android:orderInCategory="100"
+        android:title="Mappa"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/tab2"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:orderInCategory="100"
+        android:title="Portafoglio"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/tab3"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:orderInCategory="100"
+        android:title="Acquista"
+        app:showAsAction="never" />
+</menu>
