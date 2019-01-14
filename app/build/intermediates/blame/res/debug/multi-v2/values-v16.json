@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Ludovico\\unicamproject\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "D:\\Diocan\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Ludovico\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\3137c88e454ec1e1457ba79354682bad\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Froozex\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\da6fcaaaf36795e6927f946b578400e3\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Ludovico\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\07dfa5b09b6996bf4d5dd2f6a34bcc32\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Froozex\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\bac1570bad2f8ccc99a286cf055f947a\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
