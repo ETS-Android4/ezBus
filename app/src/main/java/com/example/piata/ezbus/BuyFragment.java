@@ -31,13 +31,13 @@ public class BuyFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_buy, container, false);
         buttonLogin = view.findViewById(R.id.butLogin);
         text = view.findViewById(R.id.text_buy);
-        if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
             buttonLogin.setVisibility(View.VISIBLE);
             text.setText("Non puoi acquistare");
-        } else {
+        } else {*/
             buttonLogin.setVisibility(View.GONE);
             text.setText("Ora puoi acquistare");
-        }
+        //}
         buttonLogin.setOnClickListener(this);
         return view;
     }
