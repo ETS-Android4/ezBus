@@ -87,12 +87,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
             navUsername.setText("Ospite");
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
         }
         else {
             navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
         }
@@ -128,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+        }
+        if (id == R.id.nav_register) {
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivityForResult(intent, 1);
         }
         DrawerLayout drawer = findViewById(R.id.drag_layout);

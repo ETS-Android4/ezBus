@@ -139,6 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             TextView navUsername =  headerLayout.findViewById(R.id.textView);
             navUsername.setText(user.getEmail());
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
 
@@ -156,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             TextView navUsername =  headerLayout.findViewById(R.id.textView);
             navUsername.setText("Ospite");
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
 
