@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -39,11 +40,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setFragment(mapFragment);
                     return true;
                 case R.id.tab2:
-                    setFragment(pocketFragment);
-                    return true;
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(login);
+                        return false;
+                    } else {
+                        setFragment(pocketFragment);
+                        return true;
+                    }
                 case R.id.tab3:
-                    setFragment(buyFragment);
-                    return true;
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(login);
+                        return false;
+                    } else {
+                        setFragment(buyFragment);
+                        return true;
+                    }
             }
             return false;
         }

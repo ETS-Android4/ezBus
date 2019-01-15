@@ -34,13 +34,14 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
         buttonLogin = view.findViewById(R.id.butLogin);
         text = view.findViewById(R.id.text_pocket);
-        if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
             buttonLogin.setVisibility(View.VISIBLE);
             text.setText("Devi fare il login");
-        } else {
+
+        } else {*/
             buttonLogin.setVisibility(View.GONE);
             text.setText("Ecco il tuo portafoglio");
-        }
+        //}
         buttonLogin.setOnClickListener(this);
         return view;
     }
