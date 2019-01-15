@@ -23,7 +23,7 @@ public class BuyFragment extends Fragment implements View.OnClickListener {
     public BuyFragment() {
 
     }
-
+//ahahaprova
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
