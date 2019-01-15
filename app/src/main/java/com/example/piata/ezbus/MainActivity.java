@@ -1,5 +1,7 @@
 package com.example.piata.ezbus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -77,7 +79,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // BARRA PERSONALIZZATA
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+
+        // BOTTONE MENU
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -103,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.main_nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
     }
 
     private void setFragment(Fragment fragment) {
@@ -132,6 +139,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         if (id == R.id.nav_logout) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
+            logout.setMessage("Vuoi davvero uscire?")
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            logout.show();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             setFragment(mapFragment);
