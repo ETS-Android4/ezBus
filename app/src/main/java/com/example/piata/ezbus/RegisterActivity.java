@@ -74,31 +74,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String password  = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Nome",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Nome deve essere compilato!",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(surname)){
-            Toast.makeText(this,"Cognome",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Cognome deve essere compilato!",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(age)){
-            Toast.makeText(this,"Età",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Età deve essere oompilato!",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(company)){
-            Toast.makeText(this,"Nome Azienda",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Nome Azienda deve essere compilato!",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(iva)){
-            Toast.makeText(this,"Partita IVA",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Partita IVA deve essere compilato!",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Inserisci Email",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Inserisci l'Email",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(username)){
-            Toast.makeText(this,"Username",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Inserisci un Username",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(password)){
@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this,"Registrazione effettuata con successo!",Toast.LENGTH_LONG).show();
                         }else{
                             //display some message here
-                            Toast.makeText(RegisterActivity.this,"Registrazione fallita!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this,"L'email è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }
