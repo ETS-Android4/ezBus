@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/nav_login"
+    <item android:id="@+id/nav_login"
     android:title="Login"
+    android:icon="@drawable/ic_menu_login"/>
+    <item android:id="@+id/nav_profilo"
+    android:title="Profilo"
+    android:visible="false"
+    android:icon="@drawable/ic_menu_login"/>
+    <item android:id="@+id/nav_logout"
+    android:title="Logout"
+    android:visible="false"
     android:icon="@drawable/ic_menu_login"/>
 </menu>

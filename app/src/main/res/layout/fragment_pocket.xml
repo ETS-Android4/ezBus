@@ -6,15 +6,17 @@
     tools:context=".PocketFragment">
 
     <TextView
+        android:id="@+id/text_pocket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Effettua il login per accedere al portafoglio" />
+        android:text="Benvenuto" />
 
     <Button
         android:id="@+id/butLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Login" />
+        android:text="Login"
+        android:visibility="gone"/>
 
 </FrameLayout>

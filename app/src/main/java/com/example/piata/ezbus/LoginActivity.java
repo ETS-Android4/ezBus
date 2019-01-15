@@ -1,5 +1,6 @@
 package com.example.piata.ezbus;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
@@ -43,64 +44,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         actionBar.setTitle("Login");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Views
         mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
 
-        // Button listeners
         findViewById(R.id.signInButton).setOnClickListener(this);
         findViewById(R.id.signOutButton).setOnClickListener(this);
 
-        // [START config_signin]
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
     }
 
-    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
-    // [END on_start_check_user]
 
-    // [START onactivityresult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
                 updateUI(null);
-                // [END_EXCLUDE]
             }
         }
     }
-    // [END onactivityresult]
 
-    // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -110,19 +91,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
                         }
                     }
                 });
     }
-    // [END auth_with_google]
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -130,10 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signOut() {
-        // Firebase sign out
         mAuth.signOut();
-
-        // Google sign out
         mGoogleSignInClient.signOut().addOnCompleteListener(this,
                 new OnCompleteListener<Void>() {
                     @Override
@@ -143,11 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
-    private void revokeAccess() {
-        // Firebase sign out
+    /*private void revokeAccess() {
         mAuth.signOut();
-
-        // Google revoke access
         mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
                 new OnCompleteListener<Void>() {
                     @Override
@@ -155,21 +127,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         updateUI(null);
                     }
                 });
-    }
+    }*/
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             mStatusTextView.setText(user.getEmail());
             mDetailTextView.setText( user.getUid());
 
+            View headerLayout = MainActivity.navigationView.getHeaderView(0);
+            TextView navUsername =  headerLayout.findViewById(R.id.textView);
+            navUsername.setText(user.getEmail());
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+
             findViewById(R.id.signInButton).setVisibility(View.GONE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
+
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("User", user.getUid());
+            setResult(Activity.RESULT_OK, resultIntent);
         } else {
-            mStatusTextView.setText("Signed Out");
+            mStatusTextView.setText("Non sei loggato");
             mDetailTextView.setText(null);
+
+            View headerLayout = MainActivity.navigationView.getHeaderView(0);
+            TextView navUsername =  headerLayout.findViewById(R.id.textView);
+            navUsername.setText("Ospite");
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
 
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
+
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
         }
     }
 

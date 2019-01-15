@@ -3,6 +3,7 @@ package com.example.piata.ezbus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BuyFragment buyFragment;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    static NavigationView navigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,8 +66,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView navUsername =  headerLayout.findViewById(R.id.textView);
+        if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
+            navUsername.setText("Ospite");
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+        }
+        else {
+            navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+        }
 
         setFragment(mapFragment);
 
@@ -92,11 +111,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
         if (id == R.id.nav_login) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
+        }
+        if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, 1);
         }
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setFragment(mapFragment);
+    }
 }
