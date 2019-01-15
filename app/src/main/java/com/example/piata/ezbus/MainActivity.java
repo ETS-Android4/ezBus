@@ -124,26 +124,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
+        if (id == R.id.nav_profilo) {
+            //aprire attivita profilo
+        }
         if (id == R.id.nav_login) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
         }
         if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
+            setFragment(mapFragment);
+            mMainNav.setSelectedItemId(R.id.tab1);
+
         }
         if (id == R.id.nav_register) {
             Intent intent = new Intent(this, RegisterActivity.class);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
         }
+
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        setFragment(mapFragment);
     }
 }

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/register"
+            android:label="Registrazione"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

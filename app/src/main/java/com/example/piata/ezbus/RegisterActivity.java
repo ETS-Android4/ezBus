@@ -73,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
-        //checking if email and passwords are empty
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this,"Nome",Toast.LENGTH_LONG).show();
             return;
@@ -137,6 +136,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //calling register method on click
         registerUser();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
