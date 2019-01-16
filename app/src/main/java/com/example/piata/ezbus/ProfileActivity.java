@@ -4,10 +4,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +14,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView email;
     private TextView username;
+    private static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,9 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
         email = findViewById(R.id.Email);
         username = findViewById(R.id.Username);
 
@@ -43,6 +43,14 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
+    }
+
+    static User getUser() {
+        return user;
+    }
+
+    static void setUser(User newUser) {
+        user = newUser;
     }
 }
 

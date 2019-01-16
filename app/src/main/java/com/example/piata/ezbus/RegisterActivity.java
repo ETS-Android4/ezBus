@@ -29,9 +29,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextUsername;
     private EditText editTextPassword;
-    private Button buttonSignup;
     private ProgressDialog progressDialog;
-
+    private User newUser;
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
@@ -45,21 +44,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         firebaseAuth = FirebaseAuth.getInstance();
 
         //initializing views
-        editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextSurname = (EditText) findViewById(R.id.editTextSurname);
-        editTextAge = (EditText) findViewById(R.id.editTextAge);
-        editTextCompany = (EditText) findViewById(R.id.editTextCompany);
-        editTextIVA = (EditText) findViewById(R.id.editTextIVA);
-        editTextUsername = (EditText) findViewById(R.id.editTextUsername);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextName = findViewById(R.id.editTextName);
+        editTextSurname = findViewById(R.id.editTextSurname);
+        editTextAge = findViewById(R.id.editTextAge);
+        editTextCompany = findViewById(R.id.editTextCompany);
+        editTextIVA = findViewById(R.id.editTextIVA);
+        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
-        buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        Button signUpButton = findViewById(R.id.buttonSignup);
 
         progressDialog = new ProgressDialog(this);
 
         //attaching listener to button
-        buttonSignup.setOnClickListener(this);
+        signUpButton.setOnClickListener(this);
     }
 
     @Override
@@ -67,16 +66,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onConfigurationChanged(newConfig);
     }
 
-    private void registerUser(){
-
+    private void registerUser() {
         //getting email and password from edit texts
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
         String age = editTextAge.getText().toString().trim();
         String company = editTextCompany.getText().toString().trim();
         String iva = editTextIVA.getText().toString().trim();
-        String username = editTextUsername.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
+        final String username = editTextUsername.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(name)){
@@ -119,15 +117,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
 
         //creating a new user
+        newUser = new User(name, surname, age, email, username);
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()){
                             //display some message here
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                            ProfileActivity.setUser(newUser);
                             Toast.makeText(RegisterActivity.this,"Registrazione effettuata con successo!",Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             //display some message here
                             Toast.makeText(RegisterActivity.this,"L'email è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }
