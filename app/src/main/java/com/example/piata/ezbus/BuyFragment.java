@@ -1,6 +1,5 @@
 package com.example.piata.ezbus;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +53,7 @@ public class BuyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+        if (FirebaseAuth.getInstance().getCurrentUser()==null) {
             buttonLogin.setVisibility(View.VISIBLE);
             text.setText("Non puoi acquistare");
         } else {
