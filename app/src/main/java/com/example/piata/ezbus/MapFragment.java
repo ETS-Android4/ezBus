@@ -1,14 +1,22 @@
 package com.example.piata.ezbus;
 
+
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +46,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
     public Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,23 +91,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void getDeviceLocation(){
-        try {
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        try{
             if(mLocationPermissionsGranted){
+
                 final Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Location currentLocation = (Location) task.getResult();
-                            if (currentLocation!=null) {
+                            if (currentLocation!=null)
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
-                            }
+
                         }
                     }
                 });
             }
-        } catch (SecurityException e){
+        }catch (SecurityException e){
         }
     }
 
@@ -140,9 +152,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         switch(requestCode){
             case LOCATION_PERMISSION_REQUEST_CODE:{
-                if (grantResults.length > 0){
-                    for (int grantResult : grantResults) {
-                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                if(grantResults.length > 0){
+                    for(int i = 0; i < grantResults.length; i++){
+                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
                             mLocationPermissionsGranted = false;
                             return;
                         }
