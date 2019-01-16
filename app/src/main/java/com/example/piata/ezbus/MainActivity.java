@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.tab1:
-                    setFragment(mapFragment);
+                    setFragment(1);
                     return true;
                 case R.id.tab2:
                     if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
                         return false;
                     } else {
-                        setFragment(pocketFragment);
+                        setFragment(2);
                         return true;
                     }
                 case R.id.tab3:
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         startActivity(login);
                         return false;
                     } else {
-                        setFragment(buyFragment);
+                        setFragment(3);
                         return true;
                     }
             }
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
         }
 
-        setFragment(mapFragment);
+        setFragment(1);
         BottomNavigationView navigation = findViewById(R.id.main_nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -118,10 +119,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onConfigurationChanged(newConfig);
     }
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, fragment);
-        fragmentTransaction.commit();
+    private void setFragment(int fragmentId) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        switch(fragmentId) {
+            case 1:
+                if(fragmentManager.findFragmentByTag("one") != null) {
+                    //Se il fragment esiste, viene mostrato
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("one")).commit();
+                } else {
+                    //Se il fragment non esiste, lo crea
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), "one").commit();
+                }
+                //Se altri fragment sono visibili, vengono nascosti
+                if(fragmentManager.findFragmentByTag("two") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("three") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
+                }
+                break;
+            case 2:
+                if(fragmentManager.findFragmentByTag("two") != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("two")).commit();
+                } else {
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
+                }
+                if(fragmentManager.findFragmentByTag("one") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("three") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
+                }
+                break;
+            case 3:
+                if(fragmentManager.findFragmentByTag("three") != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("three")).commit();
+                } else {
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "three").commit();
+                }
+                if(fragmentManager.findFragmentByTag("one") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("two") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
+                }
+                break;
+        }
     }
 
     @Override
@@ -151,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //Se utente accetta di uscire
-                            setFragment(mapFragment);
+                            setFragment(1);
                             mMainNav.setSelectedItemId(R.id.tab1);
                             LoginActivity.mAuth.getInstance().signOut();
                             LoginActivity.mGoogleSignInClient.signOut();
