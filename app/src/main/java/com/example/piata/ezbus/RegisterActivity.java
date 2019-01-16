@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextUsername;
     private EditText editTextPassword;
     private ProgressDialog progressDialog;
+    private User newUser;
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
@@ -75,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String username = editTextUsername.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
-        public User newUser = new User(name, surname, age, email, username);
 
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this,"Il campo Nome deve essere compilato!",Toast.LENGTH_LONG).show();
@@ -117,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
 
         //creating a new user
+        newUser = new User(name, surname, age, email, username);
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
