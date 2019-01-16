@@ -15,9 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PocketFragment extends Fragment implements View.OnClickListener {
 
     Button buttonLogin;

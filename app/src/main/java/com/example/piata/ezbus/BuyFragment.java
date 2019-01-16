@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BuyFragment extends Fragment implements View.OnClickListener {
 
     Button buttonLogin;
