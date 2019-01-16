@@ -136,8 +136,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.nav_profilo) {
-            //Aprire attivita profilo
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
         }
+
         if (id == R.id.nav_login) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
