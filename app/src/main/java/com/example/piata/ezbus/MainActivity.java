@@ -139,22 +139,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         if (id == R.id.nav_logout) {
-            // Use the Builder class for convenient dialog construction
             AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
             logout.setMessage("Vuoi davvero uscire?")
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
+                            // IF USER DO LOGOUT
+                            LoginActivity.mAuth.getInstance().signOut();
+                            LoginActivity.mGoogleSignInClient.signOut();
+                            TextView navUsername =  navigationView.getHeaderView(0).findViewById(R.id.textView);
+                            navUsername.setText("Ospite");
+                            navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                            navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
+                            navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
+                            // IF USER ABORTS OPERATION
                         }
                     });
             logout.show();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, LoginActivity.class);
+            //startActivity(intent);
             setFragment(mapFragment);
             mMainNav.setSelectedItemId(R.id.tab1);
 

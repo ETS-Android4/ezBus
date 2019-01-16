@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 9001;
 
     public static FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
+    public static GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
 
@@ -131,25 +131,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }*/
 
     private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            mStatusTextView.setText(user.getEmail());
-            mDetailTextView.setText( user.getUid());
+        //if (user != null) {
 
-            View headerLayout = MainActivity.navigationView.getHeaderView(0);
-            TextView navUsername =  headerLayout.findViewById(R.id.textView);
-            navUsername.setText(user.getEmail());
+            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
+
+        if (user != null) {
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
-
+            mStatusTextView.setText(user.getEmail());
+            mDetailTextView.setText(user.getUid());
+            View headerLayout = MainActivity.navigationView.getHeaderView(0);
+            TextView navUsername =  headerLayout.findViewById(R.id.textView);
+            navUsername.setText(user.getEmail());
             Intent resultIntent = new Intent();
             resultIntent.putExtra("User", user.getUid());
             setResult(Activity.RESULT_OK, resultIntent);
         } else {
+            mStatusTextView.setText("Non sei loggato");
+            mDetailTextView.setText(null);
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
+        }
+       /* } else {
             mStatusTextView.setText("Non sei loggato");
             mDetailTextView.setText(null);
 
@@ -166,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Intent resultIntent = new Intent();
             setResult(Activity.RESULT_OK, resultIntent);
-        }
+        }*/
     }
 
     @Override
