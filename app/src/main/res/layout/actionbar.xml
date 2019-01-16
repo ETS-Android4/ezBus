@@ -7,11 +7,9 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tvTitle"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:text="EZBUS"
+        android:text="ezBus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

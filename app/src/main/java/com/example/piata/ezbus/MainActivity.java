@@ -43,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return true;
                 case R.id.tab2:
                     if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                        Intent login = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(login);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         return false;
                     } else {
                         setFragment(pocketFragment);
@@ -80,12 +81,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        // BARRA PERSONALIZZATA
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
-
-        // BOTTONE MENU
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             logout.setMessage("Vuoi davvero uscire?")
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // IF USER DO LOGOUT
+                            //Conferma dell'uscita
                             LoginActivity.mAuth.getInstance().signOut();
                             LoginActivity.mGoogleSignInClient.signOut();
                             TextView navUsername =  navigationView.getHeaderView(0).findViewById(R.id.textView);
@@ -156,12 +154,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // IF USER ABORTS OPERATION
+                            //Annulla l'operazione di logout
                         }
                     });
             logout.show();
-            //Intent intent = new Intent(this, LoginActivity.class);
-            //startActivity(intent);
             setFragment(mapFragment);
             mMainNav.setSelectedItemId(R.id.tab1);
 

@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mDetailTextView = findViewById(R.id.detail);
 
         findViewById(R.id.signInButton).setOnClickListener(this);
-        findViewById(R.id.signOutButton).setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -108,18 +107,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
-
-    /*private void revokeAccess() {
+    /* Utile perchè forse rimuove proprio dal database l'utente
+    private void revokeAccess() {
         mAuth.signOut();
         mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
                 new OnCompleteListener<Void>() {
@@ -131,12 +120,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }*/
 
     private void updateUI(FirebaseUser user) {
-        //if (user != null) {
-
-            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
-
         if (user != null) {
+            //Se l'user è loggato
+            findViewById(R.id.signInButton).setVisibility(View.GONE);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
@@ -149,30 +135,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent resultIntent = new Intent();
             resultIntent.putExtra("User", user.getUid());
             setResult(Activity.RESULT_OK, resultIntent);
+            finish();
         } else {
+            //Se non è loggato
+            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             mStatusTextView.setText("Non sei loggato");
             mDetailTextView.setText(null);
             Intent resultIntent = new Intent();
             setResult(Activity.RESULT_OK, resultIntent);
         }
-       /* } else {
-            mStatusTextView.setText("Non sei loggato");
-            mDetailTextView.setText(null);
-
-            View headerLayout = MainActivity.navigationView.getHeaderView(0);
-            TextView navUsername =  headerLayout.findViewById(R.id.textView);
-            navUsername.setText("Ospite");
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-
-            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
-
-            Intent resultIntent = new Intent();
-            setResult(Activity.RESULT_OK, resultIntent);
-        }*/
     }
 
     @Override
@@ -180,8 +151,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         if (i == R.id.signInButton) {
             signIn();
-        } else if (i == R.id.signOutButton) {
-            signOut();
         }
     }
 

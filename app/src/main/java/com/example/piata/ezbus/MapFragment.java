@@ -105,7 +105,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } catch(Exception ex) {}*/
 
         try{
-            if(mLocationPermissionsGranted && gps_enabled){
+            if(mLocationPermissionsGranted /* && gps_enabled*/){
 
                 final Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
