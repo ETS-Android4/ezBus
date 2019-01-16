@@ -1,5 +1,6 @@
 package com.example.piata.ezbus;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +60,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //attaching listener to button
         buttonSignup.setOnClickListener(this);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void registerUser(){
@@ -143,4 +149,3 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 }
-

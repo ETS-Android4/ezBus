@@ -3,6 +3,7 @@ package com.example.piata.ezbus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -80,15 +81,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar);
+        //Decommentare per barra menu personalizzata
+        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //getSupportActionBar().setCustomView(R.layout.action_bar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         View headerLayout = navigationView.getHeaderView(0);
         TextView navUsername =  headerLayout.findViewById(R.id.textView);
+
         if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
             navUsername.setText("Ospite");
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
@@ -105,9 +108,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         setFragment(mapFragment);
-
         BottomNavigationView navigation = findViewById(R.id.main_nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void setFragment(Fragment fragment) {
