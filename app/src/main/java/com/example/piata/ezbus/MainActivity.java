@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
                         Intent login = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(login);
+                        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
                         return false;
                     } else {
                         setFragment(pocketFragment);
