@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // IF USER DO LOGOUT
+                            setFragment(mapFragment);
+                            mMainNav.setSelectedItemId(R.id.tab1);
                             LoginActivity.mAuth.getInstance().signOut();
                             LoginActivity.mGoogleSignInClient.signOut();
                             TextView navUsername =  navigationView.getHeaderView(0).findViewById(R.id.textView);
@@ -162,8 +164,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             logout.show();
             //Intent intent = new Intent(this, LoginActivity.class);
             //startActivity(intent);
-            setFragment(mapFragment);
-            mMainNav.setSelectedItemId(R.id.tab1);
 
         }
         if (id == R.id.nav_register) {
