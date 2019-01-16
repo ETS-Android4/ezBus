@@ -80,12 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        // BARRA PERSONALIZZATA
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
-
-        // BOTTONE MENU
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -109,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setFragment(mapFragment);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.main_nav);
+        BottomNavigationView navigation = findViewById(R.id.main_nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -132,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.nav_profilo) {
-            //aprire attivita profilo
+            //Aprire attivita profilo
         }
         if (id == R.id.nav_login) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -143,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             logout.setMessage("Vuoi davvero uscire?")
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // IF USER DO LOGOUT
+                            //Se utente accetta di uscire
                             setFragment(mapFragment);
                             mMainNav.setSelectedItemId(R.id.tab1);
                             LoginActivity.mAuth.getInstance().signOut();
@@ -158,12 +155,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // IF USER ABORTS OPERATION
+                            //Se annulla l'operazione
                         }
                     });
             logout.show();
-            //Intent intent = new Intent(this, LoginActivity.class);
-            //startActivity(intent);
 
         }
         if (id == R.id.nav_register) {
