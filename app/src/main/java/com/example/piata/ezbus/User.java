@@ -2,18 +2,19 @@ package com.example.piata.ezbus;
 
 class User {
 
-    private String Name;
-    private String Surname;
-    private String Age;
-    private String Email;
-    private String Username;
+    private String name;
+    private String surname;
+    private String age;
+    private String email;
+    private String username;
+
 
     public User(String name, String surname, String age, String email, String username) {
-        Name = name;
-        Surname = surname;
-        Age = age;
-        Email = email;
-        Username = username;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.email = email;
+        this.username = username;
     }
 
 }

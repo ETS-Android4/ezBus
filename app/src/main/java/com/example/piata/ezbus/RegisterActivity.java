@@ -3,7 +3,6 @@ package com.example.piata.ezbus;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.google.firebase.auth.FirebaseAuth;
 
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
@@ -33,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private User newUser;
 
     //defining firebaseauth object
-    private FirebaseAuth firebaseAuth;
+    //private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         //initializing firebase auth object
-        firebaseAuth = FirebaseAuth.getInstance();
+        //LoginActivity.mAuth = FirebaseAuth.getInstance();
 
         //initializing views
         editTextName = findViewById(R.id.editTextName);
@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //creating a new user
         newUser = new User(name, surname, age, email, username);
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
