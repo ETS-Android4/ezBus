@@ -19,12 +19,12 @@
             android:background="?android:attr/windowBackground"
             app:menu="@menu/main" />
 
-    <FrameLayout
-        android:id="@+id/main_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/main_nav"
-        android:layout_alignParentTop="true"></FrameLayout>
+        <FrameLayout
+            android:id="@+id/main_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/main_nav"
+            android:layout_alignParentTop="true"></FrameLayout>
 
     </RelativeLayout>
 

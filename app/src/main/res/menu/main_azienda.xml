@@ -11,22 +11,10 @@
         android:id="@+id/tab2"
         android:icon="@drawable/ic_home_black_24dp"
         android:orderInCategory="100"
-        android:title="Portafoglio"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/tab3"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:orderInCategory="100"
-        android:title="Acquista"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/tab4"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:orderInCategory="100"
         android:title="Manager"
         app:showAsAction="never" />
     <item
-        android:id="@+id/tab5"
+        android:id="@+id/tab3"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="100"
         android:title="Conducente"

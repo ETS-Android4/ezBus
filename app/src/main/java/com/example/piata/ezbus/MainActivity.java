@@ -15,10 +15,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -68,9 +70,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String choice = getIntent().getStringExtra("Scelta");
 
-        mMainNav = findViewById(R.id.main_nav);
         mMainFrame = findViewById(R.id.main_frame);
+        mMainNav = findViewById(R.id.main_nav);
+        if (choice.equals("1")) {
+            mMainNav.getMenu().removeItem(R.id.tab4);
+            mMainNav.getMenu().removeItem(R.id.tab5);
+        } else if (choice.equals("2")) {
+            mMainNav.getMenu().removeItem(R.id.tab2);
+            mMainNav.getMenu().removeItem(R.id.tab3);
+        }
         mapFragment = new MapFragment();
         pocketFragment = new PocketFragment();
         buyFragment = new BuyFragment();
@@ -105,8 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         setFragment(1);
-        BottomNavigationView navigation = findViewById(R.id.main_nav);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
