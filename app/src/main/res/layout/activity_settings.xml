@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,7 +23,6 @@
 
     <Switch
         android:id="@+id/change_theme"
-        style="@style/Theme.AppCompat.DayNight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cambia tema" />
