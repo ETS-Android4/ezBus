@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-
 public class PocketFragment extends Fragment implements View.OnClickListener {
 
     TextView text;
@@ -33,10 +29,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.butLogin:
-                Intent intent1 = new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent1, 1);
-                break;
         }
     }
 
