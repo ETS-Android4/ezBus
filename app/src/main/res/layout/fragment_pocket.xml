@@ -1,22 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PocketFragment">
+    android:fitsSystemWindows="true"
+    tools:context=".NewFragment">
 
-    <TextView
-        android:id="@+id/text_pocket"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Benvenuto" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <Button
-        android:id="@+id/butLogin"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:tabTextAppearance="?android:attr/textAppearanceMedium"
+            app:tabTextColor="#ffffff"
+            android:layout_height="?android:actionBarSize"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Login"
-        android:visibility="gone"/>
-
-</FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@android:color/white"/>
+</android.support.design.widget.CoordinatorLayout>

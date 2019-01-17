@@ -16,6 +16,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView username;
     private static User user;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
         username.setText("User: " + user.getDisplayName());
     }
 
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;

@@ -1,25 +1,27 @@
 package com.example.piata.ezbus;
 
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class PocketFragment extends Fragment implements View.OnClickListener {
 
-    Button buttonLogin;
     TextView text;
     View view;
+    private TabLayout tabLayout;
+    private ViewPager firstViewPager;
+
 
     public PocketFragment() {
 
@@ -29,26 +31,19 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
-        buttonLogin = view.findViewById(R.id.butLogin);
-        text = view.findViewById(R.id.text_pocket);
-        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-            buttonLogin.setVisibility(View.VISIBLE);
-            text.setText("Devi fare il login");
+        //text = view.findViewById(R.id.text_pocket);
+        //text.setText("Ecco il tuo portafoglio");
+        firstViewPager = view.findViewById(R.id.viewpager);
 
-        } else {*/
-            buttonLogin.setVisibility(View.GONE);
-            text.setText("Ecco il tuo portafoglio");
-        //}
-        buttonLogin.setOnClickListener(this);
+        tabLayout = view.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(firstViewPager);
+
+        setupViewPager(firstViewPager);
         return view;
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.butLogin:
-                Intent intent1 = new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent1, 1);
-                break;
         }
     }
 
@@ -56,11 +51,46 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-            buttonLogin.setVisibility(View.VISIBLE);
             text.setText("Devi fare il login");
         } else {
-            buttonLogin.setVisibility(View.GONE);
             text.setText("Ecco il tuo portafoglio");
+        }
+    }
+
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new BuyFragment(), "Tab 1");
+        adapter.addFragment(new BuyFragment(), "Tab 2");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
         }
     }
 
