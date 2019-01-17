@@ -31,8 +31,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
-        //text = view.findViewById(R.id.text_pocket);
-        //text.setText("Ecco il tuo portafoglio");
         firstViewPager = view.findViewById(R.id.viewpager);
 
         tabLayout = view.findViewById(R.id.tabs);
@@ -57,11 +55,11 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new BuyFragment(), "Tab 1");
-        adapter.addFragment(new BuyFragment(), "Tab 2");
+        adapter.addFragment(new TicketFragment(), "Biglietti");
+        adapter.addFragment(new TicketFragment(), "Tessere");
+        adapter.addFragment(new TicketFragment(), "Abbonamenti");
         viewPager.setAdapter(adapter);
     }
 

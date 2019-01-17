@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 //Se altri fragment sono visibili, vengono nascosti
                 if(fragmentManager.findFragmentByTag("two") != null){
+                    getSupportActionBar().setElevation(10);
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
                 }
                 if(fragmentManager.findFragmentByTag("three") != null){
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
                 }
+                getSupportActionBar().setElevation(0);
                 if(fragmentManager.findFragmentByTag("one") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
@@ -168,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
                 if(fragmentManager.findFragmentByTag("two") != null){
+                    getSupportActionBar().setElevation(10);
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
                 }
                 break;
