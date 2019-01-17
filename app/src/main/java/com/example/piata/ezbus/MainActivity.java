@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+            MainActivity.navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
         } else {
             navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
             MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
@@ -220,6 +221,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_register) {
             Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.nav_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
 

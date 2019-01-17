@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setDataToView(FirebaseUser user) {
         email.setText("Email: " + user.getEmail());
-        username.setText("Username: " + user.getDisplayName());
+        username.setText("Username: " + user.getProviderId());
         username.setText("User: " + user.getDisplayName());
     }
 

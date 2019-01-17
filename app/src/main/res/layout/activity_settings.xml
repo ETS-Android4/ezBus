@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/action_show_invocation_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onShowInvocationEventsClicked"
+        android:padding="10dp"
+        android:text="Cambia lingua" />
+
+    <Button
+        android:id="@+id/action_change_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onChangeThemeClicked"
+        android:padding="10dp"
+        android:text="Invita amici" />
+
+    <Switch
+        android:id="@+id/change_theme"
+        style="@style/Theme.AppCompat.DayNight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cambia tema" />
+
+</LinearLayout>
