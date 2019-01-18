@@ -12,10 +12,11 @@
         android:title="Logout"
         android:visible="false"
         android:icon="@drawable/ic_menu_login"/>
-    <item android:id="@+id/nav_register"
-        android:title="Registrati"
-        android:icon="@drawable/ic_menu_register"/>
+    <item
+        android:id="@+id/nav_register"
+        android:icon="@drawable/ic_menu_register"
+        android:title="Registrati" />
     <item android:id="@+id/nav_settings"
         android:title="Impostazioni"
-        android:icon="@drawable/ic_info_black_24dp"/>
+        android:icon="@drawable/ic_settings"/>
 </menu>
