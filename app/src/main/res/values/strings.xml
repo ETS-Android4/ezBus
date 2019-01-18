@@ -93,4 +93,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="cambia_tema">Cambia tema</string>
+    <string name="cambia_lingua">cambia_lingua</string>
 </resources>

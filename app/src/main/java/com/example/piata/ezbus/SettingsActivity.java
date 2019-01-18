@@ -1,21 +1,66 @@
 package com.example.piata.ezbus;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private Switch change_theme;
+    SharedPref sharedpref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        sharedpref = new SharedPref(this);
+
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        ActionBar actionBar = getSupportActionBar();
 
+        change_theme=(Switch)findViewById(R.id.change_theme);
+        if(sharedpref.loadNightModeState()==true) {
+            change_theme.setChecked(true);
+        }
+        change_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sharedpref.setNightModeState(true);
+                    restartApp();
+                }
+                else {
+                    sharedpref.setNightModeState(false);
+                    restartApp();
+                }
+            }
+        });
+
+
+
+
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
+
+
     }
+
+    private void restartApp() {
+        Intent settings = new Intent(getApplicationContext(),SettingsActivity.class);
+        startActivity(settings);
+        finish();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

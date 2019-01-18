@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="38dp"
         android:text="Ospite"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColor="?attr/textcolor"
         android:textSize="17dp"
         android:layout_marginLeft="15dp"/>
 </RelativeLayout>
