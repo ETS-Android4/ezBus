@@ -1,4 +1,4 @@
-package com.example.piata.ezbus;
+package code;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.piata.ezbus">
+    package="code">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,12 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:configChanges="orientation|keyboardHidden|screenSize">
-        <activity android:name=".WelcomeActivity"
+        <activity android:name="code.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name="code.ProfileActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="code.MainActivity"
             android:label="ezBus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,16 +27,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="code.LoginActivity"
             android:label="Login" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="code.RegisterActivity"
             android:label="Registrazione">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
+                android:value="code.RegisterActivity" />
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name="code.SettingsActivity" />
 
 
         <meta-data

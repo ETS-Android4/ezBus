@@ -1,4 +1,4 @@
-package com.example.piata.ezbus;
+package code;
 
 class User {
 

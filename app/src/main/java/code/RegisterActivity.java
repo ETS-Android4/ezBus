@@ -1,4 +1,4 @@
-package com.example.piata.ezbus;
+package code;
 
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;

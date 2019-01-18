@@ -1,10 +1,9 @@
-package com.example.piata.ezbus;
+package code;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -13,6 +12,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Switch change_theme;
     SharedPref sharedpref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

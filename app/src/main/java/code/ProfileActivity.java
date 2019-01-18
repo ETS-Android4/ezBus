@@ -1,4 +1,4 @@
-package com.example.piata.ezbus;
+package code;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView username;
     private static User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.piata.ezbus;
+package code;
 
 import android.content.Context;
 import android.content.SharedPreferences;
