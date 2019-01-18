@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mStatusTextView;
     private TextView mDetailTextView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

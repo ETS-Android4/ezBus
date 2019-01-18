@@ -3,8 +3,10 @@ package com.example.piata.ezbus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -13,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -35,6 +38,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     static NavigationView navigationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        if (getAnswer().equals("Empty")) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            if (getIntent().getBooleanExtra("EXIT", false)) finish();
+
+            mMainFrame = findViewById(R.id.main_frame);
+            mMainNav = findViewById(R.id.main_nav);
+            if (getAnswer().equals("User")) {
+                mMainNav.getMenu().removeItem(R.id.tab4);
+                mMainNav.getMenu().removeItem(R.id.tab5);
+            } else if (getAnswer().equals("Company")) {
+                mMainNav.getMenu().removeItem(R.id.tab2);
+                mMainNav.getMenu().removeItem(R.id.tab3);
+            }
+            mapFragment = new MapFragment();
+            pocketFragment = new PocketFragment();
+            buyFragment = new BuyFragment();
+
+            mDrawerLayout = findViewById(R.id.drag_layout);
+            mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+            mDrawerLayout.addDrawerListener(mToggle);
+            mToggle.syncState();
+
+            //Decommentare per barra menu personalizzata
+            //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            //getSupportActionBar().setCustomView(R.layout.action_bar);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null)
+                actionBar.setDisplayHomeAsUpEnabled(true);
+
+            navigationView = findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            View headerLayout = navigationView.getHeaderView(0);
+            TextView navUsername = headerLayout.findViewById(R.id.textView);
+
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+            if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
+                navUsername.setText("Ospite");
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+            } else {
+                navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            }
+
+            setFragment(1);
+            mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        }
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -68,67 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }
     };
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        String choice = getIntent().getStringExtra("Scelta");
-
-        mMainFrame = findViewById(R.id.main_frame);
-        mMainNav = findViewById(R.id.main_nav);
-        if (choice.equals("1")) {
-            mMainNav.getMenu().removeItem(R.id.tab4);
-            mMainNav.getMenu().removeItem(R.id.tab5);
-        } else if (choice.equals("2")) {
-            mMainNav.getMenu().removeItem(R.id.tab2);
-            mMainNav.getMenu().removeItem(R.id.tab3);
-        }
-        mapFragment = new MapFragment();
-        pocketFragment = new PocketFragment();
-        buyFragment = new BuyFragment();
-
-        mDrawerLayout = findViewById(R.id.drag_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        //Decommentare per barra menu personalizzata
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        //getSupportActionBar().setCustomView(R.layout.action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View headerLayout = navigationView.getHeaderView(0);
-        TextView navUsername =  headerLayout.findViewById(R.id.textView);
-
-        //Inizializzazione GoggleSignIn
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
-            navUsername.setText("Ospite");
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
-        } else {
-            navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-        }
-
-        setFragment(1);
-        mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -212,16 +223,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //Se utente accetta di uscire
-                            setFragment(1);
-                            mMainNav.setSelectedItemId(R.id.tab1);
                             LoginActivity.mAuth.getInstance().signOut();
                             LoginActivity.mGoogleSignInClient.signOut();
-                            TextView navUsername =  navigationView.getHeaderView(0).findViewById(R.id.textView);
-                            navUsername.setText("Ospite");
-                            navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                            navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-                            navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-                            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -244,5 +250,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public String getAnswer() {
+        SharedPreferences sp = getSharedPreferences("pref",0);
+        return sp.getString("Scelta","Empty");
     }
 }

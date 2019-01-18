@@ -16,7 +16,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView username;
     private static User user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

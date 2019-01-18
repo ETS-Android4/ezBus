@@ -1,6 +1,7 @@
 package com.example.piata.ezbus;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,23 +15,35 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        setAnswer("Empty");
+        if (getIntent().getBooleanExtra("EXIT", false)) finish();
+
         scelta1 = findViewById(R.id.scelta1);
         scelta2 = findViewById(R.id.scelta2);
         scelta1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setAnswer("User");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("Scelta", "1");
                 startActivity(intent);
+                finish();
             }
         });
         scelta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setAnswer("Company");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("Scelta", "2");
                 startActivity(intent);
+                finish();
             }
         });
+    }
+
+    public void setAnswer(String theAnswer) {
+        SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
+        editor.putString("Scelta", theAnswer);
+        editor.commit();
     }
 }
