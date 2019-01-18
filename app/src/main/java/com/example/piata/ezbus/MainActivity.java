@@ -22,6 +22,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView mMainNav;
@@ -100,6 +103,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View headerLayout = navigationView.getHeaderView(0);
         TextView navUsername =  headerLayout.findViewById(R.id.textView);
+
+        //Inizializzazione GoggleSignIn
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
             navUsername.setText("Ospite");

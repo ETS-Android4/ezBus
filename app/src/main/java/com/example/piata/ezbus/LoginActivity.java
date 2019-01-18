@@ -49,13 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mDetailTextView = findViewById(R.id.detail);
 
         findViewById(R.id.signInButton).setOnClickListener(this);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
     }
 
