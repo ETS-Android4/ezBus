@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -136,22 +139,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()){
+                            FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        //display some message here
+                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                                        ProfileActivity.setUser(newUser);
+                                        Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                        });
+                        }
+                        else {
                             //display some message here
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                            ProfileActivity.setUser(newUser);
-                            Toast.makeText(RegisterActivity.this,"Registrazione effettuata con successo!",Toast.LENGTH_LONG).show();
-                        } else {
-                            //display some message here
-                            Toast.makeText(RegisterActivity.this,"L'email è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
-                    }
-                });
 
+                }
+    });
     }
+
+
 
     @Override
     public void onClick(View view) {
