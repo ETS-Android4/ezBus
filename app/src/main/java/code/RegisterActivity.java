@@ -86,7 +86,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         if(TextUtils.isEmpty(age)){
-            Toast.makeText(this,"Il campo Età deve essere oompilato!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Il campo Età deve essere compilato!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(Integer.parseInt(age)<14){
+            Toast.makeText(this,"Per registrarti devi avere almeno 14 anni.",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(company)){
@@ -95,6 +99,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(TextUtils.isEmpty(iva)){
             Toast.makeText(this,"Il campo Partita IVA deve essere compilato!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(iva.length() != 11){
+            Toast.makeText(this,"La partita IVA è composta da 11 cifre! Riprova",Toast.LENGTH_LONG).show();
             return;
         }
         if(TextUtils.isEmpty(email)){
@@ -107,6 +115,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this,"Inserisci la Password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (password.length()<8) {
+            Toast.makeText(this, "La password è troppo corta. Deve essere composta da minimo 8 caratteri.", Toast.LENGTH_LONG).show();
             return;
         }
 
