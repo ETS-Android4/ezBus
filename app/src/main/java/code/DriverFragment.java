@@ -1,22 +1,25 @@
 package code;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BuyFragment extends Fragment {
+public class DriverFragment extends Fragment {
 
-    public BuyFragment() {
 
+    public DriverFragment() {
+        // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_buy, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_driver, container, false);
     }
 
 }
