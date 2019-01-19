@@ -15,12 +15,15 @@
         android:theme="@style/AppTheme"
         android:configChanges="orientation|keyboardHidden|screenSize">
         <activity android:name="code.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize">
         </activity>
-        <activity android:name="code.ProfileActivity" />
+        <activity android:name="code.ProfileActivity"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name="code.MainActivity"
-            android:label="ezBus">
+            android:label="ezBus"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,16 +31,18 @@
         </activity>
         <activity
             android:name="code.LoginActivity"
-            android:label="Login" />
+            android:label="Login"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
             android:name="code.RegisterActivity"
-            android:label="Registrazione">
+            android:label="Registrazione"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="code.RegisterActivity" />
         </activity>
-        <activity android:name="code.SettingsActivity" />
-
+        <activity android:name="code.SettingsActivity"
+            android:configChanges="orientation|screenSize"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
