@@ -131,6 +131,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         setFragment(3);
                         return true;
                     }
+                case R.id.tab4:
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(login);
+                        return false;
+                    } else {
+                        setFragment(4);
+                        return true;
+                    }
+                case R.id.tab5:
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(login);
+                        return false;
+                    } else {
+                        setFragment(5);
+                        return true;
+                    }
             }
             return false;
         }
@@ -161,6 +179,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(fragmentManager.findFragmentByTag("three") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
                 }
+                if(fragmentManager.findFragmentByTag("four") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("five") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
+                }
                 break;
             case 2:
                 if(fragmentManager.findFragmentByTag("two") != null) {
@@ -188,6 +212,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(fragmentManager.findFragmentByTag("two") != null){
                     getSupportActionBar().setElevation(10);
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
+                }
+                break;
+            case 4:
+                if(fragmentManager.findFragmentByTag("four") != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("four")).commit();
+                } else {
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "four").commit();
+                }
+                if(fragmentManager.findFragmentByTag("one") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("five") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
+                }
+                break;
+            case 5:
+                if(fragmentManager.findFragmentByTag("five") != null) {
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("five")).commit();
+                } else {
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "five").commit();
+                }
+                if(fragmentManager.findFragmentByTag("one") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
+                }
+                if(fragmentManager.findFragmentByTag("four") != null){
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
                 }
                 break;
         }
