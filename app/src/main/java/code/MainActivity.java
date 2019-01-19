@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(fragmentManager.findFragmentByTag("four") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("four")).commit();
                 } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "four").commit();
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), "four").commit();
                 }
                 if(fragmentManager.findFragmentByTag("one") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(fragmentManager.findFragmentByTag("five") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("five")).commit();
                 } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "five").commit();
+                    fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), "five").commit();
                 }
                 if(fragmentManager.findFragmentByTag("one") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
