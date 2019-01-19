@@ -33,10 +33,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected static GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    SharedPref sharedpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_login);
 
         ActionBar actionBar = getSupportActionBar();

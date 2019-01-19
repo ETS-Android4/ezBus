@@ -33,10 +33,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     static NavigationView navigationView;
+    SharedPref sharedpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
         if (getAnswer().equals("Empty")) {

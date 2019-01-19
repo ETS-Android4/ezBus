@@ -56,8 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void restartApp() {
-        Intent settings = new Intent(getApplicationContext(),SettingsActivity.class);
-        startActivity(settings);
+        Intent i = new Intent(getApplicationContext(),SettingsActivity.class);
+        startActivity(i);
         finish();
     }
 

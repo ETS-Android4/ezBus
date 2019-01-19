@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextPassword;
     private ProgressDialog progressDialog;
     private User newUser;
+    SharedPref sharedpref;
 
     //defining firebaseauth object
     //private FirebaseAuth firebaseAuth;
@@ -40,6 +41,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_register);
 
         //initializing firebase auth object

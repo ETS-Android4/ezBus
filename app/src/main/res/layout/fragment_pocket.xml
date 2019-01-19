@@ -15,8 +15,8 @@
             android:layout_height="40dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:tabTextAppearance="?android:attr/textAppearanceSmall"
-            app:tabTextColor="#ffffff"
-            app:tabIndicatorColor="@android:color/white"
+            app:tabTextColor="?attr/textcolor"
+            app:tabIndicatorColor="?attr/textcolor"
             app:tabMode="fixed"
             app:tabGravity="fill"/>
 
@@ -26,5 +26,5 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"/>
+        android:background="?attr/backgroundcolor"/>
 </android.support.design.widget.CoordinatorLayout>

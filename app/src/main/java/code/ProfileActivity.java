@@ -15,12 +15,20 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView username;
     private static User user;
+    SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpref = new SharedPref(this);
+        if(sharedpref.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_profile);
+
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)

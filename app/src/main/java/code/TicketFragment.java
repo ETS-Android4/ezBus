@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 public class TicketFragment extends Fragment implements View.OnClickListener {
 
     View view;
+    SharedPref sharedpref;
 
 
     public TicketFragment() {

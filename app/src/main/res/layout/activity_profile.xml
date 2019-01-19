@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/backgroundcolor"></LinearLayout>
+
     <TextView
         android:id="@+id/Profile"
         android:layout_width="wrap_content"
@@ -15,6 +21,7 @@
         android:text="Profilo"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="?attr/textcolor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +34,7 @@
         android:layout_marginTop="22dp"
         android:text="Email"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Profile" />
 
@@ -39,6 +47,7 @@
         android:layout_marginTop="22dp"
         android:text="Username"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Email" />
 
@@ -51,6 +60,7 @@
         android:layout_marginTop="22dp"
         android:text="Utente"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Username" />
 
