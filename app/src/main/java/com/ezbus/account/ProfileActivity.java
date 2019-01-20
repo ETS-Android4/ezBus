@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,15 +20,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.darktheme);
+            setTheme(R.style.DarkTheme);
         }
         else setTheme(R.style.AppTheme);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)

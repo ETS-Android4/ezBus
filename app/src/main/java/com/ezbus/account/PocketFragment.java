@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.content.Context;
 import android.content.Intent;

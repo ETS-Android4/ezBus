@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.darktheme);
+            setTheme(R.style.DarkTheme);
         }
         else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_login);

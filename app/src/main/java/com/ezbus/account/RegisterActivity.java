@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.darktheme);
+            setTheme(R.style.DarkTheme);
         }
         else setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_register);

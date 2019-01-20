@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,9 +12,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Toolbar mToolBar;
     private BottomNavigationView mMainNav;
     private FrameLayout mMainFrame;
     private MapFragment mapFragment;
@@ -37,12 +38,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
+
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.darktheme);
+            setTheme(R.style.NoDarkTheme);
         }
-        else setTheme(R.style.AppTheme);
+        else setTheme(R.style.NoAppTheme);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if (getAnswer().equals("Empty")) {
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else {
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
+
+            mToolBar = findViewById(R.id.action_bar);
+            setSupportActionBar(mToolBar);
 
             mMainFrame = findViewById(R.id.main_frame);
             mMainNav = findViewById(R.id.main_nav);
@@ -74,9 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Decommentare per barra menu personalizzata
             //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             //getSupportActionBar().setCustomView(R.layout.action_bar);
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null)
-                actionBar.setDisplayHomeAsUpEnabled(true);
+            //ActionBar actionBar = getSupportActionBar();
+            //if (actionBar != null)
+             //   actionBar.setDisplayHomeAsUpEnabled(true);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);

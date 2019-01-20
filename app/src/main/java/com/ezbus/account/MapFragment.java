@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;

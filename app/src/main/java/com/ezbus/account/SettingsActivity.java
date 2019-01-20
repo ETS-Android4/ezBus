@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
         sharedpref = new SharedPref(this);
 
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.darktheme);
+            setTheme(R.style.DarkTheme);
         }
         else setTheme(R.style.AppTheme);
 

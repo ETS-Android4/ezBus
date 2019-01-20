@@ -1,4 +1,4 @@
-package code;
+package com.ezbus.account;
 
 class User {
 
