@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="code.DriverFragment">
+    tools:context="com.ezbus.account.DriverFragment">
 
     <TextView
         android:layout_width="match_parent"
