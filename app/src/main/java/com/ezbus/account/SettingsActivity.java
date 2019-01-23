@@ -45,14 +45,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     private void restartApp() {
@@ -60,7 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
