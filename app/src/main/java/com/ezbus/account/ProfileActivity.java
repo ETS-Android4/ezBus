@@ -22,9 +22,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.DarkTheme);
+            setTheme(R.style.App_Dark);
         }
-        else setTheme(R.style.AppTheme);
+        else setTheme(R.style.App_Green);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);

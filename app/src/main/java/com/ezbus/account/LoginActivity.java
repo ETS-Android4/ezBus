@@ -40,9 +40,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.DarkTheme);
+            setTheme(R.style.App_Dark);
         }
-        else setTheme(R.style.AppTheme);
+        else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_login);
 
         ActionBar actionBar = getSupportActionBar();

@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sharedpref = new SharedPref(this);
 
         if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.NoDarkTheme);
+            setTheme(R.style.NoApp_Dark);
         }
-        else setTheme(R.style.NoAppTheme);
+        else setTheme(R.style.NoApp_Green);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //getSupportActionBar().setCustomView(R.layout.action_bar);
             //ActionBar actionBar = getSupportActionBar();
             //if (actionBar != null)
-             //   actionBar.setDisplayHomeAsUpEnabled(true);
+            //   actionBar.setDisplayHomeAsUpEnabled(true);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

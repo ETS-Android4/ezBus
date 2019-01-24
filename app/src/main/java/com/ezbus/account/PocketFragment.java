@@ -32,7 +32,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.App_Green);
 
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
         firstViewPager = view.findViewById(R.id.viewpager);
