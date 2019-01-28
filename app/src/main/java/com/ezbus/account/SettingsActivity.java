@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private Switch change_theme;
@@ -16,31 +18,28 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         sharedpref = new SharedPref(this);
 
         if(sharedpref.loadNightModeState()==true) {
             setTheme(R.style.App_Dark);
-        }
-        else setTheme(R.style.App_Green);
+        }  else setTheme(R.style.App_Green);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        change_theme=(Switch)findViewById(R.id.change_theme);
-        if(sharedpref.loadNightModeState()==true) {
+        change_theme = findViewById(R.id.change_theme);
+        if(sharedpref.loadNightModeState()==true)
             change_theme.setChecked(true);
-        }
+
         change_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     sharedpref.setNightModeState(true);
-                    restartApp();
-                }
-                else {
+                    startNewActivity(SettingsActivity.class);
+                } else {
                     sharedpref.setNightModeState(false);
-                    restartApp();
+                    startNewActivity(SettingsActivity.class);
                 }
             }
         });
@@ -50,17 +49,21 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    private void restartApp() {
-        Intent i = new Intent(getApplicationContext(),SettingsActivity.class);
-        startActivity(i);
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
+        startActivity(intent);
         finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+        startNewActivity(MainActivity.class);
         return true;
+    }
+
+    //Se viene premuto il pulsante Indietro di sistema
+    @Override
+    public void onBackPressed() {
+        startNewActivity(MainActivity.class);
     }
 }

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static NavigationView navigationView;
     SharedPref sharedpref;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
@@ -265,10 +266,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    //Se viene premuto il pulsante Indietro di sistema
+    @Override
+    public void onBackPressed() {
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        if (id == R.id.nav_profilo) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_profilo:
+                startNewActivity(ProfileActivity.class);
+                break;
+            case R.id.nav_login:
+                startNewActivity(LoginActivity.class);
+                break;
+            case R.id.nav_logout:
+                AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
+                logout.setMessage("Vuoi davvero uscire?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                    //Se l'utente accetta di uscire
+                    LoginActivity.mAuth.getInstance().signOut();
+                    LoginActivity.mGoogleSignInClient.signOut();
+                    startNewActivity(WelcomeActivity.class);
+                    finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    //Se l'utente annulla l'operazione
+                    }
+                });
+                logout.show();
+                break;
+            case R.id.nav_register:
+                startNewActivity(RegisterActivity.class);
+                break;
+            case R.id.nav_settings:
+                startNewActivity(SettingsActivity.class);
+                break;
+        }
+
+        /*if (id == R.id.nav_profilo) {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
         }
@@ -295,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     });
             logout.show();
-
         }
         if (id == R.id.nav_register) {
             Intent intent = new Intent(this, RegisterActivity.class);
@@ -304,11 +341,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-        }
+        } */
 
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
+        startActivity(intent);
     }
 
     public String getAnswer() {

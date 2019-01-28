@@ -42,16 +42,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+
+        if(sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
-        }
         else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_register);
 
         //initializing firebase auth object
         //LoginActivity.mAuth = FirebaseAuth.getInstance();
 
-        //initializing views
         editTextName = findViewById(R.id.editTextName);
         editTextSurname = findViewById(R.id.editTextSurname);
         editTextAge = findViewById(R.id.editTextAge);
@@ -62,11 +61,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPassword = findViewById(R.id.editTextPassword);
 
         Button signUpButton = findViewById(R.id.buttonSignup);
-
-        progressDialog = new ProgressDialog(this);
-
-        //attaching listener to button
         signUpButton.setOnClickListener(this);
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -75,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser() {
-        //getting email and password from edit texts
+        //Input
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
         String age = editTextAge.getText().toString().trim();
@@ -85,53 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
-        if(TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Il campo Nome deve essere compilato!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(surname)){
-            Toast.makeText(this,"Il campo Cognome deve essere compilato!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(age)){
-            Toast.makeText(this,"Il campo Età deve essere compilato!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(Integer.parseInt(age)<14){
-            Toast.makeText(this,"Per registrarti devi avere almeno 14 anni.",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(company)){
-            Toast.makeText(this,"Il campo Nome Azienda deve essere compilato!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(iva)){
-            Toast.makeText(this,"Il campo Partita IVA deve essere compilato!",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(iva.length() != 11){
-            Toast.makeText(this,"La partita IVA è composta da 11 cifre! Riprova",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Inserisci l'Email",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(username)){
-            Toast.makeText(this,"Inserisci un Username",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Inserisci la Password",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (password.length()<8) {
-            Toast.makeText(this, "La password è troppo corta. Deve essere composta da minimo 8 caratteri.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        //if the email and password are not empty
-        //displaying a progress dialog
+        if (!checkData(name, surname, age, company, iva, username, email, password)) return;
 
         progressDialog.setMessage("Registrazione in corso, attendere...");
         progressDialog.show();
@@ -161,20 +111,55 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     }
                                 }
 
-                        });
-                        }
-                        else {
+                            });
+                        } else {
                             //display some message here
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
-
-                }
-    });
+                    }
+                });
     }
 
+    private boolean checkData(String name, String surname, String age, String company, String iva, String username, String email, String password) {
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Il campo Nome deve essere compilato!",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(surname)){
+            Toast.makeText(this,"Il campo Cognome deve essere compilato!",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(age)){
+            Toast.makeText(this,"Il campo Età deve essere compilato!",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(Integer.parseInt(age)<14){
+            Toast.makeText(this,"Per registrarti devi avere almeno 14 anni.",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(company)){
+            Toast.makeText(this,"Il campo Nome Azienda deve essere compilato!",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(iva)){
+            Toast.makeText(this,"Il campo Partita IVA deve essere compilato!",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(iva.length() != 11){
+            Toast.makeText(this,"La partita IVA è composta da 11 cifre! Riprova",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Inserisci l'Email",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(username)){
+            Toast.makeText(this,"Inserisci un Username",Toast.LENGTH_LONG).show();
+            return false;
+        } else if(TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Inserisci la Password",Toast.LENGTH_LONG).show();
+            return false;
+        } else if (password.length()<8) {
+            Toast.makeText(this, "La password è troppo corta. Deve essere composta da minimo 8 caratteri.", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
+        return true;
+    }
 
     @Override
     public void onClick(View view) {
