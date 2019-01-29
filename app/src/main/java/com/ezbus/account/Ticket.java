@@ -11,7 +11,7 @@ class Ticket extends Item {
     public Ticket(String start, String destination, double price, Date date) {
         super.id = generateId();
         super.price = price;
-        super.date = date;
+        super.expiration = date;
         this.start = start;
         this.destination = destination;
     }

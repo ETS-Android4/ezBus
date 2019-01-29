@@ -11,7 +11,7 @@ class Pass extends Item {
     public Pass(int type, String city, double price, Date date) {
         super.id = generateId();
         super.price = price;
-        super.date = date;
+        super.expiration = date;
         this.type = type;
         this.city = city;
     }

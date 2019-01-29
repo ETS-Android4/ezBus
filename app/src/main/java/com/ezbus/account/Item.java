@@ -2,11 +2,11 @@ package com.ezbus.account;
 
 import java.util.Date;
 
-abstract class Item implements Buyable {
+class Item implements Buyable {
 
     protected int id;
     protected double price;
-    protected Date date;
+    protected Date expiration;
 
 
     int generateId() {
@@ -17,12 +17,15 @@ abstract class Item implements Buyable {
 
     }
 
-    void generateQR() {
+    public void generateQR() {
 
     }
 
     public boolean isValid() {
         return true;
+    }
+
+    public void addToPocket() {
     }
 
 }

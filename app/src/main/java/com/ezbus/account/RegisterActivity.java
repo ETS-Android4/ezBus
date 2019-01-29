@@ -18,10 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //defining view objects
+    //Elementi grafici
     private EditText editTextName;
     private EditText editTextSurname;
     private EditText editTextAge;
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedpref = new SharedPref(this);
+        this.sharedpref = new SharedPref(this);
 
         if(sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
@@ -51,18 +50,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //initializing firebase auth object
         //LoginActivity.mAuth = FirebaseAuth.getInstance();
 
-        editTextName = findViewById(R.id.editTextName);
-        editTextSurname = findViewById(R.id.editTextSurname);
-        editTextAge = findViewById(R.id.editTextAge);
-        editTextCompany = findViewById(R.id.editTextCompany);
-        editTextIVA = findViewById(R.id.editTextIVA);
-        editTextUsername = findViewById(R.id.editTextUsername);
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
+        this.editTextName = findViewById(R.id.editTextName);
+        this.editTextSurname = findViewById(R.id.editTextSurname);
+        this.editTextAge = findViewById(R.id.editTextAge);
+        this.editTextCompany = findViewById(R.id.editTextCompany);
+        this.editTextIVA = findViewById(R.id.editTextIVA);
+        this.editTextUsername = findViewById(R.id.editTextUsername);
+        this.editTextEmail = findViewById(R.id.editTextEmail);
+        this.editTextPassword = findViewById(R.id.editTextPassword);
 
         Button signUpButton = findViewById(R.id.buttonSignup);
         signUpButton.setOnClickListener(this);
-        progressDialog = new ProgressDialog(this);
+        this.progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -87,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.show();
 
         //creating a new user
-        newUser = new User(name, surname, age, email, username);
+        newUser = new User(name, surname, age, email, username, new Pocket());
         LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

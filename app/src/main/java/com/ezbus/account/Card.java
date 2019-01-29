@@ -12,7 +12,7 @@ class Card extends Item {
     public Card(String start, String destination, double price, Date date, int validity) {
         super.id = generateId();
         super.price = price;
-        super.date = date;
+        super.expiration = date;
         this.start = start;
         this.destination = destination;
         this.validity = validity;
