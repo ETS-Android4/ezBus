@@ -99,7 +99,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        //display some message here
                                         MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                                         MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                                         MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
@@ -113,7 +112,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             });
                         } else {
-                            //display some message here
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }

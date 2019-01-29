@@ -35,14 +35,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mDetailTextView;
     SharedPref sharedpref;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
+        if(sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
-        }
         else setTheme(R.style.App_Green);
+
         setContentView(R.layout.activity_login);
 
         ActionBar actionBar = getSupportActionBar();
