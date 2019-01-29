@@ -14,11 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:tabTextAppearance="?android:attr/textAppearanceSmall"
-            app:tabTextColor="?attr/textcolor"
+            app:tabGravity="fill"
             app:tabIndicatorColor="?attr/textcolor"
             app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            app:tabTextAppearance="?android:attr/textAppearanceSmall"
+            app:tabTextColor="?attr/textcolor" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -26,5 +26,5 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/backgroundcolor"/>
+        android:background="?attr/backgroundcolor" />
 </android.support.design.widget.CoordinatorLayout>
