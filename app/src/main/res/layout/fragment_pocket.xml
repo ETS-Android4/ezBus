@@ -18,7 +18,7 @@
             app:tabIndicatorColor="?attr/textcolor"
             app:tabMode="fixed"
             app:tabTextAppearance="?android:attr/textAppearanceSmall"
-            app:tabTextColor="?attr/textcolor" />
+            app:tabTextColor="?attr/tintcolor" />
 
     </android.support.design.widget.AppBarLayout>
 
