@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ezbus.client.Pocket;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -70,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser() {
-        //Input
+        //Parametri di Input
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
         String age = editTextAge.getText().toString().trim();
@@ -85,13 +86,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setMessage("Registrazione in corso, attendere...");
         progressDialog.show();
 
-        //creating a new user
+        //Creazione nuovo utente
         newUser = new User(name, surname, age, email, username, new Pocket());
         LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
+                        //Se avvenuta con successo
                         if (task.isSuccessful()){
                             FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -160,7 +161,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        //calling register method on click
         registerUser();
     }
 

@@ -1,8 +1,8 @@
-package com.ezbus.account;
+package com.ezbus.client;
 
 import java.util.List;
 
-class Pocket {
+public class Pocket {
 
     private boolean empty;
     private List<Ticket> myTickets;

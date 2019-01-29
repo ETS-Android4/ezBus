@@ -1,5 +1,7 @@
 package com.ezbus.account;
 
+import com.ezbus.client.Pocket;
+
 class User {
 
     private String name;
