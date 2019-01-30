@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.tracking;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -9,8 +9,6 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLngBounds;
-
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.style.CharacterStyle;
@@ -23,20 +21,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Adapter that handles Autocomplete requests from the Places Geo Data API.
- * {@link AutocompletePrediction} results from the API are frozen and stored directly in this
- * adapter. (See {@link AutocompletePrediction#freeze()}.)
- * <p>
- * Note that this adapter requires a valid {@link com.google.android.gms.common.api.GoogleApiClient}.
- * The API client must be maintained in the encapsulating Activity, including all lifecycle and
- * connection states. The API client must be connected with the {@link Places#GEO_DATA_API} API.
- */
 public class AutocompleteMap
         extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 

@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.main;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +20,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.ezbus.R;
+import com.ezbus.authentication.LoginActivity;
+import com.ezbus.authentication.RegisterActivity;
+import com.ezbus.authentication.WelcomeActivity;
+import com.ezbus.client.BuyFragment;
+import com.ezbus.client.PocketFragment;
+import com.ezbus.client.ProfileActivity;
+import com.ezbus.management.ManagerFragment;
+import com.ezbus.tracking.DriverFragment;
+import com.ezbus.tracking.MapFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
@@ -33,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BuyFragment buyFragment;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    static NavigationView navigationView;
+    public static NavigationView navigationView;
     SharedPref sharedpref;
 
 
@@ -41,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
 
-        if(sharedpref.loadNightModeState()==true) {
+        if(sharedpref.loadNightModeState()) {
             setTheme(R.style.NoApp_Dark);
         }
         else setTheme(R.style.NoApp_Green);

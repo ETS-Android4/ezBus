@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.client;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import com.ezbus.authentication.LoginActivity;
+import com.ezbus.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     View view;
     private TabLayout tabLayout;
     private ViewPager firstViewPager;
-
 
     public PocketFragment() {
 

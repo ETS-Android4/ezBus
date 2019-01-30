@@ -1,8 +1,8 @@
-package com.ezbus.account;
+package com.ezbus.authentication;
 
 import com.ezbus.client.Pocket;
 
-class User {
+public class User {
 
     private String name;
     private String surname;

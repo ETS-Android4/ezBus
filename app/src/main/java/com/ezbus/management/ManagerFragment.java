@@ -1,11 +1,11 @@
-package com.ezbus.account;
-
+package com.ezbus.management;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.ezbus.R;
 
 public class ManagerFragment extends Fragment {
 
