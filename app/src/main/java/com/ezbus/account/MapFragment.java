@@ -129,10 +129,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(!title.equals("My Location")){
-            MarkerOptions options = new MarkerOptions()
+            /*MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
-            mMap.addMarker(options);
+            mMap.addMarker(options);*/
+            //Per ora non aggiungo marker
         }
     }
 
