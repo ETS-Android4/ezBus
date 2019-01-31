@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;

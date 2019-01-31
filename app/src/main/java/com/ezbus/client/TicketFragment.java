@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.client;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.ezbus.R;
 
 public class TicketFragment extends Fragment implements View.OnClickListener {
 
     View view;
-    SharedPref sharedpref;
-
 
     public TicketFragment() {
 

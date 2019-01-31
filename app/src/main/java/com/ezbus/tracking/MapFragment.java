@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.tracking;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,41 +11,59 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ezbus.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(-40, -168), new LatLng(71, 136));
 
-    private EditText mSearchText;
+
+    private AutoCompleteTextView mSearchText;
     private MapView mapView;
     public Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private AutocompleteMap autocompleteMap;
+    private GoogleApiClient mGoogleApiClient;
+    DatabaseReference f_database = FirebaseDatabase.getInstance().getReference().child("fermate");
 
 
     public MapFragment() {
@@ -56,6 +74,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
+
+        f_database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String rightLocation = child.child("lat").getValue().toString();
+                    String leftLocation = child.child("lon").getValue().toString();
+                    double location_left = Double.parseDouble(leftLocation);
+                    double location_right = Double.parseDouble(rightLocation);
+                    LatLng cod = new LatLng(location_left, location_right);
+                    MarkerOptions prova = new MarkerOptions()
+                            .position(cod)
+                            .title("ciao");
+                    mMap.addMarker(prova);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -120,10 +160,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(!title.equals("My Location")){
-            MarkerOptions options = new MarkerOptions()
+            /*MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
-            mMap.addMarker(options);
+            mMap.addMarker(options);*/
+            //Per ora non aggiungo marker
         }
     }
 
@@ -168,6 +209,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void initSearch(){
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(),this)
+                .build();
+
+        autocompleteMap = new AutocompleteMap(getContext(), mGoogleApiClient, LAT_LNG_BOUNDS, null);
+
+        mSearchText.setAdapter(autocompleteMap);
+
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -201,4 +254,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

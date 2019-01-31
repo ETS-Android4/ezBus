@@ -27,7 +27,7 @@
             android:layout_marginLeft="15dp"
             android:src="@drawable/ic_search"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

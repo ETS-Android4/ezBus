@@ -8,50 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:566999320189:android:97adf5c59eb2d196",
+        "mobilesdk_app_id": "1:566999320189:android:216efe9b45593d00",
         "android_client_info": {
-          "package_name": "com.example.piata.ezbus"
+          "package_name": "com.ezbus"
         }
       },
       "oauth_client": [
         {
-          "client_id": "566999320189-j4oe2v5ns3h20jffr760qoe7u2d7255t.apps.googleusercontent.com",
+          "client_id": "566999320189-d6grr5iifsocsou1hnnq1h6dtivig245.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.piata.ezbus",
-            "certificate_hash": "e3ecb0cbe903c7c0c59778fe1eaf48daef5992dc"
-          }
-        },
-        {
-          "client_id": "566999320189-9ttlpk4ut20dgr2qpsru9gqfmpcr571b.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.piata.ezbus",
-            "certificate_hash": "44cee47c459f0986a723c2143f0203109d3b19bc"
-          }
-        },
-        {
-          "client_id": "566999320189-8ecut04fat9g5unv0kvt3e8hta6i4uvf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.piata.ezbus",
+            "package_name": "com.ezbus",
             "certificate_hash": "88dea75310a46e25a9ebc36687bc724acc892088"
-          }
-        },
-        {
-          "client_id": "566999320189-cbbhkrfk3ems7hh2hcegrdr9p6k3opjp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.piata.ezbus",
-            "certificate_hash": "23186da5b9c32fbf3afbb51d7739b87f216f077c"
-          }
-        },
-        {
-          "client_id": "566999320189-3qu6buthp9ijcgfn6gtutg8obu4u9mcc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.piata.ezbus",
-            "certificate_hash": "d2c065d0bf53bb7a29a83fae769e3a5e5fb3c399"
           }
         },
         {
