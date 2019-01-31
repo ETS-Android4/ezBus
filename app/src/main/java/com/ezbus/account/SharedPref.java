@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPref {
+
     SharedPreferences MySharedPref;
+
+
     public SharedPref (Context context) {
         MySharedPref = context.getSharedPreferences("filename", Context.MODE_PRIVATE);
     }

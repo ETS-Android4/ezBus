@@ -93,6 +93,7 @@
         <item name="actionMenuTextColor">#F1F1F1</item>
     </style>
 
+
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
