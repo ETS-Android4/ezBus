@@ -2,6 +2,7 @@ package com.ezbus.client;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,15 +13,12 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.ezbus.authentication.LoginActivity;
 import com.ezbus.R;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PocketFragment extends Fragment implements View.OnClickListener {
 
-    TextView text;
     View view;
     private TabLayout tabLayout;
     private ViewPager firstViewPager;
@@ -36,11 +34,10 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
         firstViewPager = view.findViewById(R.id.viewpager);
-
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(firstViewPager);
-
         setupViewPager(firstViewPager);
+
         return view;
     }
 
@@ -52,27 +49,39 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
             text.setText("Devi fare il login");
         } else {
             text.setText("Ecco il tuo portafoglio");
-        }
+        }*/
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new TicketFragment(), "Biglietti");
-        adapter.addFragment(new TicketFragment(), "Tessere");
-        adapter.addFragment(new TicketFragment(), "Abbonamenti");
         viewPager.setAdapter(adapter);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        ItemFragment fragTickets = new ItemFragment();
+        ItemFragment fragCards = new ItemFragment();
+        ItemFragment fragPasses = new ItemFragment();
+
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
+
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
+            setFragments();
+            addFragment(fragTickets, "Biglietti");
+            addFragment(fragCards, "Tessere");
+            addFragment(fragPasses, "Abbonamenti");
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
         }
 
         @Override
@@ -81,8 +90,8 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        public int getCount() {
-            return mFragmentList.size();
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
         }
 
         public void addFragment(Fragment fragment, String title) {
@@ -90,9 +99,10 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
             mFragmentTitleList.add(title);
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+        public void setFragments() {
+            fragTickets.changeText("I tuoi Biglietti!");
+            fragCards.changeText("Le tue Tessere!");
+            fragPasses.changeText("I tuoi Abbonamenti!");
         }
     }
 

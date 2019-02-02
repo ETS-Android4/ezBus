@@ -155,10 +155,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.signInButton) {
+        if (v.getId() == R.id.signInButton)
             signIn();
-        }
     }
 
     @Override
