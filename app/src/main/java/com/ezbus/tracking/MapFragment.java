@@ -1,11 +1,16 @@
 package com.ezbus.tracking;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -31,6 +36,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -62,7 +69,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private AutocompleteMap autocompleteMap;
     private GoogleApiClient mGoogleApiClient;
     DatabaseReference f_database = FirebaseDatabase.getInstance().getReference();
-
 
     public MapFragment() {
         // Required empty public constructor
@@ -107,19 +113,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
 
-        f_database.addListenerForSingleValueEvent(new ValueEventListener() {
+        f_database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String rightLocation = child.child("lat").getValue().toString();
-                    String leftLocation = child.child("lon").getValue().toString();
-                    double location_left = Double.parseDouble(leftLocation);
-                    double location_right = Double.parseDouble(rightLocation);
-                    LatLng cod = new LatLng(location_right, location_left);
-                    MarkerOptions prova = new MarkerOptions()
+                mMap.clear();
+                for (DataSnapshot child : dataSnapshot.child("fermate").getChildren()) {
+                    String lat = child.child("lat").getValue().toString();
+                    String lon = child.child("lon").getValue().toString();
+                    String name = child.child("nome").getValue().toString();
+                    double latitude = Double.parseDouble(lat);
+                    double longitude = Double.parseDouble(lon);
+                    LatLng cod = new LatLng(latitude, longitude);
+                    MarkerOptions fermata = new MarkerOptions()
                             .position(cod)
-                            .title("ciao");
-                    mMap.addMarker(prova);
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            .title(name);
+                    mMap.addMarker(fermata);
+                }
+                for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
+                    String lat = child.child("lat").getValue().toString();
+                    String lon = child.child("lon").getValue().toString();
+                    String name = child.child("nome").getValue().toString();
+                    double latitude = Double.parseDouble(lat);
+                    double longitude = Double.parseDouble(lon);
+                    LatLng cod = new LatLng(latitude, longitude);
+                    MarkerOptions bus = new MarkerOptions()
+                            .position(cod)
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
+                            .title(name);
+
+                    mMap.addMarker(bus);
                 }
             }
 
@@ -128,6 +151,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
             }
         });
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     private void getDeviceLocation(){
