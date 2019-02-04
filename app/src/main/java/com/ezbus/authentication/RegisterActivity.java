@@ -101,7 +101,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
                                         ProfileActivity.setUser(newUser);
                                         Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
-                                    } else {
+                                        finish();
+                                    }
+                                    else {
                                         Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
