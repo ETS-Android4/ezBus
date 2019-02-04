@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="?android:attr/windowBackground"
+            android:background="?attr/cardbackground"
+            app:itemIconTint="?attr/navItemColor"
+            app:itemTextColor="?attr/navItemColor"
             app:menu="@menu/main" />
 
         <LinearLayout
@@ -34,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/main_nav"
-                android:layout_alignParentTop="true"></FrameLayout>
+                android:layout_alignParentTop="true" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -45,6 +47,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"></android.support.design.widget.NavigationView>
+        app:menu="@menu/navigation_menu" />
 
 </android.support.v4.widget.DrawerLayout>
