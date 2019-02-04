@@ -54,8 +54,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private static final float DEFAULT_ZOOM = 15f;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
-
-
     private AutoCompleteTextView mSearchText;
     private MapView mapView;
     public Boolean mLocationPermissionsGranted = false;
@@ -63,7 +61,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private AutocompleteMap autocompleteMap;
     private GoogleApiClient mGoogleApiClient;
-    DatabaseReference f_database = FirebaseDatabase.getInstance().getReference().child("fermate");
+    DatabaseReference f_database = FirebaseDatabase.getInstance().getReference();
 
 
     public MapFragment() {
@@ -74,28 +72,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
-
-        f_database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String rightLocation = child.child("lat").getValue().toString();
-                    String leftLocation = child.child("lon").getValue().toString();
-                    double location_left = Double.parseDouble(leftLocation);
-                    double location_right = Double.parseDouble(rightLocation);
-                    LatLng cod = new LatLng(location_left, location_right);
-                    MarkerOptions prova = new MarkerOptions()
-                            .position(cod)
-                            .title("ciao");
-                    mMap.addMarker(prova);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -130,6 +106,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
+
+        f_database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String rightLocation = child.child("lat").getValue().toString();
+                    String leftLocation = child.child("lon").getValue().toString();
+                    double location_left = Double.parseDouble(leftLocation);
+                    double location_right = Double.parseDouble(rightLocation);
+                    LatLng cod = new LatLng(location_right, location_left);
+                    MarkerOptions prova = new MarkerOptions()
+                            .position(cod)
+                            .title("ciao");
+                    mMap.addMarker(prova);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getDeviceLocation(){
