@@ -23,6 +23,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager firstViewPager;
 
+
     public PocketFragment() {
 
     }

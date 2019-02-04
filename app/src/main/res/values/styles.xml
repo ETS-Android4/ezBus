@@ -6,11 +6,12 @@
         <item name="colorPrimary">#096156</item>
         <item name="colorPrimaryDark">#096156</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#fcfcfc</item>
-        <item name="cardbackground">#ffffff</item>
+        <item name="backgroundcolor">#fdfdfd</item>
+        <item name="cardbackground">#fafafa</item>
         <item name="textcolor">#808080</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
+        <item name="navItemColor">#096156</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
@@ -18,11 +19,12 @@
         <item name="colorPrimary">#096156</item>
         <item name="colorPrimaryDark">#096156</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#fcfcfc</item>
-        <item name="cardbackground">#ffffff</item>
+        <item name="backgroundcolor">#fdfdfd</item>
+        <item name="cardbackground">#fafafa</item>
         <item name="textcolor">#808080</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
+        <item name="navItemColor">#096156</item>
         <item name="toolbarStyle">@style/ToolBar.Green</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
@@ -34,10 +36,11 @@
         <item name="colorPrimaryDark">#202020</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#303030</item>
-        <item name="cardbackground">#ffffff</item>
+        <item name="cardbackground">#202020</item>
         <item name="textcolor">#ffffff</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#ffffff</item>
+        <item name="navItemColor">#fcfcfc</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="NoApp.Dark" parent="Theme.AppCompat.Light.NoActionBar">
@@ -45,10 +48,11 @@
         <item name="colorPrimaryDark">#202020</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#303030</item>
-        <item name="cardbackground">#ffffff</item>
+        <item name="cardbackground">#202020</item>
         <item name="textcolor">#ffffff</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#ffffff</item>
+        <item name="navItemColor">#fcfcfc</item>
         <item name="toolbarStyle">@style/ToolBar.Dark</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
@@ -63,6 +67,7 @@
         <item name="textcolor">#F1F1F1</item>
         <item name="tintcolor">#202020</item>
         <item name="buttoncolor">#388E3C</item>
+        <item name="navItemColor">#124063</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
@@ -70,11 +75,12 @@
         <item name="colorPrimary">#124063</item>
         <item name="colorPrimaryDark">#124063</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#fcfcfc</item>
-        <item name="cardbackground">#ffffff</item>
+        <item name="backgroundcolor">#fdfdfd</item>
+        <item name="cardbackground">#fafafa</item>
         <item name="textcolor">#F1F1F1</item>
         <item name="tintcolor">#202020</item>
         <item name="buttoncolor">#388E3C</item>
+        <item name="navItemColor">#124063</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
