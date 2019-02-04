@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "566999320189-8fatgp8qg2ob2g1hnb6nrt1s5noa2ohp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ezbus",
+            "certificate_hash": "44cee47c459f0986a723c2143f0203109d3b19bc"
+          }
+        },
+        {
           "client_id": "566999320189-mfu365k0ch2enr24ubabgfj0s0gkvbap.apps.googleusercontent.com",
           "client_type": 3
         }

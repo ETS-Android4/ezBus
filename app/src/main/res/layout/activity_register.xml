@@ -9,7 +9,7 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="?attr/backgroundcolor"
-    tools:context="com.ezbus.account.RegisterActivity">
+    tools:context="com.ezbus.main.com.ezbus.authentication.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"

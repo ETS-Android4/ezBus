@@ -5,7 +5,7 @@
     android:id="@+id/drag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ezbus.account.MainActivity">
+    tools:context="com.ezbus.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

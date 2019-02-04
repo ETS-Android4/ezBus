@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.main;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+import com.ezbus.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

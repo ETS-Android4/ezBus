@@ -1,9 +1,7 @@
-package com.ezbus.account;
+package com.ezbus.authentication;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -12,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.ezbus.client.Pocket;
+import com.ezbus.main.MainActivity;
+import com.ezbus.client.ProfileActivity;
+import com.ezbus.R;
+import com.ezbus.main.SharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextUsername;
     private EditText editTextPassword;
-    private ProgressDialog progressDialog;
     private User newUser;
     SharedPref sharedpref;
 
@@ -62,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         Button signUpButton = findViewById(R.id.buttonSignup);
         signUpButton.setOnClickListener(this);
-        this.progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -82,9 +81,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String password  = editTextPassword.getText().toString().trim();
 
         if (!checkData(name, surname, age, company, iva, username, email, password)) return;
-
-        progressDialog.setMessage("Registrazione in corso, attendere...");
-        progressDialog.show();
 
         //Creazione nuovo utente
         newUser = new User(name, surname, age, email, username, new Pocket());
@@ -115,7 +111,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                         }
-                        progressDialog.dismiss();
                     }
                 });
     }

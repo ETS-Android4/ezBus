@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.tracking;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,15 +11,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ezbus.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,6 +36,11 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +63,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private AutocompleteMap autocompleteMap;
     private GoogleApiClient mGoogleApiClient;
+    DatabaseReference f_database = FirebaseDatabase.getInstance().getReference().child("fermate");
+
 
     public MapFragment() {
         // Required empty public constructor
@@ -65,6 +74,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
+
+        f_database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String rightLocation = child.child("lat").getValue().toString();
+                    String leftLocation = child.child("lon").getValue().toString();
+                    double location_left = Double.parseDouble(leftLocation);
+                    double location_right = Double.parseDouble(rightLocation);
+                    LatLng cod = new LatLng(location_left, location_right);
+                    MarkerOptions prova = new MarkerOptions()
+                            .position(cod)
+                            .title("ciao");
+                    mMap.addMarker(prova);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

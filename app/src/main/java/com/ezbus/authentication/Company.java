@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.authentication;
 
 class Company {
 

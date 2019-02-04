@@ -1,4 +1,4 @@
-package com.ezbus.account;
+package com.ezbus.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ezbus.R;
+import com.ezbus.main.MainActivity;
+import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 9001;
 
     public static FirebaseAuth mAuth;
-    protected static GoogleSignInClient mGoogleSignInClient;
+    public static GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     SharedPref sharedpref;
@@ -152,10 +155,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.signInButton) {
+        if (v.getId() == R.id.signInButton)
             signIn();
-        }
     }
 
     @Override
