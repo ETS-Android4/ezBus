@@ -32,10 +32,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    public static FirebaseAuth mAuth;
     public static GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     SharedPref sharedpref;
 
 
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mDetailTextView = findViewById(R.id.detail);
 
         findViewById(R.id.signInButton).setOnClickListener(this);
-        mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
