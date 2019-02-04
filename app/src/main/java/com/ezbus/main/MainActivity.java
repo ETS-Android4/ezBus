@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestIdToken("566999320189-d6grr5iifsocsou1hnnq1h6dtivig245.apps.googleusercontent.com")
                     .requestEmail()
                     .build();
             LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
