@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.authentication;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.ezbus.authentication.Client;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView email;
     private TextView username;
-    private static Client client;
+    private static User user;
     SharedPref sharedpref;
 
 
@@ -54,11 +53,11 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    public static Client getClient() {
-        return client;
+    public static User getUser() {
+        return user;
     }
 
-    public static void setClient(Client newClient) {
-        client = newClient;
+    public static void setUser(User newUser) {
+        user = newUser;
     }
 }

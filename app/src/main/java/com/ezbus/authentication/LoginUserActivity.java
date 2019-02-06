@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezbus.R;
+import com.ezbus.client.Pocket;
 import com.ezbus.main.MainActivity;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,16 +28,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginUserActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-
     public static GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private Client newClient;
     SharedPref sharedpref;
 
 
@@ -47,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_user);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -79,9 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null)
-                    firebaseAuthWithGoogle(account);
+                final GoogleSignInAccount account = task.getResult(ApiException.class);
+                if (account != null) firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
                 updateUI(null);
@@ -90,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        final GoogleSignInAccount account = acct;
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -100,6 +107,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            final String uid = user.getUid();
+                            final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
+                            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        //Non c'è bisogno di creare una nuova classe Client
+                                    } else {
+                                        newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
+                                        newClient.setUid(uid);
+                                        rootRef.setValue(newClient);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                             updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

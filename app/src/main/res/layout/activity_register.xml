@@ -9,7 +9,7 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="?attr/backgroundcolor"
-    tools:context="com.ezbus.main.com.ezbus.authentication.RegisterActivity">
+    tools:context="com.ezbus.authentication.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,33 +24,6 @@
             android:layout_height="match_parent"
             android:background="?attr/backgroundcolor"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Nome"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/editTextSurname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Cognome"
-                android:inputType="textPersonName"
-                android:textColor="?attr/textcolor"/>
-
-            <EditText
-                android:id="@+id/editTextAge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Età"
-                android:inputType="number"
-                android:textColor="?attr/textcolor"
-                android:maxLength="3"/>
 
             <EditText
                 android:id="@+id/editTextCompany"

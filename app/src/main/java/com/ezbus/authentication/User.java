@@ -1,8 +1,6 @@
 package com.ezbus.authentication;
 
-import java.util.UUID;
-
-class User {
+abstract class User {
 
     private String uid;
     protected String name;

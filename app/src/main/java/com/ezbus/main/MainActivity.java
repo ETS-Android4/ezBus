@@ -21,12 +21,13 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ezbus.R;
-import com.ezbus.authentication.LoginActivity;
+import com.ezbus.authentication.LoginCompanyActivity;
+import com.ezbus.authentication.LoginUserActivity;
 import com.ezbus.authentication.RegisterActivity;
 import com.ezbus.authentication.WelcomeActivity;
 import com.ezbus.client.BuyFragment;
 import com.ezbus.client.PocketFragment;
-import com.ezbus.client.ProfileActivity;
+import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.management.ManagerFragment;
 import com.ezbus.tracking.DriverFragment;
 import com.ezbus.tracking.MapFragment;
@@ -71,12 +72,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             mMainFrame = findViewById(R.id.main_frame);
             mMainNav = findViewById(R.id.main_nav);
+            navigationView = findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
             if (getAnswer().equals("User")) {
                 mMainNav.getMenu().removeItem(R.id.tab4);
                 mMainNav.getMenu().removeItem(R.id.tab5);
+                navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             } else if (getAnswer().equals("Company")) {
                 mMainNav.getMenu().removeItem(R.id.tab2);
                 mMainNav.getMenu().removeItem(R.id.tab3);
+                navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             }
             mapFragment = new MapFragment();
             pocketFragment = new PocketFragment();
@@ -96,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            navigationView = findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
             View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
@@ -105,21 +109,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .requestIdToken(getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
-            LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            LoginUserActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-            if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
+            if (LoginUserActivity.mAuth.getInstance().getCurrentUser() == null) {
                 navUsername.setText("Ospite");
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             } else {
-                navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                navUsername.setText(LoginUserActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             }
 
             setFragment(1);
@@ -137,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setFragment(1);
                     return true;
                 case R.id.tab2:
-                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginUserActivity.class);
                         startActivity(login);
                         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
                         return false;
@@ -147,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
                     }
                 case R.id.tab3:
-                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginUserActivity.class);
                         startActivity(login);
                         return false;
                     } else {
@@ -156,8 +159,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
                     }
                 case R.id.tab4:
-                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginCompanyActivity.class);
                         startActivity(login);
                         return false;
                     } else {
@@ -165,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
                     }
                 case R.id.tab5:
-                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        Intent login = new Intent(MainActivity.this, LoginCompanyActivity.class);
                         startActivity(login);
                         return false;
                     } else {
@@ -287,15 +290,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(ProfileActivity.class);
                 break;
             case R.id.nav_login:
-                startNewActivity(LoginActivity.class);
+                if (getAnswer().equals("User")) {
+                    startNewActivity(LoginUserActivity.class);
+                } else {
+                    startNewActivity(LoginCompanyActivity.class);
+                }
                 break;
             case R.id.nav_logout:
                 AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
                 logout.setMessage("Vuoi davvero uscire?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                     //Se l'utente accetta di uscire
-                    LoginActivity.mAuth.getInstance().signOut();
-                    LoginActivity.mGoogleSignInClient.signOut();
+                    LoginUserActivity.mAuth.getInstance().signOut();
+                    LoginUserActivity.mGoogleSignInClient.signOut();
                     startNewActivity(WelcomeActivity.class);
                     finish();
                     }
