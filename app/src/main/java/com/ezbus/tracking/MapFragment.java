@@ -115,10 +115,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mMap.clear();
-                for (DataSnapshot child : dataSnapshot.child("fermate").getChildren()) {
-                    String lat = child.child("lat").getValue().toString();
-                    String lon = child.child("lon").getValue().toString();
-                    String name = child.child("nome").getValue().toString();
+                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
+                    String lat = child.child("position").child("coordX").getValue().toString();
+                    String lon = child.child("position").child("coordY").getValue().toString();
+                    String name = child.child("name").getValue().toString();
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lon);
                     LatLng cod = new LatLng(latitude, longitude);

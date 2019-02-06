@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".management.route_manager"></activity>
         <activity android:name=".authentication.LoginCompanyActivity" />
         <activity
             android:name=".authentication.WelcomeActivity"
@@ -48,6 +47,9 @@
         </activity>
         <activity
             android:name=".main.SettingsActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".management.AddRouteActivity"
             android:configChanges="orientation|screenSize" />
 
         <meta-data

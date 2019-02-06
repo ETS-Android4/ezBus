@@ -3,36 +3,37 @@ package com.ezbus.management;
 import com.ezbus.tracking.Position;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Track {
 
-    private Time start;
     private Time delay;
-    private Stop stops;
+    private String name;
+    private List<Stop> stops;
+    private String id;
 
-    public Track(Time start) {
-        this.setStart(start);
+
+    public Track(String name) {
+        this.name = name;
+        this.id = UUID.randomUUID().toString();
+        this.stops = new ArrayList<Stop>();
     }
 
-    public Time getStart() {
-        return start;
+    public String getName() {
+        return name;
     }
 
-    public void setStart(Time start) {
-        this.start = start;
+    public void addStop(Stop s) {
+        stops.add(s);
     }
 
-    public static Stop addStop() {
-
-        //Position newPosition = new Position(coordX, coordY);
-        //Stop newStop = new Stop(newPosition);
-
-        //return newStop;
-        return null;
+    public String getId() {
+        return id;
     }
 
-    public static Stop editStop() {
-
-        return null;
+    public List<Stop> getStops() {
+        return stops;
     }
 }

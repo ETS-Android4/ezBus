@@ -2,37 +2,51 @@ package com.ezbus.management;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Route {
 
     private String name;
     private String id;
-    private String compName;
-    private Track track;
-    private Stop start;
-    private Stop end;
-    private List<Stop> stops = new ArrayList<Stop>();
+    private String companyId;
+    private String idStartStop;
+    private String idEndStop;
+    private List<Track> tracks;
 
-    public Route(String name, String company) {
+    public Route(String name, String companyId, String idStartStop, String idEndStop) {
         this.name = name;
-        this.compName = company;
-        this.setStart();
-        this.setEnd();
+        this.id = UUID.randomUUID().toString();
+        this.companyId = companyId;
+        this.idStartStop = idStartStop;
+        this.idEndStop = idEndStop;
+        this.tracks  = new ArrayList<Track>();
     }
 
-    public Stop getStart() {
-        return this.start;
+    public void addTrack(Track t) {
+        tracks.add(t);
     }
 
-    public void setStart() {
-        this.start = Track.addStop();
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public Stop getEnd() {
-        return this.end;
+    public String getStart() {
+        return this.idStartStop;
     }
 
-    public void setEnd() {
-        this.end = Track.addStop();
+    public String getEnd() {
+        return this.idEndStop;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -22,9 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //Elementi grafici
     private EditText editTextCompany;
     private EditText editTextIVA;
     private EditText editTextEmail;
@@ -44,10 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_register);
 
-        //initializing firebase auth object
-        //LoginActivity.mAuth = FirebaseAuth.getInstance();
-
-       this.editTextCompany = findViewById(R.id.editTextCompany);
+        this.editTextCompany = findViewById(R.id.editTextCompany);
         this.editTextIVA = findViewById(R.id.editTextIVA);
         this.editTextUsername = findViewById(R.id.editTextUsername);
         this.editTextEmail = findViewById(R.id.editTextEmail);

@@ -22,37 +22,37 @@
             android:id="@+id/addRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ADD ROUTE" />
+            android:text="Aggiungi Nuova Tratta" />
 
         <Button
             android:id="@+id/editRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EDIT ROUTE" />
+            android:text="Modifica Tratte" />
 
         <Button
             android:id="@+id/viewRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="VIEW ROUTE" />
+            android:text="Vedi Tratte" />
 
         <Button
             android:id="@+id/addPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ADD PASS" />
+            android:text="Aggiungi Abbonamento" />
 
         <Button
             android:id="@+id/editPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EDIT PASS" />
+            android:text="Modifica Abbonamento" />
 
         <Button
             android:id="@+id/viewPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="VIEW PASS" />
+            android:text="Visualizza Abbonamenti" />
 
 
     </LinearLayout>
