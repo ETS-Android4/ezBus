@@ -14,11 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".authentication.LoginCompanyActivity"></activity>
+        <activity android:name=".management.route_manager"></activity>
+        <activity android:name=".authentication.LoginCompanyActivity" />
         <activity
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/App.Green.NoActionBar"></activity>
+            android:theme="@style/App.Green.NoActionBar" />
         <activity
             android:name=".authentication.ProfileActivity"
             android:configChanges="orientation|screenSize" />
