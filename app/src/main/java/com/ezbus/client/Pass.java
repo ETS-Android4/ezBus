@@ -2,7 +2,7 @@ package com.ezbus.client;
 
 import java.util.Date;
 
-class Pass extends Item {
+public class Pass extends Item {
 
     private int type;
     private String city;
