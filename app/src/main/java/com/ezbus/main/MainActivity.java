@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
 
-        if(sharedpref.loadNightModeState()==true)
+        if (sharedpref.loadNightModeState()==true)
             setTheme(R.style.NoApp_Dark);
         else setTheme(R.style.NoApp_Green);
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken("566999320189-d6grr5iifsocsou1hnnq1h6dtivig245.apps.googleusercontent.com")
+                    .requestIdToken(getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
             LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -314,43 +314,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(SettingsActivity.class);
                 break;
         }
-
-        /*if (id == R.id.nav_profilo) {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.nav_login) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.nav_logout) {
-            AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
-            logout.setMessage("Vuoi davvero uscire?")
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //Se utente accetta di uscire
-                            LoginActivity.mAuth.getInstance().signOut();
-                            LoginActivity.mGoogleSignInClient.signOut();
-                            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //Se annulla l'operazione
-                        }
-                    });
-            logout.show();
-        }
-        if (id == R.id.nav_register) {
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } */
 
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);

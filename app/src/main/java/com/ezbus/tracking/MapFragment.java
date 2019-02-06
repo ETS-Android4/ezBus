@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -68,7 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private AutocompleteMap autocompleteMap;
     private GoogleApiClient mGoogleApiClient;
-    DatabaseReference f_database = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     public MapFragment() {
         // Required empty public constructor
@@ -113,7 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
 
-        f_database.addValueEventListener(new ValueEventListener() {
+        database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mMap.clear();
@@ -128,6 +126,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                             .position(cod)
                             .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
                             .title(name);
+                    fermata.anchor(0.5f, 0.5f);
                     mMap.addMarker(fermata);
                 }
                 for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
@@ -141,7 +140,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                             .position(cod)
                             .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
                             .title(name);
-
+                    bus.anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
                 }
             }
@@ -241,8 +240,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         }
     }
 
-    private void initSearch(){
-
+    private void initSearch() {
         mGoogleApiClient = new GoogleApiClient
                 .Builder(getContext())
                 .addApi(Places.GEO_DATA_API)
@@ -275,9 +273,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> list = new ArrayList<>();
-        try{
+        try {
             list = geocoder.getFromLocationName(searchString, 1);
-        }catch (IOException e){
+        } catch (IOException e) {
         }
 
         if(list.size() > 0){

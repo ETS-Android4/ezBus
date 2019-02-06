@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.ezbus.authentication.User;
+import com.ezbus.authentication.Client;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,19 +16,18 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView email;
     private TextView username;
-    private static User user;
+    private static Client client;
     SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true) {
-            setTheme(R.style.App_Dark);
-        }
-        else setTheme(R.style.App_Green);
-
         super.onCreate(savedInstanceState);
+        sharedpref = new SharedPref(this);
+
+        if(sharedpref.loadNightModeState()==true)
+            setTheme(R.style.App_Dark);
+        else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_profile);
 
         ActionBar actionBar = getSupportActionBar();
@@ -55,13 +54,11 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    public static User getUser() {
-        return user;
+    public static Client getClient() {
+        return client;
     }
 
-    public static void setUser(User newUser) {
-        user = newUser;
+    public static void setClient(Client newClient) {
+        client = newClient;
     }
 }
-
-

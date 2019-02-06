@@ -1,26 +1,36 @@
 package com.ezbus.authentication;
 
-import com.ezbus.client.Pocket;
+import java.util.UUID;
 
-public class User  extends Client {
+class User {
 
-    private String name;
-    private String surname;
-    private int age;
-    private String email;
-    private String username;
-    private long id;
-    private Pocket myPocket;
+    private String uid;
+    protected String name;
+    protected String email;
 
 
-    public User(String name, String surname, int age, String email, String username,long id, Pocket pocket) {
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.surname = surname;
-        this.age = age;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
-        this.username = username;
-        this.id = id;
-        this.myPocket = pocket;
+    }
+
+    public String getId() {
+        return this.uid;
     }
 
 }

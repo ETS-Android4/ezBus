@@ -105,6 +105,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
             fragCards.changeText("Le tue Tessere!");
             fragPasses.changeText("I tuoi Abbonamenti!");
         }
+
     }
 
 }
