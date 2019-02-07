@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginCompanyActivity;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
 
-        if (sharedpref.loadNightModeState()==true)
+        if (sharedpref.loadNightModeState())
             setTheme(R.style.NoApp_Dark);
         else setTheme(R.style.NoApp_Green);
 
@@ -75,14 +76,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            if (getAnswer().equals("User")) {
+            if (getAnswer().equals("Client")) {
                 mMainNav.getMenu().removeItem(R.id.tab4);
                 mMainNav.getMenu().removeItem(R.id.tab5);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                sharedpref.setUser(true); //Client
             } else if (getAnswer().equals("Company")) {
                 mMainNav.getMenu().removeItem(R.id.tab2);
                 mMainNav.getMenu().removeItem(R.id.tab3);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
+                sharedpref.setUser(false); //Company
             }
             mapFragment = new MapFragment();
             pocketFragment = new PocketFragment();
@@ -111,18 +114,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .build();
             LoginUserActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-            if (LoginUserActivity.mAuth.getInstance().getCurrentUser() == null) {
-                navUsername.setText("Ospite");
-                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
-            } else {
-                navUsername.setText(LoginUserActivity.mAuth.getInstance().getCurrentUser().getEmail());
-                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+            if (sharedpref.getUser()) {
+                if (LoginUserActivity.mAuth.getInstance().getCurrentUser() == null) {
+                    navUsername.setText("Ospite");
+                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+                } else {
+                    navUsername.setText(LoginUserActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+                }
+            }
+            else {
+                if (LoginCompanyActivity.mAuth.getInstance().getCurrentUser() == null) {
+                    navUsername.setText("Ospite");
+                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
+                } else {
+                    navUsername.setText(LoginCompanyActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                }
             }
 
             setFragment(1);
@@ -278,11 +300,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    //Se viene premuto il pulsante Indietro di sistema
-    @Override
-    public void onBackPressed() {
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -290,9 +307,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(ProfileActivity.class);
                 break;
             case R.id.nav_login:
-                if (getAnswer().equals("User")) {
+                if (getAnswer().equals("Client")) {
                     startNewActivity(LoginUserActivity.class);
-                } else {
+                } else if (getAnswer().equals("Company")) {
                     startNewActivity(LoginCompanyActivity.class);
                 }
                 break;

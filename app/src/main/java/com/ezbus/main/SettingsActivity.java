@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
 
-        if(sharedpref.loadNightModeState()==true) {
+        if(sharedpref.loadNightModeState()) {
             setTheme(R.style.App_Dark);
         }  else setTheme(R.style.App_Green);
 
@@ -27,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         change_theme = findViewById(R.id.change_theme);
-        if(sharedpref.loadNightModeState()==true)
+        if(sharedpref.loadNightModeState())
             change_theme.setChecked(true);
 
         change_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -50,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void startNewActivity(Class act) {
         Intent intent = new Intent(this, act);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

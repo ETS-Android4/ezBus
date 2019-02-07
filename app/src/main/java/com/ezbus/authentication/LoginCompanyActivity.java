@@ -22,7 +22,6 @@ public class LoginCompanyActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonLogin;
     SharedPref sharedpref;
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -30,7 +29,7 @@ public class LoginCompanyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true)
+        if(sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_login_company);
@@ -41,7 +40,7 @@ public class LoginCompanyActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.emailCompany);
         editTextPassword = findViewById(R.id.passwordCompany);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +70,8 @@ public class LoginCompanyActivity extends AppCompatActivity {
                             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
                             View headerLayout = MainActivity.navigationView.getHeaderView(0);
                             TextView navUsername =  headerLayout.findViewById(R.id.textView);
-                            navUsername.setText(mAuth.getCurrentUser().getEmail());
+                            if (mAuth.getCurrentUser()!=null)
+                                navUsername.setText(mAuth.getCurrentUser().getEmail());
                             finish();
                         } else {
                             Toast.makeText(LoginCompanyActivity.this, "Credenziali errate",

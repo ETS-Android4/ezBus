@@ -14,14 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".authentication.LoginCompanyActivity" />
+        <activity android:name=".authentication.LoginCompanyActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Login"/>
         <activity
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/App.Green.NoActionBar" />
         <activity
             android:name=".authentication.ProfileActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:label="Profilo" />
         <activity
             android:name=".main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -47,10 +50,12 @@
         </activity>
         <activity
             android:name=".main.SettingsActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:label="Impostazioni"/>
         <activity
             android:name=".management.AddRouteActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:label="Aggiungi Tratta" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

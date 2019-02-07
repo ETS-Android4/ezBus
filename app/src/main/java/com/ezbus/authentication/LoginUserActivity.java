@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ezbus.R;
 import com.ezbus.client.Pocket;
 import com.ezbus.main.MainActivity;
@@ -50,7 +48,7 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState()==true)
+        if(sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
 
