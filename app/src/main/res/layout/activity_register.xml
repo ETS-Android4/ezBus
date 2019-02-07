@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Nome Azienda"
+                android:textColorHint="?attr/textColorHint"
                 android:textColor="?attr/textcolor"
                 android:inputType="text" />
 
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Partita IVA"
+                android:textColorHint="?attr/textColorHint"
                 android:inputType="number"
                 android:textColor="?attr/textcolor"
                 android:maxLength="11"/>
@@ -50,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Email"
+                android:textColorHint="?attr/textColorHint"
                 android:textColor="?attr/textcolor"
                 android:inputType="textEmailAddress" />
 
@@ -59,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Username"
+                android:textColorHint="?attr/textColorHint"
                 android:textColor="?attr/textcolor"
                 android:inputType="text" />
 
@@ -68,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Password"
+                android:textColorHint="?attr/textColorHint"
                 android:textColor="?attr/textcolor"
                 android:inputType="textPassword" />
 
@@ -77,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:textColor="?attr/textcolor"
-                android:text="Signup" />
+                android:text="Registrati" />
 
         </LinearLayout>
     </ScrollView>

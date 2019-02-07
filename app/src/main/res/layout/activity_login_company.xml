@@ -24,7 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:hint="Email" />
+                android:hint="Email"
+                android:textColorHint="?attr/textColorHint"
+                android:textColor="?attr/textcolor" />
 
             <EditText
                 android:id="@+id/passwordCompany"
@@ -32,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Password"
+                android:textColorHint="?attr/textColorHint"
+                android:textColor="?attr/textcolor"
                 android:inputType="textPassword"/>
 
             <Button
