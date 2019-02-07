@@ -114,7 +114,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                updateMap(dataSnapshot);
+                mMap.clear();
+                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
+                    String lat = child.child("position").child("coordX").getValue().toString();
+                    String lon = child.child("position").child("coordY").getValue().toString();
+                    String name = child.child("name").getValue().toString();
+                    double latitude = Double.parseDouble(lat);
+                    double longitude = Double.parseDouble(lon);
+                    LatLng cod = new LatLng(latitude, longitude);
+                    MarkerOptions fermata = new MarkerOptions()
+                            .position(cod)
+                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            .title(name);
+                    fermata.anchor(0.5f, 0.5f);
+                    mMap.addMarker(fermata);
+                }
+                for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
+                    String lat = child.child("lat").getValue().toString();
+                    String lon = child.child("lon").getValue().toString();
+                    String name = child.child("nome").getValue().toString();
+                    double latitude = Double.parseDouble(lat);
+                    double longitude = Double.parseDouble(lon);
+                    LatLng cod = new LatLng(latitude, longitude);
+                    MarkerOptions bus = new MarkerOptions()
+                            .position(cod)
+                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
+                            .title(name);
+                    bus.anchor(0.5f, 0.5f);
+                    mMap.addMarker(bus);
+                }
             }
 
             @Override
@@ -122,38 +150,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
             }
         });
-    }
-
-    private void updateMap(DataSnapshot dataSnapshot) {
-        mMap.clear();
-        for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
-            String lat = child.child("position").child("coordX").getValue().toString();
-            String lon = child.child("position").child("coordY").getValue().toString();
-            String name = child.child("name").getValue().toString();
-            double latitude = Double.parseDouble(lat);
-            double longitude = Double.parseDouble(lon);
-            LatLng cod = new LatLng(latitude, longitude);
-            MarkerOptions fermata = new MarkerOptions()
-                    .position(cod)
-                    .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
-                    .title(name)
-                    .anchor(0.5f, 0.5f);
-            mMap.addMarker(fermata);
-        }
-        for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
-            String lat = child.child("lat").getValue().toString();
-            String lon = child.child("lon").getValue().toString();
-            String name = child.child("nome").getValue().toString();
-            double latitude = Double.parseDouble(lat);
-            double longitude = Double.parseDouble(lon);
-            LatLng cod = new LatLng(latitude, longitude);
-            MarkerOptions bus = new MarkerOptions()
-                    .position(cod)
-                    .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
-                    .title(name)
-                    .anchor(0.5f, 0.5f);
-            mMap.addMarker(bus);
-        }
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
@@ -182,7 +178,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation!=null)
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM, "My Location");
+                                        DEFAULT_ZOOM, "My Location");
 
                         }
                     }
