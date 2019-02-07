@@ -11,6 +11,7 @@ public class Company extends User {
     private String username;
     private List<Route> routes;
 
+
     public Company(String name, String iva, String username, String email) {
         this.name = name;
         this.email = email;
@@ -34,4 +35,5 @@ public class Company extends User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

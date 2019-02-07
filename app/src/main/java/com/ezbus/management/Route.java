@@ -13,6 +13,7 @@ public class Route {
     private String idEndStop;
     private List<Track> tracks;
 
+
     public Route(String name, String companyId, String idStartStop, String idEndStop) {
         this.name = name;
         this.id = UUID.randomUUID().toString();
@@ -49,4 +50,5 @@ public class Route {
     public String getName() {
         return name;
     }
+
 }

@@ -9,7 +9,8 @@
         android:icon="@drawable/ic_menu_login"
         android:title="Profilo"
         android:visible="false" />
-    <item android:id="@+id/nav_logout"
+    <item
+        android:id="@+id/nav_logout"
         android:title="Logout"
         android:visible="false"
         android:icon="@drawable/ic_menu_login"/>
@@ -17,7 +18,12 @@
         android:id="@+id/nav_register"
         android:icon="@drawable/ic_menu_register"
         android:title="Registrati" />
-    <item android:id="@+id/nav_settings"
+    <item
+        android:id="@+id/nav_settings"
         android:title="Impostazioni"
+        android:icon="@drawable/ic_settings"/>
+    <item
+        android:id="@+id/nav_welcome"
+        android:title="Welcome"
         android:icon="@drawable/ic_settings"/>
 </menu>

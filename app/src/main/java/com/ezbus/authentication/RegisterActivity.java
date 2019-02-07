@@ -71,36 +71,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //Creazione nuova azienda
         newCompany = new Company(company, iva, username, email);
         LoginCompanyActivity.mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                //Se avvenuta con successo
+                if (task.isSuccessful()){
+                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Se avvenuta con successo
-                        if (task.isSuccessful()){
-                            FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                                        MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                                        ProfileActivity.setUser(newCompany);
-                                        addCompany(newCompany);
-                                        Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
-                                        finish();
-                                    }
-                                    else {
-                                        Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                            });
-                        } else {
-                            Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                            //ProfileActivity.setUser(newCompany);
+                            addCompany(newCompany);
+                            Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
+                            finish();
                         }
-                    }
-                });
+                        else {
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        }
+
+                    });
+                } else {
+                    Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                }
+                }
+            });
     }
 
     private boolean checkData(String company, String iva, String username, String email, String password) {
@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this,"Inserisci la Password",Toast.LENGTH_LONG).show();
             return false;
         } else if (password.length()<8) {
-            Toast.makeText(this, "La password è troppo corta. Deve essere composta da minimo 8 caratteri.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "La password deve essere composta da almeno 8 caratteri", Toast.LENGTH_LONG).show();
             return false;
         }
 

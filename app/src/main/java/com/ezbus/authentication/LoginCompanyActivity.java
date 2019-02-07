@@ -29,7 +29,8 @@ public class LoginCompanyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState())
+
+        if(sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_login_company);

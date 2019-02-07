@@ -19,16 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginCompanyActivity;
 import com.ezbus.authentication.LoginUserActivity;
+import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.authentication.RegisterActivity;
 import com.ezbus.authentication.WelcomeActivity;
 import com.ezbus.client.BuyFragment;
 import com.ezbus.client.PocketFragment;
-import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.management.ManagerFragment;
 import com.ezbus.tracking.DriverFragment;
 import com.ezbus.tracking.MapFragment;
@@ -61,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         if (getAnswer().equals("Empty")) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            startActivity(intent);
+            startNewActivity(WelcomeActivity.class);
             finish();
         }
         else {
@@ -163,8 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return true;
                 case R.id.tab2:
                     if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginUserActivity.class);
-                        startActivity(login);
+                        startNewActivity(LoginUserActivity.class);
                         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
                         return false;
                     } else {
@@ -173,8 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 case R.id.tab3:
                     if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginUserActivity.class);
-                        startActivity(login);
+                        startNewActivity(LoginUserActivity.class);
                         return false;
                     } else {
                         setFragment(3);
@@ -182,8 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 case R.id.tab4:
                     if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginCompanyActivity.class);
-                        startActivity(login);
+                        startNewActivity(LoginCompanyActivity.class);
                         return false;
                     } else {
                         setFragment(4);
@@ -191,8 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 case R.id.tab5:
                     if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        Intent login = new Intent(MainActivity.this, LoginCompanyActivity.class);
-                        startActivity(login);
+                        startNewActivity(LoginCompanyActivity.class);
                         return false;
                     } else {
                         setFragment(5);
@@ -213,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch(fragmentId) {
             case 1:
-                if(fragmentManager.findFragmentByTag("one") != null) {
+                if (fragmentManager.findFragmentByTag("one") != null) {
                     //Se il fragment esiste, viene mostrato
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("one")).commit();
                 } else {
@@ -221,71 +215,71 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), "one").commit();
                 }
                 //Se altri fragment sono visibili, vengono nascosti
-                if(fragmentManager.findFragmentByTag("two") != null){
+                if (fragmentManager.findFragmentByTag("two") != null) {
                     getSupportActionBar().setElevation(10);
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("three") != null){
+                if (fragmentManager.findFragmentByTag("three") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("four") != null){
+                if (fragmentManager.findFragmentByTag("four") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("five") != null){
+                if (fragmentManager.findFragmentByTag("five") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
                 }
                 break;
             case 2:
-                if(fragmentManager.findFragmentByTag("two") != null) {
+                if (fragmentManager.findFragmentByTag("two") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("two")).commit();
                 } else {
                     fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
                 }
                 getSupportActionBar().setElevation(0);
-                if(fragmentManager.findFragmentByTag("one") != null){
+                if (fragmentManager.findFragmentByTag("one") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("three") != null){
+                if (fragmentManager.findFragmentByTag("three") != null){
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
                 }
                 break;
             case 3:
-                if(fragmentManager.findFragmentByTag("three") != null) {
+                if (fragmentManager.findFragmentByTag("three") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("three")).commit();
                 } else {
                     fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "three").commit();
                 }
-                if(fragmentManager.findFragmentByTag("one") != null){
+                if (fragmentManager.findFragmentByTag("one") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("two") != null){
+                if (fragmentManager.findFragmentByTag("two") != null) {
                     getSupportActionBar().setElevation(10);
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
                 }
                 break;
             case 4:
-                if(fragmentManager.findFragmentByTag("four") != null) {
+                if (fragmentManager.findFragmentByTag("four") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("four")).commit();
                 } else {
                     fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), "four").commit();
                 }
-                if(fragmentManager.findFragmentByTag("one") != null){
+                if (fragmentManager.findFragmentByTag("one") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("five") != null){
+                if (fragmentManager.findFragmentByTag("five") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
                 }
                 break;
             case 5:
-                if(fragmentManager.findFragmentByTag("five") != null) {
+                if (fragmentManager.findFragmentByTag("five") != null) {
                     fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("five")).commit();
                 } else {
                     fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), "five").commit();
                 }
-                if(fragmentManager.findFragmentByTag("one") != null){
+                if (fragmentManager.findFragmentByTag("one") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
                 }
-                if(fragmentManager.findFragmentByTag("four") != null){
+                if (fragmentManager.findFragmentByTag("four") != null) {
                     fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
                 }
                 break;
@@ -307,11 +301,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(ProfileActivity.class);
                 break;
             case R.id.nav_login:
-                if (getAnswer().equals("Client")) {
+                if (getAnswer().equals("Client"))
                     startNewActivity(LoginUserActivity.class);
-                } else if (getAnswer().equals("Company")) {
+                else if (getAnswer().equals("Company"))
                     startNewActivity(LoginCompanyActivity.class);
-                }
                 break;
             case R.id.nav_logout:
                 AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
@@ -320,7 +313,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //Se l'utente accetta di uscire
                     LoginUserActivity.mAuth.getInstance().signOut();
                     LoginUserActivity.mGoogleSignInClient.signOut();
-                    startNewActivity(WelcomeActivity.class);
+                    // DA CAMBIARE
+                    startNewActivity(MainActivity.class);
                     finish();
                     }
                 })
@@ -336,6 +330,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_settings:
                 startNewActivity(SettingsActivity.class);
+                break;
+            case R.id.nav_welcome:
+                startNewActivity(WelcomeActivity.class);
+                finish();
                 break;
         }
 
@@ -353,4 +351,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sp = getSharedPreferences("pref",0);
         return sp.getString("Scelta","Empty");
     }
+
 }

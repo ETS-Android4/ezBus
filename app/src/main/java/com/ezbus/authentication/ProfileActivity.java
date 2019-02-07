@@ -15,7 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView email;
     private TextView username;
-    private static User user;
+    private static Client user;
     SharedPref sharedpref;
 
 
@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
 
-        if(sharedpref.loadNightModeState()==true)
+        if (sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
         setContentView(R.layout.activity_profile);
@@ -53,11 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    public static User getUser() {
+    public static Client getUser() {
         return user;
     }
 
-    public static void setUser(User newUser) {
+    public static void setUser(Client newUser) {
         user = newUser;
     }
+
 }

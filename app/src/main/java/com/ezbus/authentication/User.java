@@ -7,6 +7,10 @@ abstract class User {
     protected String email;
 
 
+    public String getUid() {
+        return this.uid;
+    }
+
     public void setUid(String uid) {
         this.uid = uid;
     }
@@ -25,10 +29,6 @@ abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getId() {
-        return this.uid;
     }
 
 }

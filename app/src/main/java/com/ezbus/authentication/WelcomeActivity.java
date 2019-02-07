@@ -12,7 +12,8 @@ import com.ezbus.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    Button scelta1, scelta2;
+    Button company, client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,26 +23,28 @@ public class WelcomeActivity extends AppCompatActivity {
         setAnswer("Empty");
         if (getIntent().getBooleanExtra("EXIT", false)) finish();
 
-        scelta1 = findViewById(R.id.scelta1);
-        scelta2 = findViewById(R.id.scelta2);
-        scelta1.setOnClickListener(new View.OnClickListener() {
+        company = findViewById(R.id.scelta1);
+        client = findViewById(R.id.scelta2);
+        company.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAnswer("Client");
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+                startNewActivity(MainActivity.class);
             }
         });
-        scelta2.setOnClickListener(new View.OnClickListener() {
+        client.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAnswer("Company");
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+                startNewActivity(MainActivity.class);
             }
         });
+    }
+
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
+        startActivity(intent);
+        finish();
     }
 
     public void setAnswer(String theAnswer) {

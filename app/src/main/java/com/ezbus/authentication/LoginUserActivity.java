@@ -37,9 +37,9 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     public static GoogleSignInClient mGoogleSignInClient;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView mStatusTextView;
     private TextView mDetailTextView;
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private Client newClient;
     SharedPref sharedpref;
 
@@ -99,38 +99,38 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            final String uid = user.getUid();
-                            final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
-                            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists()){
-                                        //Non c'è bisogno di creare una nuova classe Client
-                                    } else {
-                                        newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
-                                        newClient.setUid(uid);
-                                        rootRef.setValue(newClient);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                            updateUI(user);
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            updateUI(null);
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signInWithCredential:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    final String uid = user.getUid();
+                    final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                //Non c'è bisogno di creare una nuova classe Client
+                            } else {
+                                newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
+                                newClient.setUid(uid);
+                                rootRef.setValue(newClient);
+                            }
                         }
-                    }
-                });
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    updateUI(user);
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    updateUI(null);
+                }
+                }
+            });
     }
 
     private void signIn() {

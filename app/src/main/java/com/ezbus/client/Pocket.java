@@ -1,18 +1,21 @@
 package com.ezbus.client;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Pocket {
 
     private boolean empty;
     private double credit;
-    private List<Ticket> myTickets;
-    private List<Card> myCards;
-    private List<Pass> myPasses;
+    private List<Ticket> myTickets = new ArrayList<Ticket>();
+    private List<Card> myCards = new ArrayList<Card>();
+    private List<Pass> myPasses = new ArrayList<Pass>();
 
 
     public Pocket() {
         this.empty = true;
+        this.addCard(new Card("Ciao", "caro", 1.0, new Date(), 3));
     }
 
     public Pocket(List<Ticket> tickets, List<Card> cards, List<Pass> passes) {

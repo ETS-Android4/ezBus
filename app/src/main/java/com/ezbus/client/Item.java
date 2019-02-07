@@ -28,4 +28,16 @@ class Item implements Buyable {
     public void addToPocket() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Date getExpiration() {
+        return expiration;
+    }
+
 }

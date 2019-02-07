@@ -6,11 +6,20 @@
     tools:context="com.ezbus.client.ItemFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="?attr/textcolor"
         android:layout_marginTop="50dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:onClick="onClick"
+        android:text="Button" />
 
 </FrameLayout>

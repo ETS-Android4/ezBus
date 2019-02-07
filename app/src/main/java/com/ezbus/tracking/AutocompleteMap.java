@@ -24,36 +24,25 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class AutocompleteMap
-        extends ArrayAdapter<AutocompletePrediction> implements Filterable {
+public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
     private static final String TAG = "PlaceAutoCompleteAd";
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-    /**
-     * Current results returned by this adapter.
-     */
+
+    //Current results returned by this adapter
     private ArrayList<AutocompletePrediction> mResultList;
 
-    /**
-     * Handles autocomplete requests.
-     */
+    //Handles autocomplete requests
     private GoogleApiClient mGoogleApiClient;
 
-    /**
-     * The bounds used for Places Geo Data autocomplete API requests.
-     */
+    //The bounds used for Places Geo Data autocomplete API requests
     private LatLngBounds mBounds;
 
-    /**
-     * The autocomplete filter used to restrict queries to a specific set of place types.
-     */
+    //The autocomplete filter used to restrict queries to a specific set of place types
     private AutocompleteFilter mPlaceFilter;
 
-    /**
-     * Initializes with a resource for text rows and autocomplete query bounds.
-     *
-     * @see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
-     */
+    //Initializes with a resource for text rows and autocomplete query bounds.
+    //@see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
     public AutocompleteMap(Context context, GoogleApiClient googleApiClient,
                                     LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
@@ -62,24 +51,18 @@ public class AutocompleteMap
         mPlaceFilter = filter;
     }
 
-    /**
-     * Sets the bounds for all subsequent queries.
-     */
+    ///Sets the bounds for all subsequent queries
     public void setBounds(LatLngBounds bounds) {
         mBounds = bounds;
     }
 
-    /**
-     * Returns the number of results received in the last autocomplete query.
-     */
+    //Returns the number of results received in the last autocomplete query
     @Override
     public int getCount() {
         return mResultList.size();
     }
 
-    /**
-     * Returns an item from the last autocomplete query.
-     */
+    //Returns an item from the last autocomplete query
     @Override
     public AutocompletePrediction getItem(int position) {
         return mResultList.get(position);
@@ -95,17 +78,15 @@ public class AutocompleteMap
 
         AutocompletePrediction item = getItem(position);
 
-        TextView textView1 = (TextView) row.findViewById(android.R.id.text1);
-        TextView textView2 = (TextView) row.findViewById(android.R.id.text2);
+        TextView textView1 = row.findViewById(android.R.id.text1);
+        TextView textView2 = row.findViewById(android.R.id.text2);
         textView1.setText(item.getPrimaryText(STYLE_BOLD));
         textView2.setText(item.getSecondaryText(STYLE_BOLD));
 
         return row;
     }
 
-    /**
-     * Returns the filter for the current set of autocomplete results.
-     */
+    //Returns the filter for the current set of autocomplete results
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -209,6 +190,5 @@ public class AutocompleteMap
         Log.e(TAG, "Google API client is not connected for autocomplete query.");
         return null;
     }
-
 
 }

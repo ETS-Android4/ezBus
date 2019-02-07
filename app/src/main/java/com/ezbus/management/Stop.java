@@ -14,6 +14,7 @@ public class Stop {
     private String companyId;
     private double km;
 
+
     public Stop(String name, Position position, String time, String companyId) {
         this.position = position;
         this.id = UUID.randomUUID().toString();

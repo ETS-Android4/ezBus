@@ -16,4 +16,12 @@ public class Pass extends Item {
         this.city = city;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
 }
