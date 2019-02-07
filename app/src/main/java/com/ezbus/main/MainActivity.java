@@ -307,23 +307,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startNewActivity(LoginCompanyActivity.class);
                 break;
             case R.id.nav_logout:
-                AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
-                logout.setMessage("Vuoi davvero uscire?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                    //Se l'utente accetta di uscire
-                    LoginUserActivity.mAuth.getInstance().signOut();
-                    LoginUserActivity.mGoogleSignInClient.signOut();
-                    // DA CAMBIARE
-                    startNewActivity(MainActivity.class);
-                    finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    //Se l'utente annulla l'operazione
-                    }
-                });
-                logout.show();
+                signOut("Vuoi davvero uscire?", MainActivity.class);
                 break;
             case R.id.nav_register:
                 startNewActivity(RegisterActivity.class);
@@ -332,14 +316,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(SettingsActivity.class);
                 break;
             case R.id.nav_welcome:
-                startNewActivity(WelcomeActivity.class);
-                finish();
+                signOut("Vuoi ritornare alla schermata iniziale?", WelcomeActivity.class);
                 break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drag_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut(String message, final Class act) {
+        AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
+        logout.setMessage(message).setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //Se l'utente accetta di uscire
+                LoginUserActivity.mAuth.getInstance().signOut();
+                LoginUserActivity.mGoogleSignInClient.signOut();
+                startNewActivity(act);
+                finish();
+            }
+        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Se l'utente annulla l'operazione
+                    }
+                });
+        logout.show();
     }
 
     private void startNewActivity(Class act) {

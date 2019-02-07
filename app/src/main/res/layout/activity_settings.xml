@@ -9,13 +9,19 @@
     android:background="?attr/backgroundcolor"
     tools:ignore="ExtraText">
 
-        <Switch
-            android:id="@+id/change_theme"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cambia_tema"
-            android:textColor="?attr/textcolor"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/change_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cambia_tema"
+                    android:textColor="?attr/textcolor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+        </LinearLayout>
 
 </LinearLayout>

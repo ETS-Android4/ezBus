@@ -7,12 +7,10 @@
     <item
         android:id="@+id/nav_profilo"
         android:icon="@drawable/ic_menu_login"
-        android:title="Profilo"
-        android:visible="false" />
+        android:title="Profilo" />
     <item
         android:id="@+id/nav_logout"
         android:title="Logout"
-        android:visible="false"
         android:icon="@drawable/ic_menu_login"/>
     <item
         android:id="@+id/nav_register"
@@ -24,6 +22,6 @@
         android:icon="@drawable/ic_settings"/>
     <item
         android:id="@+id/nav_welcome"
-        android:title="Welcome"
+        android:title="Cambia Scelta"
         android:icon="@drawable/ic_settings"/>
 </menu>
