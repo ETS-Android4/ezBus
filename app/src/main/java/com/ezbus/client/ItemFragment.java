@@ -23,9 +23,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     String mNewText;
 
 
-    public ItemFragment() {
-
-    }
+    public ItemFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +37,12 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                FragmentManager fm = getFragmentManager();
+                /*FragmentManager fm = getFragmentManager();
                 PocketFragment fragment = (PocketFragment) fm.findFragmentById(R.id.tab2);
                 Pocket p = fragment.getMyPocket();
                 p.addPass(new Pass(1, "Camerino", 1.0, new Date()));
                 fragment.updatePocket(p);
-                break;
+                break;*/
         }
     }
 

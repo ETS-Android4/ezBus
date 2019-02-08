@@ -29,9 +29,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     private Pocket myPocket;
 
 
-    public PocketFragment() {
-
-    }
+    public PocketFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,10 +39,10 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(firstViewPager);
         setupViewPager(firstViewPager);
-        Client client = ProfileActivity.getUser();
+        /*Client client = ProfileActivity.getUser();
         if (client.getMyPocket() != null) {
             myPocket = client.getMyPocket();
-        }
+        }*/
 
         return view;
     }

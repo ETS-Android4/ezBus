@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Emtra come utente" />
+        android:text="Entra come utente" />
 
     <Button
         android:id="@+id/scelta2"

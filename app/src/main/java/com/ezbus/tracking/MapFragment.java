@@ -68,9 +68,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private GoogleApiClient mGoogleApiClient;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-    public MapFragment() {
-        // Required empty public constructor
-    }
+
+    public MapFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,21 +123,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions fermata = new MarkerOptions()
                             .position(cod)
-                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
                             .title(name);
                     fermata.anchor(0.5f, 0.5f);
                     mMap.addMarker(fermata);
                 }
                 for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
-                    String lat = child.child("lat").getValue().toString();
-                    String lon = child.child("lon").getValue().toString();
-                    String name = child.child("nome").getValue().toString();
+                    String lat = child.child("position").child("coordX").getValue().toString();
+                    String lon = child.child("position").child("coordY").getValue().toString();
+                    String name = child.child("name").getValue().toString();
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lon);
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions bus = new MarkerOptions()
                             .position(cod)
-                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
                             .title(name);
                     bus.anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
@@ -167,24 +166,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private void getDeviceLocation(){
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
-        try{
-            if(mLocationPermissionsGranted){
-
+        try {
+            if (mLocationPermissionsGranted) {
                 final Task<Location> location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation!=null)
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                        DEFAULT_ZOOM, "My Location");
+                                    DEFAULT_ZOOM, "My Location");
 
                         }
                     }
                 });
             }
-        }catch (SecurityException e){
+        } catch (SecurityException e) {
         }
     }
 
@@ -281,7 +279,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         if(list.size() > 0){
             Address address = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),
-                    DEFAULT_ZOOM, address.getAddressLine(0));
+                DEFAULT_ZOOM, address.getAddressLine(0));
         }
     }
 
@@ -289,4 +287,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
 }
