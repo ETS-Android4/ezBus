@@ -8,6 +8,8 @@ public class Client extends User {
     private Pocket myPocket;
 
 
+    public Client() {}
+
     public Client(String name, String surname, String email, Pocket pocket) {
         this.name = name;
         this.surname = surname;

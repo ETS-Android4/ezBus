@@ -8,6 +8,8 @@ class Ticket extends Item {
     private String destination;
 
 
+    public Ticket() {}
+
     public Ticket(String start, String destination, double price, Date date) {
         this.id = generateId();
         this.price = price;

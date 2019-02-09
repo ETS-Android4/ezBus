@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ezbus.R;
 import com.ezbus.client.Pocket;
-import com.ezbus.main.MainActivity;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,37 +34,57 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginUserActivity extends AppCompatActivity implements View.OnClickListener {
+import static com.ezbus.main.MainActivity.navigationView;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     public static GoogleSignInClient mGoogleSignInClient;
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
-    private Client newClient;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private User newUser;
     SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-        if(sharedpref.loadNightModeState())
+        if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
 
-        setContentView(R.layout.activity_login_user);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        mStatusTextView = findViewById(R.id.status);
-        mDetailTextView = findViewById(R.id.detail);
+        editTextEmail = findViewById(R.id.emailCompany);
+        editTextPassword = findViewById(R.id.passwordCompany);
 
-        findViewById(R.id.signInButton).setOnClickListener(this);
+        if (sharedpref.getUser()) {
+            findViewById(R.id.loginCompany).setVisibility(View.GONE);
+            findViewById(R.id.signInUser).setVisibility(View.VISIBLE);
+            findViewById(R.id.signInUser).setOnClickListener(this);
+        } else {
+            findViewById(R.id.signInUser).setVisibility(View.GONE);
+            findViewById(R.id.loginCompany).setVisibility(View.VISIBLE);
+            findViewById(R.id.signInCompany).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loginCompany();
+                }
+            });
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     @Override
@@ -102,20 +124,21 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+                FirebaseUser user = mAuth.getCurrentUser();
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signInWithCredential:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
                     final String uid = user.getUid();
                     final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
                     rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                //Non c'è bisogno di creare una nuova classe Client
+                            newUser = new Client();
+                            if (dataSnapshot.exists()) {
+                                newUser = dataSnapshot.getValue(Client.class);
                             } else {
-                                newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
-                                newClient.setUid(uid);
-                                rootRef.setValue(newClient);
+                                newUser = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
+                                newUser.setUid(uid);
+                                rootRef.setValue(newUser);
                             }
                         }
 
@@ -124,11 +147,10 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
 
                         }
                     });
-                    updateUI(user);
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
-                    updateUI(null);
                 }
+                updateUI(user);
                 }
             });
     }
@@ -136,6 +158,24 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void loginCompany() {
+        final String email = editTextEmail.getText().toString();
+        final String password = editTextPassword.getText().toString();
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (task.isSuccessful()) {
+                } else {
+                    Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
+                }
+                updateUI(user);
+                }
+            });
+
     }
 
     /* Utile perchè forse rimuove proprio dal database l'utente
@@ -153,14 +193,11 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             //Se l'user è loggato
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-            mStatusTextView.setText(user.getEmail());
-            mDetailTextView.setText(user.getUid());
-            View headerLayout = MainActivity.navigationView.getHeaderView(0);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername =  headerLayout.findViewById(R.id.textView);
             navUsername.setText(user.getEmail());
             Intent resultIntent = new Intent();
@@ -169,9 +206,6 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
             finish();
         } else {
             //Se non è loggato
-            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-            mStatusTextView.setText("Non sei loggato");
-            mDetailTextView.setText(null);
             Intent resultIntent = new Intent();
             setResult(Activity.RESULT_OK, resultIntent);
         }
@@ -179,13 +213,8 @@ public class LoginUserActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.signInButton)
+        if (v.getId() == R.id.signInUser)
             signIn();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
-    }
 }

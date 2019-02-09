@@ -25,7 +25,6 @@ public class SharedPref {
         return state;
     }
 
-    //caricamento stato tema notturno
     public void setUser(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
         editor.putBoolean("User", state);
@@ -36,4 +35,5 @@ public class SharedPref {
         Boolean state = MySharedPref.getBoolean("User", false);
         return state;
     }
+
 }

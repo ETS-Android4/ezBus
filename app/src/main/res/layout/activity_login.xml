@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ezbus.authentication.LoginActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundcolor"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:paddingBottom="0dp">
+
+            <LinearLayout
+                android:id="@+id/loginCompany"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/backgroundcolor"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/emailCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Email"
+                    android:textColorHint="?attr/textColorHint"
+                    android:textColor="?attr/textcolor" />
+
+                <EditText
+                    android:id="@+id/passwordCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Password"
+                    android:textColorHint="?attr/textColorHint"
+                    android:textColor="?attr/textcolor"
+                    android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/signInCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Entra" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            tools:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

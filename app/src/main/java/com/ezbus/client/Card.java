@@ -9,6 +9,8 @@ class Card extends Item {
     private int validity;
 
 
+    public Card() {}
+
     public Card(String start, String destination, double price, Date date, int validity) {
         this.id = generateId();
         this.price = price;

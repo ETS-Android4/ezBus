@@ -15,10 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/App.Green">
         <activity
-            android:name=".authentication.LoginCompanyActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Login" />
-        <activity
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/App.Green.NoActionBar" />
@@ -39,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".authentication.LoginUserActivity"
+            android:name=".authentication.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Login" />
         <activity

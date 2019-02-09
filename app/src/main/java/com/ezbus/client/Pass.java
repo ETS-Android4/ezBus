@@ -8,6 +8,8 @@ public class Pass extends Item {
     private String city;
 
 
+    public Pass() {}
+
     public Pass(int type, String city, double price, Date date) {
         super.id = generateId();
         super.price = price;

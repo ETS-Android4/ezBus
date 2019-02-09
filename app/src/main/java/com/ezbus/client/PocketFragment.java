@@ -70,7 +70,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
+        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
             text.setText("Devi fare il login");
         } else {
             text.setText("Ecco il tuo portafoglio");

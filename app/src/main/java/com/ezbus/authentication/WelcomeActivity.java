@@ -23,16 +23,16 @@ public class WelcomeActivity extends AppCompatActivity {
         setAnswer("Empty");
         if (getIntent().getBooleanExtra("EXIT", false)) finish();
 
-        company = findViewById(R.id.scelta1);
-        client = findViewById(R.id.scelta2);
-        company.setOnClickListener(new View.OnClickListener() {
+        client = findViewById(R.id.client);
+        company = findViewById(R.id.company);
+        client.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAnswer("Client");
                 startNewActivity(MainActivity.class);
             }
         });
-        client.setOnClickListener(new View.OnClickListener() {
+        company.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAnswer("Company");
@@ -52,4 +52,5 @@ public class WelcomeActivity extends AppCompatActivity {
         editor.putString("Scelta", theAnswer);
         editor.commit();
     }
+
 }

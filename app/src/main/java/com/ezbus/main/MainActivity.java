@@ -21,8 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ezbus.R;
-import com.ezbus.authentication.LoginCompanyActivity;
-import com.ezbus.authentication.LoginUserActivity;
+import com.ezbus.authentication.LoginActivity;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.authentication.RegisterActivity;
 import com.ezbus.authentication.WelcomeActivity;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
-
         if (sharedpref.loadNightModeState())
             setTheme(R.style.NoApp_Dark);
         else setTheme(R.style.NoApp_Green);
@@ -85,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 sharedpref.setUser(false); //Company
             }
+
             mapFragment = new MapFragment();
             pocketFragment = new PocketFragment();
             buyFragment = new BuyFragment();
@@ -110,17 +109,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .requestIdToken(getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
-            LoginUserActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
             if (sharedpref.getUser()) {
-                if (LoginUserActivity.mAuth.getInstance().getCurrentUser() == null) {
+                if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
                     navUsername.setText("Ospite");
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                 } else {
-                    navUsername.setText(LoginUserActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                    navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
             else {
-                if (LoginCompanyActivity.mAuth.getInstance().getCurrentUser() == null) {
+                if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
                     navUsername.setText("Ospite");
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 } else {
-                    navUsername.setText(LoginCompanyActivity.mAuth.getInstance().getCurrentUser().getEmail());
+                    navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
@@ -160,8 +159,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setFragment(1);
                     return true;
                 case R.id.tab2:
-                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        startNewActivity(LoginUserActivity.class);
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        startNewActivity(LoginActivity.class);
                         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
                         return false;
                     } else {
@@ -169,24 +168,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
                     }
                 case R.id.tab3:
-                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        startNewActivity(LoginUserActivity.class);
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        startNewActivity(LoginActivity.class);
                         return false;
                     } else {
                         setFragment(3);
                         return true;
                     }
                 case R.id.tab4:
-                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        startNewActivity(LoginCompanyActivity.class);
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        startNewActivity(LoginActivity.class);
                         return false;
                     } else {
                         setFragment(4);
                         return true;
                     }
                 case R.id.tab5:
-                    if (LoginUserActivity.mAuth.getInstance().getCurrentUser()==null) {
-                        startNewActivity(LoginCompanyActivity.class);
+                    if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
+                        startNewActivity(LoginActivity.class);
                         return false;
                     } else {
                         setFragment(5);
@@ -302,9 +301,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_login:
                 if (getAnswer().equals("Client"))
-                    startNewActivity(LoginUserActivity.class);
+                    startNewActivity(LoginActivity.class);
                 else if (getAnswer().equals("Company"))
-                    startNewActivity(LoginCompanyActivity.class);
+                    startNewActivity(LoginActivity.class);
                 break;
             case R.id.nav_logout:
                 signOut("Vuoi davvero uscire?", MainActivity.class);
@@ -330,17 +329,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         logout.setMessage(message).setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //Se l'utente accetta di uscire
-                LoginUserActivity.mAuth.getInstance().signOut();
-                LoginUserActivity.mGoogleSignInClient.signOut();
+                LoginActivity.mAuth.getInstance().signOut();
+                LoginActivity.mGoogleSignInClient.signOut();
                 startNewActivity(act);
                 finish();
             }
         })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //Se l'utente annulla l'operazione
-                    }
-                });
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //Se l'utente annulla l'operazione
+            }
+        });
         logout.show();
     }
 

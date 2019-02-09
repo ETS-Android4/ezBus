@@ -21,12 +21,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sharedpref = new SharedPref(this);
-
         if (sharedpref.loadNightModeState()==true)
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         ActionBar actionBar = getSupportActionBar();

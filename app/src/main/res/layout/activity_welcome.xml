@@ -7,7 +7,7 @@
     tools:context="com.ezbus.authentication.WelcomeActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -17,14 +17,14 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <Button
-        android:id="@+id/scelta1"
+        android:id="@+id/client"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Entra come utente" />
 
     <Button
-        android:id="@+id/scelta2"
+        android:id="@+id/company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Entra come azienda" />

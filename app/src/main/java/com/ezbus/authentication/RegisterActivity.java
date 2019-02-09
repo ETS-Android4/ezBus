@@ -35,12 +35,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         this.sharedpref = new SharedPref(this);
-
-        if(sharedpref.loadNightModeState()==true)
+        if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         this.editTextCompany = findViewById(R.id.editTextCompany);
@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //Creazione nuova azienda
         newCompany = new Company(company, iva, username, email);
-        LoginCompanyActivity.mAuth.createUserWithEmailAndPassword(email, password)
+        LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

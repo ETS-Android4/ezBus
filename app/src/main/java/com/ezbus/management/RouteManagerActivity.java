@@ -12,10 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.ezbus.R;
-import com.ezbus.authentication.LoginCompanyActivity;
-import com.ezbus.tracking.Position;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.ezbus.authentication.LoginActivity;
+import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,12 +27,19 @@ public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(this);
+        if (sharedpref.loadNightModeState())
+            setTheme(R.style.App_Dark);
+        else setTheme(R.style.App_Green);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_manager);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -74,7 +79,7 @@ public class RouteManagerActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
                 for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginCompanyActivity.mAuth.getCurrentUser().getUid())) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Route r = child.getValue(Route.class);
                         mAdapter.add(r.getName());
                     }
@@ -85,6 +90,7 @@ public class RouteManagerActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });}
+        });
+    }
 
 }
