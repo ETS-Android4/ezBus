@@ -13,6 +13,9 @@ public class Route {
     private String idEndStop;
     private List<Track> tracks;
 
+    public Route() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     public Route(String name, String companyId, String idStartStop, String idEndStop) {
         this.name = name;

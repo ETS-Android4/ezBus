@@ -8,18 +8,16 @@ import java.util.UUID;
 public class Stop {
 
     private Position position;
-    private String time;
     private String name;
     private String id;
     private String companyId;
     private double km;
 
 
-    public Stop(String name, Position position, String time, String companyId) {
+    public Stop(String name, Position position, String companyId) {
         this.position = position;
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
-        this.time = time;
         this.name = name;
     }
 
@@ -29,10 +27,6 @@ public class Stop {
 
     public String getName() {
         return name;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     public String getId() {

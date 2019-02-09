@@ -19,40 +19,16 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/addRoute"
+            android:id="@+id/routeManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aggiungi Nuova Tratta" />
+            android:text="Gestione Tratte" />
 
         <Button
-            android:id="@+id/editRoute"
+            android:id="@+id/passManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modifica Tratte" />
-
-        <Button
-            android:id="@+id/viewRoute"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Vedi Tratte" />
-
-        <Button
-            android:id="@+id/addPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Aggiungi Abbonamento" />
-
-        <Button
-            android:id="@+id/editPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Modifica Abbonamento" />
-
-        <Button
-            android:id="@+id/viewPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Visualizza Abbonamenti" />
+            android:text="Gestione Abbonamenti" />
 
 
     </LinearLayout>

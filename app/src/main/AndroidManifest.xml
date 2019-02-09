@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".authentication.LoginCompanyActivity"
+        <activity
+            android:name=".authentication.LoginCompanyActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Login"/>
+            android:label="Login" />
         <activity
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
@@ -33,6 +34,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,7 +53,11 @@
         <activity
             android:name=".main.SettingsActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Impostazioni"/>
+            android:label="Impostazioni" />
+        <activity
+            android:name=".management.RouteManagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Gestione Tratte" />
         <activity
             android:name=".management.AddRouteActivity"
             android:configChanges="orientation|screenSize"

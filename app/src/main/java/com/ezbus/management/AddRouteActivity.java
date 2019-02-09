@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import com.ezbus.R;
 import com.ezbus.authentication.LoginCompanyActivity;
 import com.ezbus.tracking.Position;
@@ -16,27 +17,25 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddRouteActivity extends AppCompatActivity {
 
-    private Button saveRoute;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_route_add);
+        setContentView(R.layout.activity_add_route);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        saveRoute = findViewById(R.id.saveRoute);
+        Button saveRoute = findViewById(R.id.saveRoute);
         saveRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String companyId = LoginCompanyActivity.mAuth.getUid();
-                Stop start = new Stop("Capolinea", new Position(43.1488538,13.0990438), "10:30", companyId);
-                Stop dest = new Stop("Farmacia", new Position(43.1763307,13.069168), "12:30", companyId);
+                Stop start = new Stop("Capolinea", new Position(43.1488538,13.0990438), companyId);
+                Stop dest = new Stop("Farmacia", new Position(43.1763307,13.069168), companyId);
                 addStop(start);
                 addStop(dest);
-                Track track = new Track("Prova Corsa");
-                Stop s  = new Stop("Fermata Intermedia", new Position(43.1503307,13.082168), "11:00", companyId);
+                Track track = new Track("Corsa 1", "16:00");
+                Stop s  = new Stop("Fermata Intermedia", new Position(43.1503307,13.082168), companyId);
                 addStop(s);
                 track.addStop(s);
                 addTrack(track);
