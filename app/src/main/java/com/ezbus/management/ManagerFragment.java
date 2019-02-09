@@ -13,6 +13,7 @@ import com.ezbus.R;
 public class ManagerFragment extends Fragment {
 
 
+
     public ManagerFragment() {
         //Required empty public constructor
     }
@@ -28,6 +29,15 @@ public class ManagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), RouteManagerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button_2  = (Button) rootView.findViewById(R.id.passManager);
+        button_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PassManagerActivity.class);
                 startActivity(intent);
             }
         });

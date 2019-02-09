@@ -58,6 +58,10 @@
             android:name=".management.AddRouteActivity"
             android:configChanges="orientation|screenSize"
             android:label="Aggiungi Tratta" />
+        <activity
+            android:name=".management.PassManagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Gestione Abbonamenti" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
