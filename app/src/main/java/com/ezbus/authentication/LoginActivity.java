@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = findViewById(R.id.emailCompany);
         editTextPassword = findViewById(R.id.passwordCompany);
 
-        if (sharedpref.getUser()) {
+        if (sharedpref.isClient()) {
             findViewById(R.id.loginCompany).setVisibility(View.GONE);
             findViewById(R.id.signInUser).setVisibility(View.VISIBLE);
             findViewById(R.id.signInUser).setOnClickListener(this);
@@ -135,10 +135,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             newUser = new Client();
                             if (dataSnapshot.exists()) {
                                 newUser = dataSnapshot.getValue(Client.class);
+                                //ProfileActivity.setUser(newUser);
                             } else {
                                 newUser = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
                                 newUser.setUid(uid);
                                 rootRef.setValue(newUser);
+                                //ProfileActivity.setUser(newUser);
                             }
                         }
 

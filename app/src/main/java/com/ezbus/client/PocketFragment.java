@@ -39,7 +39,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(firstViewPager);
         setupViewPager(firstViewPager);
-        /*Client client = ProfileActivity.getUser();
+        /*Client client = ProfileActivity.isClient();
         if (client.getMyPocket() != null) {
             myPocket = client.getMyPocket();
         }*/

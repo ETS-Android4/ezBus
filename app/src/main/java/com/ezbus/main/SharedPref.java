@@ -25,15 +25,20 @@ public class SharedPref {
         return state;
     }
 
-    public void setUser(Boolean state) {
+    public void setClient(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
-        editor.putBoolean("User", state);
+        editor.putBoolean("Client", state);
         editor.commit();
     }
 
-    public Boolean getUser() {
-        Boolean state = MySharedPref.getBoolean("User", false);
+    public Boolean isClient() {
+        Boolean state = MySharedPref.getBoolean("Client", false);
         return state;
+    }
+
+    public String getQuery() {
+        if (isClient()) return "clients";
+        else return "companies";
     }
 
 }

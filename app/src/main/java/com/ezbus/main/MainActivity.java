@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mMainNav.getMenu().removeItem(R.id.tab4);
                 mMainNav.getMenu().removeItem(R.id.tab5);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                sharedpref.setUser(true); //Client
+                sharedpref.setClient(true); //Client
             } else if (getAnswer().equals("Company")) {
                 mMainNav.getMenu().removeItem(R.id.tab2);
                 mMainNav.getMenu().removeItem(R.id.tab3);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-                sharedpref.setUser(false); //Company
+                sharedpref.setClient(false); //Company
             }
 
             mapFragment = new MapFragment();
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .build();
             LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-            if (sharedpref.getUser()) {
+            if (sharedpref.isClient()) {
                 if (LoginActivity.mAuth.getInstance().getCurrentUser() == null) {
                     navUsername.setText("Ospite");
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
@@ -300,10 +300,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startNewActivity(ProfileActivity.class);
                 break;
             case R.id.nav_login:
-                if (getAnswer().equals("Client"))
-                    startNewActivity(LoginActivity.class);
-                else if (getAnswer().equals("Company"))
-                    startNewActivity(LoginActivity.class);
+                startNewActivity(LoginActivity.class);
                 break;
             case R.id.nav_logout:
                 signOut("Vuoi davvero uscire?", MainActivity.class);

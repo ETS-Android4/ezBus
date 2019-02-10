@@ -75,8 +75,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                 //Se avvenuta con successo
-                if (task.isSuccessful()){
-                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
+                if (task.isSuccessful()) {
+                    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -85,8 +86,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                             MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                             MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                            newCompany.setUid(currentUser.getUid());
+                            FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
                             //ProfileActivity.setUser(newCompany);
-                            addCompany(newCompany);
                             Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
                             finish();
                         }
@@ -151,4 +153,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         finish();
         return true;
     }
+
 }
