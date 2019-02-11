@@ -65,12 +65,18 @@ public class AddPassActivity extends AppCompatActivity {
         savePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String companyId = LoginActivity.mAuth.getUid();
-
-                addPass(new Pass(companyId, namePass.getText().toString(), nameCity.getText().toString(), nameType.getText().toString(),
-                        Double.parseDouble(pricePass.getText().toString())));
-                finish();
+                if (!TextUtils.isEmpty(namePass.getText().toString().trim()) &&
+                        !TextUtils.isEmpty(nameCity.getText().toString().trim()) &&
+                        !TextUtils.isEmpty(nameType.getText().toString().trim()) &&
+                        !TextUtils.isEmpty(pricePass.getText().toString().trim())) {
+                    addPass(new Pass(companyId, namePass.getText().toString().trim(), nameCity.getText().toString().trim(),
+                            nameType.getText().toString().trim(), Double.parseDouble(pricePass.getText().toString().trim())));
+                    finish();
+                }
+                else {
+                    Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

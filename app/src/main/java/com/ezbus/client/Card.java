@@ -1,6 +1,7 @@
 package com.ezbus.client;
 
 import java.util.Date;
+import java.util.UUID;
 
 class Card extends Item {
 
@@ -12,7 +13,7 @@ class Card extends Item {
     public Card() {}
 
     public Card(String start, String destination, double price, Date date, int validity) {
-        this.id = generateId();
+        this.id = UUID.randomUUID().toString();
         this.price = price;
         this.expiration = date;
         this.start = start;

@@ -11,14 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/gestioneAbbonamenti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gestione Abbonamenti"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
         <ListView
             android:id="@+id/list_pass"
             android:layout_width="match_parent"
@@ -30,6 +22,6 @@
             android:id="@+id/addPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CREA ABBONAMENTO" />
+            android:text="Aggiungi abbonamento" />
     </LinearLayout>
 </RelativeLayout>

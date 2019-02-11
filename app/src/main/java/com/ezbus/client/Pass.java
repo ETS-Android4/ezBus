@@ -7,27 +7,24 @@ import java.util.UUID;
 public class Pass extends Item {
 
     private String name;
-    private String companyId;
-    private String type;
     private String city;
-    private double price;
-    private String id;
+    private String type;
+
+    public Pass() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 
-
-    public Pass(String companyId, String name, String city, String type, double price /*Date date*/) {
-        this.name = name;
+    public Pass(String companyId, String name, String city, String type, double price) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
-        this.price = price;
-        //super.expiration = date;
-        this.type = type;
+        this.name = name;
         this.city = city;
+        this.type = type;
+        this.price = price;
     }
 
     public String getName() { return name; }
-
-    public String getCompanyId() { return companyId;}
 
     public String getType() {
         return type;

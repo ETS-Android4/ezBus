@@ -78,10 +78,12 @@ public class ProfileActivity extends AppCompatActivity {
             search.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (type.equals("clients"))
+                    if (type.equals("clients")) {
                         setClient(dataSnapshot.getValue(Client.class));
-                    else if (type.equals("companies"))
+                    }
+                    else if (type.equals("companies")) {
                         setClient(dataSnapshot.getValue(Company.class));
+                    }
                     setDataToView();
                 }
 
