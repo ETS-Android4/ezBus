@@ -13,6 +13,10 @@ public class Position {
         this.coordY = coordY;
     }
 
+    public Position() {
+
+    }
+
     public double getCoordX() {
         return coordX;
     }
