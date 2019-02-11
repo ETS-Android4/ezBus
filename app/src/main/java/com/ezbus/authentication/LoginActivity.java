@@ -118,8 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         final GoogleSignInAccount account = acct;
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -135,12 +135,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             newUser = new Client();
                             if (dataSnapshot.exists()) {
                                 newUser = dataSnapshot.getValue(Client.class);
-                                //ProfileActivity.setUser(newUser);
+                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery(),LoginActivity.this);
                             } else {
                                 newUser = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
                                 newUser.setUid(uid);
                                 rootRef.setValue(newUser);
-                                //ProfileActivity.setUser(newUser);
+                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery(),LoginActivity.this);
                             }
                         }
 
@@ -163,20 +163,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginCompany() {
-        final String email = editTextEmail.getText().toString();
-        final String password = editTextPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (task.isSuccessful()) {
-                } else {
-                    Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
-                }
-                updateUI(user);
-                }
-            });
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (!email.equals("") && !password.equals("")) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if (task.isSuccessful()) {
+                        ProfileActivity.setUser(currentUser, sharedpref.getQuery(), LoginActivity.this);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
+                    }
+                    updateUI(currentUser);
+                    }
+                });
+        }
 
     }
 

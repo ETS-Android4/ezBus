@@ -11,10 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ezbus.R;
-import com.ezbus.authentication.Client;
-import com.ezbus.authentication.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,10 +36,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(firstViewPager);
         setupViewPager(firstViewPager);
-        /*Client client = ProfileActivity.isClient();
-        if (client.getMyPocket() != null) {
-            myPocket = client.getMyPocket();
-        }*/
 
         return view;
     }
@@ -70,11 +63,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (LoginActivity.mAuth.getInstance().getCurrentUser()==null) {
-            text.setText("Devi fare il login");
-        } else {
-            text.setText("Ecco il tuo portafoglio");
-        }*/
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -123,7 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions fermata = new MarkerOptions()
                             .position(cod)
-                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
                             .title(name);
                     fermata.anchor(0.5f, 0.5f);
                     mMap.addMarker(fermata);
@@ -137,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions bus = new MarkerOptions()
                             .position(cod)
-                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
+                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
                             .title(name);
                     bus.anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
@@ -151,8 +151,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         });
     }
 
+    //Da problemi quando si modificano i dati nel Database (probabile che il bug sia di getContext()
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
+        Drawable background = ContextCompat.getDrawable(getContext(), R.drawable.ic_backgroundmap);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -189,7 +190,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private void moveCamera(LatLng latLng, float zoom, String title){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        if(!title.equals("My Location")){
+        if (!title.equals("My Location")) {
             /*MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
@@ -202,7 +203,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(getActivity(),
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(getActivity(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){

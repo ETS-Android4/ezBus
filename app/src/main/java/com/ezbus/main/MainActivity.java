@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else {
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
+            ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery(), MainActivity.this);
 
             mToolBar = findViewById(R.id.action_bar);
             setSupportActionBar(mToolBar);

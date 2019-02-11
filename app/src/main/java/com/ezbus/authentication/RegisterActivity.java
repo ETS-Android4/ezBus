@@ -1,5 +1,7 @@
 package com.ezbus.authentication;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezbus.main.MainActivity;
@@ -21,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static com.ezbus.main.MainActivity.navigationView;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -82,19 +87,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                            MainActivity.navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
                             newCompany.setUid(currentUser.getUid());
                             FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
-                            //ProfileActivity.setUser(newCompany);
                             Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
                             finish();
                         }
                         else {
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
+                        updateUI(currentUser);
                         }
 
                     });
@@ -106,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean checkData(String company, String iva, String username, String email, String password) {
-        if(TextUtils.isEmpty(company)){
+        if (TextUtils.isEmpty(company)) {
             Toast.makeText(this,"Il campo Nome Azienda deve essere compilato!",Toast.LENGTH_LONG).show();
             return false;
         } else if(TextUtils.isEmpty(iva)){
@@ -140,6 +141,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String uid = user.getUid();
             c.setUid(uid);
             rootRef.child("companies").child(uid).setValue(c);
+        }
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            //Se l'user è loggato
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            View headerLayout = navigationView.getHeaderView(0);
+            TextView navUsername =  headerLayout.findViewById(R.id.textView);
+            navUsername.setText(user.getEmail());
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("User", user.getUid());
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        } else {
+            //Se non è loggato
+            Intent resultIntent = new Intent();
+            setResult(Activity.RESULT_OK, resultIntent);
         }
     }
 

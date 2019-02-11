@@ -12,6 +12,8 @@ public class Company extends User {
     private List<Route> routes;
 
 
+    public Company() { }
+
     public Company(String name, String iva, String username, String email) {
         this.name = name;
         this.email = email;

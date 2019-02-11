@@ -36,4 +36,5 @@ public class Stop {
     public String getCompanyId() {
         return companyId;
     }
+
 }
