@@ -165,9 +165,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View view) {
-        registerUser();
+        startNewActivity(PrivacyActivity.class);
     }
 
     @Override
