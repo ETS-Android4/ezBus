@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ezbus">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,6 +20,11 @@
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/App.Green.NoActionBar" />
+        <activity
+            android:name=".authentication.PrivacyActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/App.Green.NoActionBar"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".authentication.ProfileActivity"
             android:configChanges="orientation|screenSize"
