@@ -1,13 +1,19 @@
 package com.ezbus.management;
 
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
@@ -16,18 +22,22 @@ import com.ezbus.main.SharedPref;
 import com.ezbus.tracking.Position;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class AddPassActivity extends AppCompatActivity {
 
     SharedPref sharedpref;
-    EditText NameCompany;
-    EditText NamePass;
-    EditText NameCity;
-    EditText NameType;
-    EditText PricePass;
     private Pass newPass;
+    private ArrayAdapter mAdapter;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -45,49 +55,44 @@ public class AddPassActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        this.NameCompany = findViewById(R.id.editText_nameCompany);
-        this.NamePass = findViewById(R.id.editText_namePass);
-        this.NameCity = findViewById(R.id.editText_nameCity);
-        this.NameType = findViewById(R.id.editText_typePass);
-        this.PricePass = findViewById(R.id.editText_pricePass);
-        Button savePass = findViewById(R.id.save_pass);
 
+
+        Button savePass = findViewById(R.id.save_pass);
         savePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 String companyId = LoginActivity.mAuth.getUid();
-                Pass pass = new Pass("coneroBus", "Loreto_urbano", "urbano", "Loreto", "78,00");
-                addPass(pass);
+                final EditText namePass = findViewById(R.id.editText_namePass);
+                final EditText nameCity = findViewById(R.id.editText_nameCity);
+                final EditText nameType = findViewById(R.id.editText_typePass);
+                final EditText pricePass = findViewById(R.id.editText_pricePass);
+
+
+                addPass(new Pass(companyId, namePass, nameCity, nameType, pricePass));
                 finish();
+
+
 
             }
         });
+
     }
 
-    /*private void inputPass() {
-
-        String companyId = LoginActivity.mAuth.getUid();
-
-        String namecompany = NameCompany.getText().toString().trim();
-        String namepass = NamePass.getText().toString().trim();
-        String nametype = NameType.getText().toString().trim();
-        String namecity = NameCity.getText().toString().trim();
-        String pricepass = PricePass.getText().toString().trim();
-
-        newPass = new Pass(namecompany, namepass, nametype, namecity, pricepass);
-
-    }*/
 
     private void addPass(Pass p) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            String uid = user.getUid();
+            String uid = p.getCompanyId();
             rootRef.child("pass").child(uid).setValue(p);
         }
     }
+
+
+
+
         @Override
         public void onConfigurationChanged(Configuration newConfig) {
             super.onConfigurationChanged(newConfig);
@@ -99,6 +104,12 @@ public class AddPassActivity extends AppCompatActivity {
             return true;
         }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
+
+
+}
 

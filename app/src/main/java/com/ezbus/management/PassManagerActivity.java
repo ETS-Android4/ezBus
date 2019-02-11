@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
@@ -45,10 +47,16 @@ public class PassManagerActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ListView listPass = findViewById(R.id.list_pass);
+        final ListView listPass = findViewById(R.id.list_pass);
         List<String> initialList = new ArrayList<String>();
         mAdapter = new ArrayAdapter(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
+        listPass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(PassManagerActivity.this, listPass.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         aggiornaDati();
 

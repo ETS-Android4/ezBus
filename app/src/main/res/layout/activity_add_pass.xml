@@ -11,15 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_nameCompany"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Nome Azienda"
-            android:textColorHint="?attr/textColorHint"
-            android:textColor="?attr/textcolor"
-            android:inputType="text" />
+
         <EditText
             android:id="@+id/editText_namePass"
             android:layout_width="match_parent"
