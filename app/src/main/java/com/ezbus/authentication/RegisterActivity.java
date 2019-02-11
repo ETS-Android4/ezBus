@@ -2,6 +2,7 @@ package com.ezbus.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import static com.ezbus.main.MainActivity.navigationView;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextUsername;
     private EditText editTextPassword;
+    private CheckBox check1;
+    public TextView privacy;
     private Company newCompany;
     SharedPref sharedpref;
 
@@ -56,6 +63,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         Button signUpButton = findViewById(R.id.buttonSignup);
         signUpButton.setOnClickListener(this);
+
+        this.check1 = findViewById(R.id.check1);
+        this.privacy =findViewById(R.id.privacy);
+
+        Button privacyButton = findViewById(R.id.privacybutton);
+            privacyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startNewActivity(PrivacyActivity.class);
+                }
+        });
+
     }
 
     @Override
@@ -64,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser() {
+
         //Parametri di Input
         String company = editTextCompany.getText().toString().trim();
         String iva = editTextIVA.getText().toString().trim();
@@ -129,6 +149,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "La password deve essere composta da almeno 8 caratteri", Toast.LENGTH_LONG).show();
             return false;
         }
+        else if(!(check1.isChecked())){
+            Toast.makeText(this, "Devi accettare i termini e le condizioni della Privacy.", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }
@@ -172,13 +196,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        startNewActivity(PrivacyActivity.class);
-    }
+            registerUser();
+        }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
+    }
+
+
+    public void setAnswer(String theAnswer) {
+        SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
+        editor.putString("Scelta", theAnswer);
+        editor.commit();
+    }
+    public String getAnswer() {
+        SharedPreferences sp = getSharedPreferences("pref",0);
+        return sp.getString("Scelta","Empty");
     }
 
 }

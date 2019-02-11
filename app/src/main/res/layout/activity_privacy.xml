@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Termini e condizioni sulla Privacy"
+        android:text="Prima di completare la registrazione,  "
         android:textSize="30dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -49,21 +49,8 @@
             tools:layout_editor_absoluteY="0dp" />
 
 
-        <CheckBox
-            android:id="@+id/check1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:text="Ho letto e accettato i termini e le condizioni sulla Privacy."
-            android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/button01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textColor="?attr/textcolor"
-        android:text="Registrati" />
+
 
     </LinearLayout>
     </ScrollView>

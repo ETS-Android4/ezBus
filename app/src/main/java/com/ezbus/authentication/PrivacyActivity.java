@@ -20,8 +20,7 @@ import com.ezbus.main.MainActivity;
 
 public class PrivacyActivity extends AppCompatActivity {
 
-    public CheckBox check1;
-    public Button button01;
+
     public String text;
     public TextView privacy;
     public TextView txtPrivacy;
@@ -31,8 +30,6 @@ public class PrivacyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
 
-        this.button01 = findViewById(R.id.button01);
-        this.check1 = findViewById(R.id.check1);
         this.txtPrivacy = findViewById(R.id.txtPrivacy);
         this.privacy = findViewById(R.id.privacy);
 
@@ -56,15 +53,6 @@ public class PrivacyActivity extends AppCompatActivity {
         }
 
 
-
-
-    private void startNewActivity(Class act) {
-        Intent intent = new Intent(this, act);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
-
     public void onClick(View view) {
         finish();
 
@@ -77,7 +65,7 @@ public class PrivacyActivity extends AppCompatActivity {
     //Se viene premuto il pulsante Indietro di sistema
     @Override
     public void onBackPressed() {
-        startNewActivity(RegisterActivity.class);
+        finish();
     }
 
 }
