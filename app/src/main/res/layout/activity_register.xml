@@ -80,13 +80,14 @@
                 android:id="@+id/privacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
                 android:text="Prima di completare la registrazione, assicurati di aver letto e accettato i termini e le condizioni per la Privacy."
                 android:textSize="10dp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
+
             <Button
                 android:id="@+id/privacybutton"
                 android:layout_width="wrap_content"
