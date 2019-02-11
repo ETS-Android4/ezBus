@@ -15,7 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".management.AddPassActivity"></activity>
+        <activity
+            android:name=".management.AddStopActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Aggiungi Fermata"
+            />
+        <activity android:name=".management.AddPassActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Aggiungi Abbonamento"
+            />
         <activity
             android:name=".authentication.WelcomeActivity"
             android:configChanges="orientation|screenSize"
