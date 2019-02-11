@@ -4,21 +4,29 @@ import java.util.Date;
 
 public class Pass extends Item {
 
-    private int type;
+    private String name;
+    private String companyId;
+    private String type;
     private String city;
+    private String price;
 
 
-    public Pass() {}
 
-    public Pass(int type, String city, double price, Date date) {
+    public Pass(String companyId, String name, String type, String city, String price /*Date date*/) {
+        this.name = name;
         super.id = generateId();
-        super.price = price;
-        super.expiration = date;
+        this.companyId = companyId;
+        this.price = price;
+        //super.expiration = date;
         this.type = type;
         this.city = city;
     }
 
-    public int getType() {
+    public String getName() { return name; }
+
+    public String getCompanyId() { return companyId;}
+
+    public String getType() {
         return type;
     }
 

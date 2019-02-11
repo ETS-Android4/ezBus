@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".management.AddPassActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_nameCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Nome Azienda"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textcolor"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/editText_namePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Nome Abbonamento"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textcolor"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/editText_nameCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Città"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textcolor"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editText_typePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Tipologia"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textcolor"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editText_pricePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Prezzo"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textcolor"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/save_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salva Abbonamento" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
