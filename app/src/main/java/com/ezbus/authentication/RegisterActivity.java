@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ezbus.main.MainActivity;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,11 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static com.ezbus.main.MainActivity.navigationView;
 
@@ -65,16 +60,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         signUpButton.setOnClickListener(this);
 
         this.check1 = findViewById(R.id.check1);
-        this.privacy =findViewById(R.id.privacy);
+        this.privacy = findViewById(R.id.privacy);
 
         Button privacyButton = findViewById(R.id.privacybutton);
-            privacyButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startNewActivity(PrivacyActivity.class);
-                }
+        privacyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(PrivacyActivity.class);
+            }
         });
-
     }
 
     @Override
@@ -83,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser() {
-
         //Parametri di Input
         String company = editTextCompany.getText().toString().trim();
         String iva = editTextIVA.getText().toString().trim();
@@ -100,28 +93,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                 //Se avvenuta con successo
-                if (task.isSuccessful()) {
-                    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    currentUser.sendEmailVerification()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            newCompany.setUid(currentUser.getUid());
-                            FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
-                            Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                        updateUI(currentUser);
-                        }
-
-                    });
-                } else {
-                    Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
-                }
+                    if (task.isSuccessful()) {
+                        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        currentUser.sendEmailVerification()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    newCompany.setUid(currentUser.getUid());
+                                    FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
+                                    ProfileActivity.setUser(currentUser, sharedpref.getQuery(), RegisterActivity.this);
+                                    Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                updateUI(currentUser);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
     }
@@ -148,24 +141,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else if (password.length()<8) {
             Toast.makeText(this, "La password deve essere composta da almeno 8 caratteri", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else if(!(check1.isChecked())){
+        } else if(!check1.isChecked()) {
             Toast.makeText(this, "Devi accettare i termini e le condizioni della Privacy.", Toast.LENGTH_LONG).show();
             return false;
         }
 
         return true;
-    }
-
-    private void addCompany(Company c) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user!=null) {
-            String uid = user.getUid();
-            c.setUid(uid);
-            rootRef.child("companies").child(uid).setValue(c);
-        }
     }
 
     private void updateUI(FirebaseUser user) {
@@ -196,8 +177,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-            registerUser();
-        }
+        registerUser();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,12 +186,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
-
     public void setAnswer(String theAnswer) {
         SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
         editor.putString("Scelta", theAnswer);
         editor.commit();
     }
+
     public String getAnswer() {
         SharedPreferences sp = getSharedPreferences("pref",0);
         return sp.getString("Scelta","Empty");

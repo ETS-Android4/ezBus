@@ -71,10 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
         client = newClient;
     }
 
-    /*public static User getUser() {
-        return user;
-    }*/
-
     public static void setUser(FirebaseUser newUser, final String type, Context context) {
         if (newUser != null) {
             Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());

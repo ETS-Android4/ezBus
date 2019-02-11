@@ -1,22 +1,15 @@
 package com.ezbus.authentication;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import com.ezbus.R;
-import com.ezbus.main.MainActivity;
 
 public class PrivacyActivity extends AppCompatActivity {
 
