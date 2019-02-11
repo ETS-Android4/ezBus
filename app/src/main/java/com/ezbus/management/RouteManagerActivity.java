@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
@@ -44,10 +46,16 @@ public class RouteManagerActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ListView listRoute = findViewById(R.id.list_routes);
+        final ListView listRoute = findViewById(R.id.list_routes);
         List<String> initialList = new ArrayList<String>();
         mAdapter = new ArrayAdapter(this, R.layout.row, R.id.textViewList, initialList);
         listRoute.setAdapter(mAdapter);
+        listRoute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(RouteManagerActivity.this, listRoute.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         aggiornaDati();
 
