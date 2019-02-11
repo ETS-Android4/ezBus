@@ -2,9 +2,11 @@ package com.ezbus.client;
 
 import java.util.Date;
 
+import javax.xml.transform.sax.SAXResult;
+
 class Item implements Buyable {
 
-    protected int id;
+    protected String id;
     protected double price;
     protected Date expiration;
 
@@ -28,7 +30,7 @@ class Item implements Buyable {
     public void addToPocket() {
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 

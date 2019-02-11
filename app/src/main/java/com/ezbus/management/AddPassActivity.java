@@ -56,6 +56,10 @@ public class AddPassActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
 
+        final EditText namePass = findViewById(R.id.editText_namePass);
+        final EditText nameCity = findViewById(R.id.editText_nameCity);
+        final EditText nameType = findViewById(R.id.editText_typePass);
+        final EditText pricePass = findViewById(R.id.editText_pricePass);
 
         Button savePass = findViewById(R.id.save_pass);
         savePass.setOnClickListener(new View.OnClickListener() {
@@ -63,17 +67,10 @@ public class AddPassActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String companyId = LoginActivity.mAuth.getUid();
-                final EditText namePass = findViewById(R.id.editText_namePass);
-                final EditText nameCity = findViewById(R.id.editText_nameCity);
-                final EditText nameType = findViewById(R.id.editText_typePass);
-                final EditText pricePass = findViewById(R.id.editText_pricePass);
 
-
-                addPass(new Pass(companyId, namePass, nameCity, nameType, pricePass));
+                addPass(new Pass(companyId, namePass.getText().toString(), nameCity.getText().toString(), nameType.getText().toString(),
+                        Double.parseDouble(pricePass.getText().toString())));
                 finish();
-
-
-
             }
         });
 
@@ -85,7 +82,7 @@ public class AddPassActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            String uid = p.getCompanyId();
+            String uid = p.getId();
             rootRef.child("pass").child(uid).setValue(p);
         }
     }
