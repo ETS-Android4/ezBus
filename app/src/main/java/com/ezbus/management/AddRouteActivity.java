@@ -1,10 +1,12 @@
 package com.ezbus.management;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,8 @@ public class AddRouteActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private ArrayAdapter mAdapter1;
     private ArrayAdapter mAdapter2;
+    final ArrayList idStop1 = new ArrayList();
+    final ArrayList idStop2 = new ArrayList();
 
 
     @Override
@@ -52,11 +57,20 @@ public class AddRouteActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
+        aggiornaDati();
+
         final EditText routeName = findViewById(R.id.nameRoute);
         final Spinner listStop1 = findViewById(R.id.spinner1);
         final Spinner listStop2 = findViewById(R.id.spinner2);
-        final ArrayList idStop1 = new ArrayList();
-        final ArrayList idStop2 = new ArrayList();
+
+        Button addStop = findViewById(R.id.addStop);
+        addStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddRouteActivity.this, AddStopActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button saveRoute = findViewById(R.id.saveRoute);
         saveRoute.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +88,14 @@ public class AddRouteActivity extends AppCompatActivity {
                 addTrack(track);
                 Route route = new Route("Linea R", companyId, start.getId(), dest.getId());
                 addRoute(route);*/
-                addRoute(new Route(routeName.getText().toString().trim(), companyId, idStop1.get(listStop1.getSelectedItemPosition()).toString(),
-                        idStop2.get(listStop2.getSelectedItemPosition()).toString()));
-                finish();
+                if (!TextUtils.isEmpty(routeName.getText().toString().trim())) {
+                    addRoute(new Route(routeName.getText().toString().trim(), companyId, idStop1.get(listStop1.getSelectedItemPosition()).toString(),
+                            idStop2.get(listStop2.getSelectedItemPosition()).toString()));
+                    finish();
+                }
+                else {
+                    Toast.makeText(AddRouteActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -86,6 +105,21 @@ public class AddRouteActivity extends AppCompatActivity {
         mAdapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, initialList2);
         listStop1.setAdapter(mAdapter1);
         listStop2.setAdapter(mAdapter2);
+    }
+
+    private void addRoute(Route r) {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user!=null) {
+            String uid = r.getId();
+            rootRef.child("routes").child(uid).setValue(r);
+        }
+    }
+
+    private void aggiornaDati() {
+
+
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -97,16 +131,6 @@ public class AddRouteActivity extends AppCompatActivity {
                         idStop1.add(s.getId());
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter2.clear();
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
@@ -124,36 +148,6 @@ public class AddRouteActivity extends AppCompatActivity {
         });
     }
 
-    private void addRoute(Route r) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user!=null) {
-            String uid = r.getId();
-            rootRef.child("routes").child(uid).setValue(r);
-        }
-    }
-
-    private void addStop(Stop s) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user!=null) {
-            String uid = s.getId();
-            rootRef.child("stops").child(uid).setValue(s);
-        }
-    }
-
-    private void addTrack(Track t) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user!=null) {
-            String uid = t.getId();
-            rootRef.child("tracks").child(uid).setValue(t);
-        }
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -163,5 +157,11 @@ public class AddRouteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        aggiornaDati();
     }
 }
