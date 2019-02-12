@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".client.BuyPassActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clicca su uno dei seguenti abbonamenti che si desidera acquistare"
+            android:textColor="?attr/textcolor"
+            android:textSize="18sp" />
+
+        <ListView
+            android:id="@+id/buyable_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
