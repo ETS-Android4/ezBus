@@ -74,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static void setUser(FirebaseUser newUser, final String type, Context context) {
         if (newUser != null) {
             Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());
-            Toast.makeText(context, newUser.getUid(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, newUser.getUid(), Toast.LENGTH_LONG).show();
             search.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

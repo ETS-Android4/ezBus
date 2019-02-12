@@ -11,12 +11,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manager Aziendale"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="Menu per la gestione degli autobus e degli abbonamenti dell'azienda, con la possibilità di aggiungere, modificare o rimuovere elementi"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/routeManager"

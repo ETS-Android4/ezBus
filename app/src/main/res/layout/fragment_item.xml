@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.ezbus.client.ItemFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/item_name"
         android:layout_width="match_parent"

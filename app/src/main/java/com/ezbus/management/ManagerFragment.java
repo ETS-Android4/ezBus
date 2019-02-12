@@ -24,8 +24,8 @@ public class ManagerFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_manager, container, false);
 
-        Button button = (Button) rootView.findViewById(R.id.routeManager);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button1 = rootView.findViewById(R.id.routeManager);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), RouteManagerActivity.class);
@@ -33,8 +33,8 @@ public class ManagerFragment extends Fragment {
             }
         });
 
-        Button button_2  = (Button) rootView.findViewById(R.id.passManager);
-        button_2.setOnClickListener(new View.OnClickListener() {
+        Button button2  = rootView.findViewById(R.id.passManager);
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PassManagerActivity.class);

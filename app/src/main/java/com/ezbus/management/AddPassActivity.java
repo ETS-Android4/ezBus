@@ -79,9 +79,7 @@ public class AddPassActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 
     private void addPass(Pass p) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -93,19 +91,16 @@ public class AddPassActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
-
-
-        @Override
-        public void onConfigurationChanged(Configuration newConfig) {
-            super.onConfigurationChanged(newConfig);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            finish();
-            return true;
-        }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
 
     @Override
     protected void onResume() {

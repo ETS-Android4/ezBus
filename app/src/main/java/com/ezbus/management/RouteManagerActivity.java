@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class RouteManagerActivity extends AppCompatActivity {
     private ArrayAdapter mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     SharedPref sharedpref;
+    final ArrayList idRoute1 = new ArrayList();
 
 
     @Override
@@ -53,7 +55,9 @@ public class RouteManagerActivity extends AppCompatActivity {
         listRoute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(RouteManagerActivity.this, listRoute.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RouteManagerActivity.this, EditRouteActivity.class);
+                intent.putExtra("Route", idRoute1.get(position).toString());
+                startActivity(intent);
             }
         });
 
@@ -90,6 +94,7 @@ public class RouteManagerActivity extends AppCompatActivity {
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Route r = child.getValue(Route.class);
                         mAdapter.add(r.getName());
+                        idRoute1.add(r.getId());
                     }
                 }
             }

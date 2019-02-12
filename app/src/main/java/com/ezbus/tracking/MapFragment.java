@@ -123,7 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions fermata = new MarkerOptions()
                             .position(cod)
-                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            //.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_fermata))
                             .title(name);
                     fermata.anchor(0.5f, 0.5f);
                     mMap.addMarker(fermata);
@@ -137,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions bus = new MarkerOptions()
                             .position(cod)
-                            .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
+                            //.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
                             .title(name);
                     bus.anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
