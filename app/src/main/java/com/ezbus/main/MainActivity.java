@@ -327,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         logout.setMessage(message).setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //Se l'utente accetta di uscire
+                ProfileActivity.resetUser();
                 LoginActivity.mAuth.getInstance().signOut();
                 LoginActivity.mGoogleSignInClient.signOut();
                 startNewActivity(act);

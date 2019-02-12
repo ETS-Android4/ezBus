@@ -40,4 +40,5 @@ public class Position {
     public void setAddress(Address address) {
         this.address = address;
     }
+
 }

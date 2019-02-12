@@ -10,7 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.ezbus.R;
+import com.ezbus.authentication.Client;
+import com.ezbus.authentication.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,13 +27,13 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager firstViewPager;
     private Pocket myPocket;
+    Client currentClient = (Client) ProfileActivity.getUser();
 
 
     public PocketFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
         firstViewPager = view.findViewById(R.id.viewpager);
         tabLayout = view.findViewById(R.id.tabs);
@@ -60,11 +63,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         rootRef.child("clients").child(uid).child("myPocket").setValue(pocket);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
@@ -72,9 +70,9 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        ItemFragment fragTickets = new ItemFragment();
-        ItemFragment fragCards = new ItemFragment();
-        ItemFragment fragPasses = new ItemFragment();
+        ItemFragment fragTickets = new ItemFragment(currentClient.getMyPocket().getMyCards());
+        ItemFragment fragCards = new ItemFragment(currentClient.getMyPocket().getMyCards());
+        ItemFragment fragPasses = new ItemFragment(currentClient.getMyPocket().getMyCards());
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -82,10 +80,10 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
-            setFragments();
             addFragment(fragTickets, "Biglietti");
             addFragment(fragCards, "Tessere");
             addFragment(fragPasses, "Abbonamenti");
+            setFragments();
         }
 
         @Override
@@ -109,9 +107,13 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         }
 
         public void setFragments() {
-            fragTickets.changeText("I tuoi Biglietti!");
-            fragCards.changeText("Le tue Tessere!");
-            fragPasses.changeText("I tuoi Abbonamenti!");
+            //fragTickets.changeText("I tuoi Biglietti!");
+            //fragCards.changeText("Le tue Tessere!");
+            //fragPasses.changeText("I tuoi Abbonamenti!");
+            //Client currentClient = (Client) ProfileActivity.getUser();
+            //fragTickets.updateItem(currentClient.getMyPocket().getMyTickets(), getContext());
+            //fragCards.updateItem(currentClient.getMyPocket().getMyCards(), getContext());
+            //fragPasses.updateItem(currentClient.getMyPocket().getMyPasses(), getContext());
         }
 
     }

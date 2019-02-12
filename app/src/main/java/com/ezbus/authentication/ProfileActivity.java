@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static TextView email;
     private static TextView username;
-    private static User client;
+    private static User user;
     static SharedPref sharedpref;
 
 
@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.Email);
         username = findViewById(R.id.Username);
 
-        if (getClient() == null)
+        if (getUser() == null)
             setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery(), ProfileActivity.this);
         else
             setDataToView();
@@ -52,8 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private static void setDataToView() {
         if (email != null) {
-            email.setText("Email: " + getClient().getEmail());
-            username.setText("Username: " + getClient().getName());
+            email.setText("Email: " + getUser().getEmail());
+            username.setText("Username: " + getUser().getName());
         }
     }
 
@@ -63,12 +63,12 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    public static User getClient() {
-        return client;
+    public static User getUser() {
+        return user;
     }
 
-    public static void setClient(User newClient) {
-        client = newClient;
+    public static void resetUser() {
+        user = null;
     }
 
     public static void setUser(FirebaseUser newUser, final String type, Context context) {
@@ -78,12 +78,10 @@ public class ProfileActivity extends AppCompatActivity {
             search.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (type.equals("clients")) {
-                        setClient(dataSnapshot.getValue(Client.class));
-                    }
-                    else if (type.equals("companies")) {
-                        setClient(dataSnapshot.getValue(Company.class));
-                    }
+                    if (type.equals("clients"))
+                        user = dataSnapshot.getValue(Client.class);
+                    else if (type.equals("companies"))
+                        user = dataSnapshot.getValue(Company.class);
                     setDataToView();
                 }
 

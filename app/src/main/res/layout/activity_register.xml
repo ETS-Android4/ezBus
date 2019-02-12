@@ -76,24 +76,13 @@
                 android:textColor="?attr/textcolor"
                 android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/privacy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="20dp"
-                android:text="Prima di completare la registrazione, assicurati di aver letto e accettato i termini e le condizioni per la Privacy."
-                android:textSize="10dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-
             <Button
                 android:id="@+id/privacybutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginTop="20dp"
                 android:padding="15px"
                 android:text="Termini e Condizioni per la Privacy"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -102,9 +91,19 @@
                 android:id="@+id/check1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="300dp"
+                android:layout_margin="15dp"
                 android:text="Ho letto e accettato i termini e le condizioni sulla Privacy."
                 android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Prima di completare la registrazione, assicurati di aver letto e accettato i termini e le condizioni per la Privacy."
+                android:textSize="10dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
             <Button
                 android:id="@+id/buttonSignup"

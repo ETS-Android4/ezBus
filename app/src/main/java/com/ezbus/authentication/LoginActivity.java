@@ -181,7 +181,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
         }
-
     }
 
     /* Utile perchè forse rimuove proprio dal database l'utente

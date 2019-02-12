@@ -5,18 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.ezbus.client.ItemFragment">
 
-    <TextView
-        android:id="@+id/item_name"
+    <ListView
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:textColor="?attr/textcolor" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Button" />
+        android:layout_marginTop="40dp"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="8dp" />
 
 </FrameLayout>

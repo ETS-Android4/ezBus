@@ -2,14 +2,13 @@ package com.ezbus.client;
 
 import java.util.Date;
 
-import javax.xml.transform.sax.SAXResult;
-
 class Item implements Buyable {
 
     protected String id;
     protected String companyId;
     protected double price;
     protected Date expiration;
+
 
     public void generateQR() {
 
@@ -20,6 +19,7 @@ class Item implements Buyable {
     }
 
     public void addToPocket() {
+
     }
 
     public String getId() {

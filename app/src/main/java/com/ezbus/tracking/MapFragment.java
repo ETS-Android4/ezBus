@@ -121,12 +121,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lon);
                     LatLng cod = new LatLng(latitude, longitude);
-                    MarkerOptions fermata = new MarkerOptions()
+                    MarkerOptions stop = new MarkerOptions()
                             .position(cod)
-                            //.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_fermata))
-                            .title(name);
-                    fermata.anchor(0.5f, 0.5f);
-                    mMap.addMarker(fermata);
+                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            .title(name)
+                            .anchor(0.5f, 0.5f);
+                    mMap.addMarker(stop);
                 }
                 for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
@@ -138,8 +138,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     MarkerOptions bus = new MarkerOptions()
                             .position(cod)
                             //.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
-                            .title(name);
-                    bus.anchor(0.5f, 0.5f);
+                            .title(name)
+                            .anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
                 }
             }

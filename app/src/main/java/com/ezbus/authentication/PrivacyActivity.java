@@ -13,10 +13,10 @@ import com.ezbus.R;
 
 public class PrivacyActivity extends AppCompatActivity {
 
+    private String text;
+    private TextView privacy;
+    private TextView txtPrivacy;
 
-    public String text;
-    public TextView privacy;
-    public TextView txtPrivacy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +42,22 @@ public class PrivacyActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             txtPrivacy.setText(text);
-
         }
-
 
     public void onClick(View view) {
         finish();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
     }
-    //Se viene premuto il pulsante Indietro di sistema
+
     @Override
     public void onBackPressed() {
         finish();
     }
 
 }
-
-
-
-
