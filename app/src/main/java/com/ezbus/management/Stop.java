@@ -2,7 +2,6 @@ package com.ezbus.management;
 
 import com.ezbus.tracking.Position;
 
-import java.sql.Time;
 import java.util.UUID;
 
 public class Stop {

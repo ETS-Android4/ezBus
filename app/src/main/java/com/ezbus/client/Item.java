@@ -23,19 +23,19 @@ class Item implements Buyable {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getCompanyId() {
-        return companyId;
+        return this.companyId;
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public Date getExpiration() {
-        return expiration;
+        return this.expiration;
     }
 
 }

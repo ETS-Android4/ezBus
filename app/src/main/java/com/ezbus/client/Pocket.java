@@ -17,6 +17,8 @@ public class Pocket {
         this.empty = true;
         this.addCard(new Card("Ciao", "caro", 1.0, new Date(), 3));
         this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
+        this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
+        this.addPass(new Pass("compId", "Castelfidardo", "Urbano 1", "urbano", 15));
     }
 
     public Pocket(List<Ticket> tickets, List<Card> cards, List<Pass> passes) {
@@ -27,11 +29,11 @@ public class Pocket {
     }
 
     public boolean isEmpty() {
-        return empty;
+        return this.empty;
     }
 
     public double getCredit() {
-        return credit;
+        return this.credit;
     }
 
     public void setCredit(double credit) {
@@ -43,7 +45,7 @@ public class Pocket {
     }
 
     public List<Ticket> getMyTickets() {
-        return myTickets;
+        return this.myTickets;
     }
 
     public void addTicket(Ticket newTicket) {
@@ -52,7 +54,7 @@ public class Pocket {
     }
 
     public List<Card> getMyCards() {
-        return myCards;
+        return this.myCards;
     }
 
     public void addCard(Card newCard) {
@@ -61,7 +63,7 @@ public class Pocket {
     }
 
     public List<Pass> getMyPasses() {
-        return myPasses;
+        return this.myPasses;
     }
 
     public void addPass(Pass newPass) {

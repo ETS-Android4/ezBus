@@ -1,7 +1,5 @@
 package com.ezbus.client;
 
-
-import java.util.Date;
 import java.util.UUID;
 
 public class Pass extends Item {
@@ -10,10 +8,10 @@ public class Pass extends Item {
     private String city;
     private String type;
 
+
     public Pass() {
         this.id = UUID.randomUUID().toString();
     }
-
 
     public Pass(String companyId, String name, String city, String type, double price) {
         this.id = UUID.randomUUID().toString();

@@ -1,6 +1,6 @@
 package com.ezbus.authentication;
 
-abstract class User {
+public abstract class User {
 
     private String uid;
     protected String name;

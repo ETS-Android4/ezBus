@@ -1,9 +1,9 @@
 package com.ezbus.client;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,9 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.authentication.LoginActivity;
 import com.ezbus.main.SharedPref;
-import com.ezbus.management.PassManagerActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

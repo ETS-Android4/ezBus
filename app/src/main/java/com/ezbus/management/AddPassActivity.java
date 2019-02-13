@@ -2,37 +2,23 @@ package com.ezbus.management;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
 import com.ezbus.client.Pass;
 import com.ezbus.main.SharedPref;
-import com.ezbus.tracking.Position;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class AddPassActivity extends AppCompatActivity {
 

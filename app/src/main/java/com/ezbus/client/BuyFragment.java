@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezbus.R;
-import com.ezbus.management.RouteManagerActivity;
 
 public class BuyFragment extends Fragment {
 

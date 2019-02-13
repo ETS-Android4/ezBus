@@ -1,13 +1,12 @@
 package com.ezbus.authentication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
@@ -74,7 +73,6 @@ public class ProfileActivity extends AppCompatActivity {
     public static void setUser(FirebaseUser newUser, final String type, Context context) {
         if (newUser != null) {
             Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());
-            //Toast.makeText(context, newUser.getUid(), Toast.LENGTH_LONG).show();
             search.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

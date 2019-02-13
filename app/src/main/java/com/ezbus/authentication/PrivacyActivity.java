@@ -6,10 +6,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ezbus.R;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.ezbus.R;
 
 public class PrivacyActivity extends AppCompatActivity {
 

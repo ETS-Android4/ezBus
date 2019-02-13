@@ -2,16 +2,17 @@ package com.ezbus.management;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;

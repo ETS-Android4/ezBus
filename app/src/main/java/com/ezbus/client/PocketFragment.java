@@ -1,6 +1,5 @@
 package com.ezbus.client;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,22 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezbus.R;
-import com.ezbus.authentication.Client;
-import com.ezbus.authentication.ProfileActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
+import com.ezbus.authentication.LoginActivity;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PocketFragment extends Fragment implements View.OnClickListener {
 
-    View view;
+    private View view;
     private TabLayout tabLayout;
-    private ViewPager firstViewPager;
-    private Pocket myPocket;
-    Client currentClient = (Client) ProfileActivity.getUser();
+    private ViewPager tabView;
+    FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
 
 
     public PocketFragment() { }
@@ -35,10 +34,11 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pocket, container, false);
-        firstViewPager = view.findViewById(R.id.viewpager);
+        tabView = view.findViewById(R.id.viewpager);
         tabLayout = view.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(firstViewPager);
-        setupViewPager(firstViewPager);
+        tabLayout.setupWithViewPager(tabView);
+        setupViewPager(tabView);
+        tabView.setOffscreenPageLimit(2);
 
         return view;
     }
@@ -48,21 +48,6 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public Pocket getMyPocket() {
-        return myPocket;
-    }
-
-    public void setMyPocket(Pocket myPocket) {
-        this.myPocket = myPocket;
-    }
-
-    public void updatePocket(Pocket pocket) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String uid = mAuth.getCurrentUser().getUid();
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef.child("clients").child(uid).child("myPocket").setValue(pocket);
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
@@ -70,50 +55,61 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        ItemFragment fragTickets = new ItemFragment(currentClient.getMyPocket().getMyTickets());
-        ItemFragment fragCards = new ItemFragment(currentClient.getMyPocket().getMyCards());
-        ItemFragment fragPasses = new ItemFragment(currentClient.getMyPocket().getMyPasses());
+        private ItemFragment fragTickets = new ItemFragment();
+        private ItemFragment fragCards = new ItemFragment();
+        private ItemFragment fragPasses = new ItemFragment();
 
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitle = new ArrayList<>();
 
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
+            setFragments();
             addFragment(fragTickets, "Biglietti");
             addFragment(fragCards, "Tessere");
             addFragment(fragPasses, "Abbonamenti");
-            setFragments();
         }
 
         @Override
         public int getCount() {
-            return mFragmentList.size();
+            return fragmentList.size();
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            return fragmentList.get(position);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+            return fragmentTitle.get(position);
         }
 
         public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
+            fragmentList.add(fragment);
+            fragmentTitle.add(title);
         }
 
         public void setFragments() {
-            //fragTickets.changeText("I tuoi Biglietti!");
-            //fragCards.changeText("Le tue Tessere!");
-            //fragPasses.changeText("I tuoi Abbonamenti!");
-            //Client currentClient = (Client) ProfileActivity.getUser();
-            //fragTickets.updateItem(currentClient.getMyPocket().getMyTickets(), getContext());
-            //fragCards.updateItem(currentClient.getMyPocket().getMyCards(), getContext());
-            //fragPasses.updateItem(currentClient.getMyPocket().getMyPasses(), getContext());
+            if (currentClient != null) {
+                String id = currentClient.getUid();
+                FirebaseDatabase.getInstance().getReference().child("clients").child(id).child("myPocket")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Pocket pocket = dataSnapshot.getValue(Pocket.class);
+                            fragTickets.updateItem(pocket.getMyTickets());
+                            fragCards.updateItem(pocket.getMyCards());
+                            fragPasses.updateItem(pocket.getMyPasses());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                });
+            }
         }
 
     }
