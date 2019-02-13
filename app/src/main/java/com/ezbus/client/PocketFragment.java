@@ -70,9 +70,9 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        ItemFragment fragTickets = new ItemFragment(currentClient.getMyPocket().getMyCards());
+        ItemFragment fragTickets = new ItemFragment(currentClient.getMyPocket().getMyTickets());
         ItemFragment fragCards = new ItemFragment(currentClient.getMyPocket().getMyCards());
-        ItemFragment fragPasses = new ItemFragment(currentClient.getMyPocket().getMyCards());
+        ItemFragment fragPasses = new ItemFragment(currentClient.getMyPocket().getMyPasses());
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

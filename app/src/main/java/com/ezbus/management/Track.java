@@ -1,6 +1,5 @@
 package com.ezbus.management;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,27 +16,23 @@ public class Track {
         this.name = name;
         this.time = time;
         this.id = UUID.randomUUID().toString();
-        this.stops = new ArrayList<Stop>();
+        this.stops = new ArrayList<>();
     }
 
     public String getTime() {
-        return time;
+        return this.time;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void addStop(Stop s) {
-        stops.add(s);
+        return this.name;
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public List<Stop> getStops() {
-        return stops;
+        return this.stops;
     }
 
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".management.EditRouteActivity">
+    tools:context=".management.EditPassActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,54 +20,56 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/nomeTratta"
+                android:id="@+id/nomePass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:hint="Nome Tratta"
+                android:hint="Nome Abbonamento"
                 android:textColorHint="?attr/textColorHint"
                 android:textColor="?attr/textcolor"
                 android:inputType="text" />
 
-            <TextView
-                android:id="@+id/primaFermata"
+            <EditText
+                android:id="@+id/cittaPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fermata di partenza" />
+                android:layout_margin="15dp"
+                android:hint="Città"
+                android:textColorHint="?attr/textColorHint"
+                android:textColor="?attr/textcolor"
+                android:inputType="text" />
 
-            <Spinner
-                android:id="@+id/scelta1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/secondaFermata"
+            <EditText
+                android:id="@+id/tipoPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fermata di destinazione" />
+                android:layout_margin="15dp"
+                android:hint="Tipologia"
+                android:textColorHint="?attr/textColorHint"
+                android:textColor="?attr/textcolor"
+                android:inputType="text" />
 
-            <Spinner
-                android:id="@+id/scelta2"
+            <EditText
+                android:id="@+id/prezzoPass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:hint="Prezzo"
+                android:textColorHint="?attr/textColorHint"
+                android:textColor="?attr/textcolor"
+                android:inputType="numberDecimal" />
 
             <Button
-                android:id="@+id/aggiungiFermata"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aggiungi fermata" />
-
-            <Button
-                android:id="@+id/salvaTratta"
+                android:id="@+id/salvaPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Salva Modifiche" />
 
             <Button
-                android:id="@+id/eliminaTratta"
+                android:id="@+id/cancellaPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Elimina Tratta" />
+                android:text="Elimina Abbonamento" />
 
         </LinearLayout>
 

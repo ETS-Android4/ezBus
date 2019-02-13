@@ -45,21 +45,15 @@ public class AddStopActivity extends AppCompatActivity {
                             Double.parseDouble(lon.getText().toString())), companyId));
                     finish();
                 }
-                else {
-                    Toast.makeText(AddStopActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
-                }
+                else Toast.makeText(AddStopActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void addStop (Stop s) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user!=null) {
-            String uid = s.getId();
-            rootRef.child("stops").child(uid).setValue(s);
-        }
+        String uid = s.getId();
+        rootRef.child("stops").child(uid).setValue(s);
     }
 
     @Override

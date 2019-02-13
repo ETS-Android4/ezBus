@@ -15,10 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".management.EditRouteActivity"
+        <activity
+            android:name=".management.EditPassActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Modifica Tratta"/>
-        <activity android:name=".client.RechargeActivity"
+            android:label="Modifica Abbonamento" />
+        <activity
+            android:name=".management.EditRouteActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Modifica Tratta" />
+        <activity
+            android:name=".client.RechargeActivity"
             android:configChanges="orientation|screenSize"
             android:label="Ricarica Credito" />
         <activity

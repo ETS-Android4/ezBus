@@ -21,24 +21,12 @@ public class Position {
         return coordX;
     }
 
-    public void setCoordX(double coordX) {
-        this.coordX = coordX;
-    }
-
     public double getCoordY() {
         return coordY;
     }
 
-    public void setCoordY(double coordY) {
-        this.coordY = coordY;
-    }
-
     public Address getAddress() {
         return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
 }

@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
@@ -29,8 +28,9 @@ import java.util.List;
 public class PassManagerActivity extends AppCompatActivity {
 
     SharedPref sharedpref;
-    private ArrayAdapter mAdapter;
+    private ArrayAdapter<String> mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    final ArrayList<String> idPass1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +48,15 @@ public class PassManagerActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         final ListView listPass = findViewById(R.id.list_pass);
-        List<String> initialList = new ArrayList<String>();
-        mAdapter = new ArrayAdapter(this, R.layout.row, R.id.textViewList, initialList);
+        List<String> initialList = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
         listPass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PassManagerActivity.this, listPass.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PassManagerActivity.this, EditPassActivity.class);
+                intent.putExtra("Pass", idPass1.get(position));
+                startActivity(intent);
             }
         });
 
@@ -67,6 +69,7 @@ public class PassManagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PassManagerActivity.this, AddPassActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -94,6 +97,7 @@ public class PassManagerActivity extends AppCompatActivity {
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Pass p = child.getValue(Pass.class);
                         mAdapter.add(p.getName());
+                        idPass1.add(p.getId());
                     }
                 }
             }

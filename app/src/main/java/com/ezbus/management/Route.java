@@ -23,11 +23,7 @@ public class Route {
         this.companyId = companyId;
         this.idStartStop = idStartStop;
         this.idEndStop = idEndStop;
-        this.tracks  = new ArrayList<Track>();
-    }
-
-    public void addTrack(Track t) {
-        tracks.add(t);
+        this.tracks  = new ArrayList<>();
     }
 
     public List<Track> getTracks() {

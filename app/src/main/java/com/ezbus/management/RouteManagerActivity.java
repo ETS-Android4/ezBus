@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
@@ -21,17 +20,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RouteManagerActivity extends AppCompatActivity {
 
-    private ArrayAdapter mAdapter;
+    private ArrayAdapter<String> mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     SharedPref sharedpref;
-    final ArrayList idRoute1 = new ArrayList();
+    final ArrayList<String> idRoute1 = new ArrayList<>();
 
 
     @Override
@@ -49,14 +47,14 @@ public class RouteManagerActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         final ListView listRoute = findViewById(R.id.list_routes);
-        List<String> initialList = new ArrayList<String>();
-        mAdapter = new ArrayAdapter(this, R.layout.row, R.id.textViewList, initialList);
+        List<String> initialList = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listRoute.setAdapter(mAdapter);
         listRoute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(RouteManagerActivity.this, EditRouteActivity.class);
-                intent.putExtra("Route", idRoute1.get(position).toString());
+                intent.putExtra("Route", idRoute1.get(position));
                 startActivity(intent);
             }
         });
@@ -69,6 +67,7 @@ public class RouteManagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RouteManagerActivity.this, AddRouteActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

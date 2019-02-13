@@ -24,6 +24,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/* Classe per i suggerimenti di Google durante la ricerca nella mappa */
+
 public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
     private static final String TAG = "PlaceAutoCompleteAd";

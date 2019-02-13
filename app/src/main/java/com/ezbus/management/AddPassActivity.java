@@ -1,11 +1,13 @@
 package com.ezbus.management;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,9 +37,6 @@ import java.util.UUID;
 public class AddPassActivity extends AppCompatActivity {
 
     SharedPref sharedpref;
-    private Pass newPass;
-    private ArrayAdapter mAdapter;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -55,7 +54,6 @@ public class AddPassActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-
         final EditText namePass = findViewById(R.id.editText_namePass);
         final EditText nameCity = findViewById(R.id.editText_nameCity);
         final EditText nameType = findViewById(R.id.editText_typePass);
@@ -72,23 +70,19 @@ public class AddPassActivity extends AppCompatActivity {
                         !TextUtils.isEmpty(pricePass.getText().toString().trim())) {
                     addPass(new Pass(companyId, namePass.getText().toString().trim(), nameCity.getText().toString().trim(),
                             nameType.getText().toString().trim(), Double.parseDouble(pricePass.getText().toString().trim())));
-                    finish();
                 }
-                else {
-                    Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
-                }
+                else Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void addPass(Pass p) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            String uid = p.getId();
-            rootRef.child("pass").child(uid).setValue(p);
-        }
+        String uid = p.getId();
+        rootRef.child("pass").child(uid).setValue(p);
+        Intent intent = new Intent(AddPassActivity.this, PassManagerActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -98,8 +92,21 @@ public class AddPassActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(AddPassActivity.this, PassManagerActivity.class);
+        startActivity(intent);
         finish();
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Intent intent = new Intent(AddPassActivity.this, PassManagerActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

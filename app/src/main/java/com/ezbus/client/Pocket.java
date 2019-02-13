@@ -16,6 +16,7 @@ public class Pocket {
     public Pocket() {
         this.empty = true;
         this.addCard(new Card("Ciao", "caro", 1.0, new Date(), 3));
+        this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
     }
 
     public Pocket(List<Ticket> tickets, List<Card> cards, List<Pass> passes) {
