@@ -29,20 +29,20 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setAnswer("Client");
-                startNewActivity(MainActivity.class);
+                startNewActivity();
             }
         });
         company.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAnswer("Company");
-                startNewActivity(MainActivity.class);
+                startNewActivity();
             }
         });
     }
 
-    private void startNewActivity(Class act) {
-        Intent intent = new Intent(this, act);
+    private void startNewActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -50,7 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public void setAnswer(String theAnswer) {
         SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
         editor.putString("Scelta", theAnswer);
-        editor.commit();
+        editor.apply();
     }
 
 }

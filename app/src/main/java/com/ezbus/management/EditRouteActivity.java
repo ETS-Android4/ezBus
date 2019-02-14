@@ -42,6 +42,7 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
     private String idRoute;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
@@ -131,15 +132,14 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter1.clear();
                 mAdapter2.clear();
-                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.child("stops").getChildren())
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
-                        mAdapter1.add(s.getName());
-                        idStop1.add(s.getId());
-                        mAdapter2.add(s.getName());
-                        idStop2.add(s.getId());
+                            mAdapter1.add(s.getName());
+                            idStop1.add(s.getId());
+                            mAdapter2.add(s.getName());
+                            idStop2.add(s.getId());
                     }
-                }
                 for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
                     if (child.child("id").getValue().equals(idRoute)) {
                         routeName.setText(child.child("name").getValue().toString());

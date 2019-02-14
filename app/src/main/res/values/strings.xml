@@ -95,4 +95,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="cambia_tema">Cambia tema</string>
     <string name="cambia_lingua">cambia_lingua</string>
+    <string name="title_activity_add_stop">AddStopActivity</string>
 </resources>
