@@ -40,7 +40,7 @@
             android:configChanges="orientation|screenSize"
             android:label="Aggiungi Abbonamento" />
         <activity
-            android:name=".authentication.WelcomeActivity"
+            android:name=".main.WelcomeActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/App.Green.NoActionBar" />
         <activity

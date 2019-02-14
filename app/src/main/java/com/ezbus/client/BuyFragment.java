@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezbus.R;
+import com.ezbus.authentication.Client;
+import com.ezbus.authentication.ProfileActivity;
 
 public class BuyFragment extends Fragment {
 
     View view;
-    TextView text;
+    TextView credit;
 
 
     public BuyFragment() {
@@ -22,16 +24,14 @@ public class BuyFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_buy, container, false);
 
         Button buttonPass = view.findViewById(R.id.buyPass);
         buttonPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BuyPassActivity.class);
-                startActivity(intent);
+                startNewActivity(BuyPassActivity.class);
             }
         });
 
@@ -39,12 +39,30 @@ public class BuyFragment extends Fragment {
         buttonCredit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RechargeActivity.class);
-                startActivity(intent);
+                startNewActivity(RechargeActivity.class);
             }
         });
 
+        credit = view.findViewById(R.id.credit);
+        updateData();
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        updateData();
+        super.onResume();
+    }
+
+    private void updateData() {
+        double myCredit = ((Client) ProfileActivity.getUser()).getMyPocket().getCredit();
+        credit.setText(Double.toString(myCredit) + " €");
+    }
+
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(getContext(), act);
+        startActivity(intent);
     }
 
 }

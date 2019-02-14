@@ -2,24 +2,16 @@ package com.ezbus.client;
 
 import java.util.Date;
 
-class Item implements Buyable {
+class Item {
 
     protected String id;
     protected String companyId;
-    protected double price;
-    protected Date expiration;
+    double price;
+    Date expiration;
 
-
-    public void generateQR() {
-
-    }
 
     public boolean isValid() {
         return true;
-    }
-
-    public void addToPocket() {
-
     }
 
     public String getId() {

@@ -26,7 +26,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TabLayout tabLayout;
     private ViewPager tabView;
-    FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
+    private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
 
 
     public PocketFragment() { }
