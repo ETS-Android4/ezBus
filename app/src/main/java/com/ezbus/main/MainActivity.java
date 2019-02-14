@@ -24,7 +24,6 @@ import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.authentication.RegisterActivity;
-import com.ezbus.authentication.WelcomeActivity;
 import com.ezbus.client.BuyFragment;
 import com.ezbus.client.PocketFragment;
 import com.ezbus.management.ManagerFragment;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else {
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
-            ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery(), MainActivity.this);
+            ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
 
             mToolBar = findViewById(R.id.action_bar);
             setSupportActionBar(mToolBar);
@@ -118,13 +117,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                 } else {
                     navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                 }
             }
             else {
@@ -133,18 +130,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 } else {
                     navUsername.setText(LoginActivity.mAuth.getInstance().getCurrentUser().getEmail());
                     navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
                     navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                 }
             }
 
+            navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             setFragment(1);
             mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }

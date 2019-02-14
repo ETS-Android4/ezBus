@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.Username);
 
         if (getUser() == null)
-            setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery(), ProfileActivity.this);
+            setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
         else
             setDataToView();
     }
@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         user = null;
     }
 
-    public static void setUser(FirebaseUser newUser, final String type, Context context) {
+    public static void setUser(FirebaseUser newUser, final String type) {
         if (newUser != null) {
             Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());
             search.addValueEventListener(new ValueEventListener() {

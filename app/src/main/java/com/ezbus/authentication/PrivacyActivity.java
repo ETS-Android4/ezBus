@@ -21,7 +21,6 @@ import com.ezbus.main.SharedPref;
 
 public class PrivacyActivity extends AppCompatActivity {
 
-
     public String text;
     public TextView privacy;
     public TextView txtPrivacy;
@@ -52,31 +51,24 @@ public class PrivacyActivity extends AppCompatActivity {
                 text = new String(buffer);
 
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             txtPrivacy.setText(text);
-
         }
-
 
     public void onClick(View view) {
         finish();
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
     }
-    //Se viene premuto il pulsante Indietro di sistema
+
     @Override
     public void onBackPressed() {
         finish();
     }
 
 }
-
-
-
-

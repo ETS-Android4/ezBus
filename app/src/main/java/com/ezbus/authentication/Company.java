@@ -5,7 +5,7 @@ import com.ezbus.management.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Company extends User {
+class Company extends User {
 
     private String iva;
     private String username;
@@ -19,7 +19,7 @@ public class Company extends User {
         this.email = email;
         this.username = username;
         this.iva = iva;
-        routes = new ArrayList<Route>();
+        this.routes = new ArrayList<Route>();
     }
 
     public String getIva() {

@@ -2,6 +2,7 @@ package com.ezbus.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextUsername;
     private EditText editTextPassword;
     private CheckBox check1;
+    private TextView privacy;
     private Company newCompany;
     private Button signUpButton;
     SharedPref sharedpref;
@@ -55,17 +57,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         this.editTextEmail = findViewById(R.id.editTextEmail);
         this.editTextPassword = findViewById(R.id.editTextPassword);
 
-        signUpButton = findViewById(R.id.buttonSignup);
-        signUpButton.setOnClickListener(this);
+        this.signUpButton = findViewById(R.id.buttonSignup);
+        this.signUpButton.setOnClickListener(this);
 
         this.check1 = findViewById(R.id.check1);
-        TextView privacy = findViewById(R.id.privacy);
+        this.privacy = findViewById(R.id.privacy);
 
         Button privacyButton = findViewById(R.id.privacybutton);
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity();
+                startNewActivity(PrivacyActivity.class);
             }
         });
     }
@@ -169,8 +171,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void startNewActivity() {
-        Intent intent = new Intent(this, PrivacyActivity.class);
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
         startActivity(intent);
     }
 
