@@ -2,7 +2,6 @@ package com.ezbus.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,8 +34,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextUsername;
     private EditText editTextPassword;
     private CheckBox check1;
-    private TextView privacy;
     private Company newCompany;
+    private Button signUpButton;
     SharedPref sharedpref;
 
 
@@ -56,17 +55,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         this.editTextEmail = findViewById(R.id.editTextEmail);
         this.editTextPassword = findViewById(R.id.editTextPassword);
 
-        Button signUpButton = findViewById(R.id.buttonSignup);
+        signUpButton = findViewById(R.id.buttonSignup);
         signUpButton.setOnClickListener(this);
 
         this.check1 = findViewById(R.id.check1);
-        this.privacy = findViewById(R.id.privacy);
+        TextView privacy = findViewById(R.id.privacy);
 
         Button privacyButton = findViewById(R.id.privacybutton);
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(PrivacyActivity.class);
+                startNewActivity();
             }
         });
     }
@@ -102,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     if (task.isSuccessful()) {
                                         newCompany.setUid(currentUser.getUid());
                                         FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
-                                        ProfileActivity.setUser(currentUser, sharedpref.getQuery(), RegisterActivity.this);
+                                        ProfileActivity.setUser(currentUser, sharedpref.getQuery());
                                         Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
                                         finish();
                                     }
@@ -170,8 +169,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void startNewActivity(Class act) {
-        Intent intent = new Intent(this, act);
+    private void startNewActivity() {
+        Intent intent = new Intent(this, PrivacyActivity.class);
         startActivity(intent);
     }
 
@@ -184,17 +183,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return true;
-    }
-
-    public void setAnswer(String theAnswer) {
-        SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
-        editor.putString("Scelta", theAnswer);
-        editor.commit();
-    }
-
-    public String getAnswer() {
-        SharedPreferences sp = getSharedPreferences("pref",0);
-        return sp.getString("Scelta","Empty");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ezbus.authentication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
+    @SuppressLint("StaticFieldLeak")
     public static GoogleSignInClient mGoogleSignInClient;
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private EditText editTextEmail;
@@ -131,21 +133,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
                     rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             newUser = new Client();
                             if (dataSnapshot.exists()) {
                                 newUser = dataSnapshot.getValue(Client.class);
-                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery(),LoginActivity.this);
+                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
                             } else {
                                 newUser = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
                                 newUser.setUid(uid);
                                 rootRef.setValue(newUser);
-                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery(),LoginActivity.this);
+                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
                     });
@@ -173,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     if (task.isSuccessful()) {
-                        ProfileActivity.setUser(currentUser, sharedpref.getQuery(), LoginActivity.this);
+                        ProfileActivity.setUser(currentUser, sharedpref.getQuery());
                     } else {
                         Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
                     }
