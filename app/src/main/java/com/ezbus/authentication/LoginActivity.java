@@ -224,4 +224,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             signIn();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
+
     private static final String TAG = "PlaceAutoCompleteAd";
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
 
@@ -89,7 +90,9 @@ public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implem
     }
 
     //Returns the filter for the current set of autocomplete results
+
     @Override
+    @SuppressWarnings("unchecked")
     public Filter getFilter() {
         return new Filter() {
             @Override

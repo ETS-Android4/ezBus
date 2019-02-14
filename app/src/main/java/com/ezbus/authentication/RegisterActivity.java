@@ -187,4 +187,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

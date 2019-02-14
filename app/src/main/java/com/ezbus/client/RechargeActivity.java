@@ -50,6 +50,7 @@ public class RechargeActivity extends AppCompatActivity {
         if (!(r == 0 && c < 0)) {
             r += c;
             recharge.setText(Integer.toString(r));
+            finish();
         }
     }
 
