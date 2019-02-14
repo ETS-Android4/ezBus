@@ -17,7 +17,7 @@ public class Route {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Route(String name, String companyId, String idStartStop, String idEndStop) {
+    Route (String name, String companyId, String idStartStop, String idEndStop) {
         this.name = name;
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;

@@ -10,10 +10,6 @@ class Item {
     Date expiration;
 
 
-    public boolean isValid() {
-        return true;
-    }
-
     public String getId() {
         return this.id;
     }

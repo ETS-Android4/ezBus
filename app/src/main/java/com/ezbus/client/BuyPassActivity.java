@@ -25,7 +25,7 @@ import java.util.List;
 public class BuyPassActivity extends AppCompatActivity {
 
     SharedPref sharedpref;
-    private ArrayAdapter mAdapter;
+    private ArrayAdapter<String> mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -43,8 +43,8 @@ public class BuyPassActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         final ListView listPass = findViewById(R.id.buyable_pass);
-        List<String> initialList = new ArrayList<String>();
-        mAdapter = new ArrayAdapter(this, R.layout.row, R.id.textViewList, initialList);
+        List<String> initialList = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
         listPass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class BuyPassActivity extends AppCompatActivity {
                 mAdapter.clear();
                 for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                     Pass p = child.getValue(Pass.class);
-                    mAdapter.add(p.getName());
+                    if (p!=null) mAdapter.add(p.getName());
                 }
             }
 

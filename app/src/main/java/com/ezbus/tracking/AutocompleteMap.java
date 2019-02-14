@@ -1,14 +1,5 @@
 package com.ezbus.tracking;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.common.data.DataBufferUtils;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.AutocompletePrediction;
-import com.google.android.gms.location.places.AutocompletePredictionBuffer;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLngBounds;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.style.CharacterStyle;
@@ -21,6 +12,17 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.data.DataBufferUtils;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLngBounds;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -46,17 +48,12 @@ public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implem
 
     //Initializes with a resource for text rows and autocomplete query bounds.
     //@see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
-    public AutocompleteMap(Context context, GoogleApiClient googleApiClient,
+    AutocompleteMap(Context context, GoogleApiClient googleApiClient,
                                     LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
         mPlaceFilter = filter;
-    }
-
-    ///Sets the bounds for all subsequent queries
-    public void setBounds(LatLngBounds bounds) {
-        mBounds = bounds;
     }
 
     //Returns the number of results received in the last autocomplete query

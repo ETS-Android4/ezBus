@@ -2,42 +2,31 @@ package com.ezbus.client;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ezbus.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ItemFragment extends Fragment implements View.OnClickListener {
+public class ItemFragment extends Fragment {
 
-    private View view;
     private ListView list;
-    private ArrayAdapter mAdapter;
 
 
     public ItemFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_item, container, false);
-        mAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>());
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_item, container, false);
         list = view.findViewById(R.id.list_item);
-
         return view;
-    }
-
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
     }
 
     @Override
@@ -52,12 +41,6 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
     void updateItem(List<? extends Item> listItem) {
         this.list.setAdapter(new ListAdapter(listItem));
-        /*if (mAdapter != null) {
-            mAdapter.clear();
-            for (Item i : listItem) {
-                mAdapter.add(i.getId());
-            }
-        }*/
     }
 
     class ListAdapter extends BaseAdapter {
@@ -90,7 +73,6 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_item, null);
-            ImageView imgview = view.findViewById(R.id.itemImage);
             TextView title = view.findViewById(R.id.itemTitle);
             title.setText(listItem.get(i).getId());
 

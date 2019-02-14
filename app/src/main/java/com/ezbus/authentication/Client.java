@@ -8,9 +8,9 @@ public class Client extends User {
     private Pocket myPocket;
 
 
-    public Client() {}
+    Client() {}
 
-    public Client(String name, String surname, String email, Pocket pocket) {
+    Client(String name, String surname, String email, Pocket pocket) {
         this.name = name;
         this.surname = surname;
         this.email = email;

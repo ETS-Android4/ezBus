@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPref {
 
-    SharedPreferences MySharedPref;
+    private SharedPreferences MySharedPref;
 
 
     public SharedPref (Context context) {
@@ -13,27 +13,25 @@ public class SharedPref {
     }
 
     //salvataggio tema
-    public void setNightModeState(Boolean state) {
+    void setNightModeState(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
         editor.putBoolean("NightMode", state);
-        editor.commit();
+        editor.apply();
     }
 
     //caricamento stato tema notturno
     public Boolean loadNightModeState() {
-        Boolean state = MySharedPref.getBoolean("NightMode", false);
-        return state;
+        return MySharedPref.getBoolean("NightMode", false);
     }
 
     public void setClient(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
         editor.putBoolean("Client", state);
-        editor.commit();
+        editor.apply();
     }
 
     public Boolean isClient() {
-        Boolean state = MySharedPref.getBoolean("Client", false);
-        return state;
+        return MySharedPref.getBoolean("Client", false);
     }
 
     public String getQuery() {

@@ -17,7 +17,7 @@ public class Stop {
     }
 
 
-    public Stop(String name, Position position, String companyId) {
+    Stop (String name, Position position, String companyId) {
         this.position = position;
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;

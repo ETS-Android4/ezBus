@@ -12,7 +12,6 @@ import com.ezbus.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Switch change_theme;
     SharedPref sharedpref;
 
 
@@ -27,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        change_theme = findViewById(R.id.change_theme);
+        Switch change_theme = findViewById(R.id.change_theme);
         if(sharedpref.loadNightModeState())
             change_theme.setChecked(true);
 

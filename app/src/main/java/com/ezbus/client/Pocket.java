@@ -6,35 +6,22 @@ import java.util.List;
 
 public class Pocket {
 
-    private boolean empty;
     private double credit;
-    private List<Ticket> myTickets = new ArrayList<Ticket>();
-    private List<Card> myCards = new ArrayList<Card>();
-    private List<Pass> myPasses = new ArrayList<Pass>();
+    private List<Ticket> myTickets = new ArrayList<>();
+    private List<Card> myCards = new ArrayList<>();
+    private List<Pass> myPasses = new ArrayList<>();
 
 
     public Pocket() {
-        this.empty = true;
+        this.credit = 0;
         this.addCard(new Card("Ciao", "caro", 1.0, new Date(), 3));
         this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
         this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
         this.addPass(new Pass("compId", "Castelfidardo", "Urbano 1", "urbano", 15));
     }
 
-    private boolean isEmpty() {
-        return this.empty;
-    }
-
     double getCredit() {
         return this.credit;
-    }
-
-    private void setCredit(double credit) {
-        this.credit = credit;
-    }
-
-    public void updateCredit(double recharge) {
-        setCredit(getCredit() + recharge);
     }
 
     List<Ticket> getMyTickets() {
@@ -43,7 +30,6 @@ public class Pocket {
 
     private void addTicket(Ticket newTicket) {
         myTickets.add(newTicket);
-        if (isEmpty()) empty = false;
     }
 
     List<Card> getMyCards() {
@@ -52,7 +38,6 @@ public class Pocket {
 
     private void addCard(Card newCard) {
         myCards.add(newCard);
-        if (isEmpty()) empty = false;
     }
 
     List<Pass> getMyPasses() {
@@ -61,7 +46,6 @@ public class Pocket {
 
     private void addPass(Pass newPass) {
         myPasses.add(newPass);
-        if (isEmpty()) empty = false;
     }
 
 }

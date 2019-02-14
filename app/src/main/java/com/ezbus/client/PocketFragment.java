@@ -1,6 +1,7 @@
 package com.ezbus.client;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,31 +22,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PocketFragment extends Fragment implements View.OnClickListener {
+public class PocketFragment extends Fragment {
 
-    private View view;
-    private TabLayout tabLayout;
-    private ViewPager tabView;
     private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
 
 
     public PocketFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_pocket, container, false);
-        tabView = view.findViewById(R.id.viewpager);
-        tabLayout = view.findViewById(R.id.tabs);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_pocket, container, false);
+        ViewPager tabView = view.findViewById(R.id.viewpager);
+        TabLayout tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(tabView);
         setupViewPager(tabView);
         tabView.setOffscreenPageLimit(2);
 
         return view;
-    }
-
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -63,7 +56,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
         private final List<String> fragmentTitle = new ArrayList<>();
 
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        ViewPagerAdapter(FragmentManager manager) {
             super(manager);
             setFragments();
             addFragment(fragTickets, "Biglietti");
@@ -86,18 +79,18 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
             return fragmentTitle.get(position);
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             fragmentList.add(fragment);
             fragmentTitle.add(title);
         }
 
-        public void setFragments() {
+        void setFragments() {
             if (currentClient != null) {
                 String id = currentClient.getUid();
                 FirebaseDatabase.getInstance().getReference().child("clients").child(id).child("myPocket")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
                             fragTickets.updateItem(pocket.getMyTickets());
                             fragCards.updateItem(pocket.getMyCards());
@@ -105,7 +98,7 @@ public class PocketFragment extends Fragment implements View.OnClickListener {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
                 });

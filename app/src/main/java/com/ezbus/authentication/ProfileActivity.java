@@ -1,8 +1,7 @@
 package com.ezbus.authentication;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -48,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
             setDataToView();
     }
 
-    @SuppressLint("SetTextI18n")
     private static void setDataToView() {
         if (email != null) {
             email.setText("Email: " + getUser().getEmail());
@@ -75,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
             Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());
             search.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (type.equals("clients"))
                         user = dataSnapshot.getValue(Client.class);
                     else if (type.equals("companies"))
@@ -84,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });

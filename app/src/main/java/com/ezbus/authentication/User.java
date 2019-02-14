@@ -4,14 +4,14 @@ public abstract class User {
 
     private String uid;
     protected String name;
-    protected String email;
+    String email;
 
 
     public String getUid() {
         return this.uid;
     }
 
-    public void setUid(String uid) {
+    void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -23,12 +23,8 @@ public abstract class User {
         this.name = name;
     }
 
-    public String getEmail() {
+    String getEmail() {
         return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

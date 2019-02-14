@@ -1,8 +1,6 @@
 package com.ezbus.authentication;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezbus.R;
@@ -25,8 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.ezbus.main.MainActivity.navigationView;
-
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextCompany;
@@ -35,9 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextUsername;
     private EditText editTextPassword;
     private CheckBox check1;
-    private TextView privacy;
     private Company newCompany;
-    private Button signUpButton;
     SharedPref sharedpref;
 
 
@@ -57,17 +50,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         this.editTextEmail = findViewById(R.id.editTextEmail);
         this.editTextPassword = findViewById(R.id.editTextPassword);
 
-        this.signUpButton = findViewById(R.id.buttonSignup);
-        this.signUpButton.setOnClickListener(this);
+        Button signUpButton = findViewById(R.id.buttonSignup);
+        signUpButton.setOnClickListener(this);
 
         this.check1 = findViewById(R.id.check1);
-        this.privacy = findViewById(R.id.privacy);
 
         Button privacyButton = findViewById(R.id.privacybutton);
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(PrivacyActivity.class);
+                startNewActivity();
             }
         });
     }
@@ -93,29 +85,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                //Se avvenuta con successo
+                    //Se avvenuta con successo
                     if (task.isSuccessful()) {
-                        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        currentUser.sendEmailVerification()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        newCompany.setUid(currentUser.getUid());
-                                        FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
-                                        ProfileActivity.setUser(currentUser, sharedpref.getQuery());
-                                        Toast.makeText(RegisterActivity.this, "Ti è stata inviata una email di conferma. Apri la email per confermare la registrazione", Toast.LENGTH_LONG).show();
-                                        finish();
-                                    }
-                                    else {
-                                        Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                    updateUI(currentUser);
-                                }
-                            });
-                    } else {
-                        Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currentUser != null) {
+                            newCompany.setUid(currentUser.getUid());
+                            FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
+                            LoginActivity.mAuth.getInstance().signOut();
+                            LoginActivity.mGoogleSignInClient.signOut();
+                        }
+                        Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
+                        finish();
                     }
+                    else Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                 }
             });
     }
@@ -150,29 +132,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            //Se l'user è loggato
-            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-            View headerLayout = navigationView.getHeaderView(0);
-            TextView navUsername =  headerLayout.findViewById(R.id.textView);
-            navUsername.setText(user.getEmail());
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("User", user.getUid());
-            setResult(Activity.RESULT_OK, resultIntent);
-            finish();
-        } else {
-            //Se non è loggato
-            Intent resultIntent = new Intent();
-            setResult(Activity.RESULT_OK, resultIntent);
-        }
-    }
-
-    private void startNewActivity(Class act) {
-        Intent intent = new Intent(this, act);
+    private void startNewActivity() {
+        Intent intent = new Intent(this, PrivacyActivity.class);
         startActivity(intent);
     }
 

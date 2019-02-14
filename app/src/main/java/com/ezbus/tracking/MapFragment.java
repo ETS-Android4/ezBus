@@ -60,12 +60,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private AutoCompleteTextView mSearchText;
-    private MapView mapView;
     public Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private AutocompleteMap autocompleteMap;
-    private GoogleApiClient mGoogleApiClient;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
 
@@ -78,7 +74,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mSearchText = view.findViewById(R.id.input_search);
@@ -86,8 +82,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mapView = view.findViewById(R.id.map);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        MapView mapView = view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
@@ -112,7 +108,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mMap.clear();
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
@@ -145,7 +141,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -165,7 +161,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     }
 
     private void getDeviceLocation(){
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         try {
             if (mLocationPermissionsGranted) {
@@ -177,7 +173,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation!=null)
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM, "My Location");
+                                        "My Location");
 
                         }
                     }
@@ -187,16 +183,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         }
     }
 
-    private void moveCamera(LatLng latLng, float zoom, String title){
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    private void moveCamera(LatLng latLng, String title){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, MapFragment.DEFAULT_ZOOM));
 
-        if (!title.equals("My Location")) {
-            /*MarkerOptions options = new MarkerOptions()
+        /*if (!title.equals("My Location")) {
+            MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
-            mMap.addMarker(options);*/
+            mMap.addMarker(options);
             //Per ora non aggiungo marker
-        }
+        }*/
     }
 
     private void getLocationPermission(){
@@ -240,14 +236,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     }
 
     private void initSearch() {
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(getContext())
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient
+                .Builder(this.getContext())
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(getActivity(),this)
                 .build();
 
-        autocompleteMap = new AutocompleteMap(getContext(), mGoogleApiClient, LAT_LNG_BOUNDS, null);
+        AutocompleteMap autocompleteMap = new AutocompleteMap(getContext(), mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
         mSearchText.setAdapter(autocompleteMap);
 
@@ -275,12 +271,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         try {
             list = geocoder.getFromLocationName(searchString, 1);
         } catch (IOException e) {
+
         }
 
         if(list.size() > 0){
             Address address = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),
-                DEFAULT_ZOOM, address.getAddressLine(0));
+                    address.getAddressLine(0));
         }
     }
 

@@ -12,7 +12,6 @@ import com.ezbus.R;
 import com.ezbus.authentication.Client;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
-import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,7 +49,6 @@ public class RechargeActivity extends AppCompatActivity {
         if (!(r == 0 && c < 0)) {
             r += c;
             recharge.setText(Integer.toString(r));
-            finish();
         }
     }
 
@@ -58,6 +56,7 @@ public class RechargeActivity extends AppCompatActivity {
         credit.setText(Double.toString(newCredit));
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.child("clients").child(ProfileActivity.getUser().getUid()).child("myPocket").child("credit").setValue(newCredit);
+        finish();
     }
 
     @Override
