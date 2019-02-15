@@ -5,22 +5,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezbus.R;
-import com.ezbus.authentication.Client;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RechargeActivity extends AppCompatActivity {
 
-    TextView credit, recharge;
-    Button plus, minus;
-    int r;
-    double myCredit = ((Client) ProfileActivity.getUser()).getMyPocket().getCredit();
+    private TextView credit, recharge;
+    private int amount;
     SharedPref sharedpref;
 
 
@@ -35,10 +29,8 @@ public class RechargeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recharge);
 
         credit = findViewById(R.id.credit);
-        plus = findViewById(R.id.plus);
-        minus = findViewById(R.id.minus);
+        credit.setText(Double.toString(ProfileActivity.getClient().getMyPocket().getCredit()));
         recharge = findViewById(R.id.recharge);
-        credit.setText(Double.toString(myCredit));
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -46,17 +38,10 @@ public class RechargeActivity extends AppCompatActivity {
     }
 
     void changeCredit(int c) {
-        if (!(r == 0 && c < 0)) {
-            r += c;
-            recharge.setText(Integer.toString(r));
+        if (!(amount == 0 && c < 0)) {
+            amount += c;
+            recharge.setText(Integer.toString(amount));
         }
-    }
-
-    void updateCredit(double newCredit) {
-        credit.setText(Double.toString(newCredit));
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef.child("clients").child(ProfileActivity.getUser().getUid()).child("myPocket").child("credit").setValue(newCredit);
-        finish();
     }
 
     @Override
@@ -65,8 +50,8 @@ public class RechargeActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.plus:
                 changeCredit(1);
                 break;
@@ -74,7 +59,9 @@ public class RechargeActivity extends AppCompatActivity {
                 changeCredit(-1);
                 break;
             case R.id.confirm:
-                updateCredit(this.myCredit + r);
+                ProfileActivity.getClient().getMyPocket().updateCredit(amount);
+                finish();
+                break;
         }
     }
 

@@ -11,13 +11,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezbus.R;
-import com.ezbus.authentication.Client;
+import com.ezbus.authentication.LoginActivity;
 import com.ezbus.authentication.ProfileActivity;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class BuyFragment extends Fragment {
 
     View view;
-    TextView credit;
+    private static TextView credit;
 
 
     public BuyFragment() {
@@ -45,19 +51,28 @@ public class BuyFragment extends Fragment {
         });
 
         credit = view.findViewById(R.id.credit);
-        updateData();
+        setCredit(LoginActivity.mAuth.getCurrentUser());
 
         return view;
     }
 
-    @Override
-    public void onResume() {
-        updateData();
-        super.onResume();
+    private void setCredit(FirebaseUser newUser) {
+        Query search = FirebaseDatabase.getInstance().getReference().child("clients").child(newUser.getUid()).child("myPocket").child("credit");
+        search.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                setDataToView();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void updateData() {
-        double myCredit = ((Client) ProfileActivity.getUser()).getMyPocket().getCredit();
+    private static void setDataToView() {
+        double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
         credit.setText(Double.toString(myCredit) + " €");
     }
 
