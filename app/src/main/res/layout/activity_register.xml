@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="?attr/backgroundcolor"
             android:orientation="vertical">
 
@@ -57,16 +58,6 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/editTextUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Username"
-                android:textColorHint="?attr/textColorHint"
-                android:textColor="?attr/textcolor"
-                android:inputType="text" />
-
-            <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +74,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
-                android:padding="15px"
+                android:enabled="false"
+                android:padding="15dp"
                 android:text="Termini e Condizioni per la Privacy"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -116,4 +108,4 @@
 
     </ScrollView>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

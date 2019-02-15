@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,60 +14,63 @@
         android:layout_marginEnd="0dp"
         android:paddingBottom="0dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/backgroundcolor"
-        android:orientation="vertical">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Acquista biglietti, abbonamenti o tessere per poter viaggiare regolarmente sugli autobus ezBus"
-            android:textColor="?attr/textcolor"
-            android:textSize="18sp" />
+            android:background="?attr/backgroundcolor"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buyTicket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Acquista Biglietto" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Acquista biglietti, abbonamenti o tessere per poter viaggiare regolarmente sugli autobus ezBus"
+                android:textColor="?attr/textcolor"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/buyCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Acquista Tessera" />
+            <Button
+                android:id="@+id/buyTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Acquista Biglietto"
+                android:enabled="false"/>
 
-        <Button
-            android:id="@+id/buyPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Acquista Abbonamento" />
+            <Button
+                android:id="@+id/buyCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Acquista Tessera"
+                android:enabled="false"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Credito attuale:"
-            android:textColor="?attr/textcolor"
-            android:textSize="18sp" />
+            <Button
+                android:id="@+id/buyPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Acquista Abbonamento" />
 
-        <TextView
-            android:id="@+id/credit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0.00 €"
-            android:textColor="?attr/textcolor"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Credito attuale:"
+                android:textColor="?attr/textcolor"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/recharge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ricarica Credito" />
+            <TextView
+                android:id="@+id/credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00 €"
+                android:textColor="?attr/textcolor"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/recharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ricarica Credito" />
+
+        </LinearLayout>
 
     </ScrollView>
 

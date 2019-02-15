@@ -1,7 +1,6 @@
 package com.ezbus.main;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -276,20 +275,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void signOut(String message, final Class act) {
         AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
-        logout.setMessage(message).setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //Se l'utente accetta di uscire
-                ProfileActivity.resetUser();
-                LoginActivity.mAuth.getInstance().signOut();
-                LoginActivity.mGoogleSignInClient.signOut();
-                startNewActivity(act);
-                finish();
-            }
+        logout.setMessage(message).setPositiveButton("Si", (dialog, id) -> {
+            //Se l'utente accetta di uscire
+            ProfileActivity.resetUser();
+            LoginActivity.mAuth.getInstance().signOut();
+            LoginActivity.mGoogleSignInClient.signOut();
+            startNewActivity(act);
+            finish();
         })
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //Se l'utente annulla l'operazione
-            }
+        .setNegativeButton("No", (dialog, id) -> {
+            //Se l'utente annulla l'operazione
         });
         logout.show();
     }

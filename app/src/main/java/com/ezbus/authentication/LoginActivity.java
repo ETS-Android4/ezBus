@@ -21,10 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -115,11 +113,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
         mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (task.isSuccessful() && user!=null) {
+            .addOnCompleteListener(this, task -> {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (task.isSuccessful()) {
+                if (user!=null) {
                     final String uid = user.getUid();
                     final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
                     rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,9 +135,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         }
                     });
-                } else  Log.w(TAG, "signInWithCredential:failure", task.getException());
-                updateUI(user);
                 }
+            } else {
+                Log.w(TAG, "signInWithCredential:failure", task.getException());
+            }
+            updateUI(user);
             });
     }
 
@@ -150,17 +149,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (!email.equals("") && !password.equals("")) {
             mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                    if (task.isSuccessful()) {
-                        ProfileActivity.setUser(currentUser, sharedpref.getQuery());
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
-                    }
-                    updateUI(currentUser);
-                    }
+                .addOnCompleteListener(this, task -> {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (task.isSuccessful()) {
+                    ProfileActivity.setUser(currentUser, sharedpref.getQuery());
+                } else {
+                    Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
+                }
+                updateUI(currentUser);
                 });
         }
     }

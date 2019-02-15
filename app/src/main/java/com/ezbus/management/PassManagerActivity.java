@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,7 +28,7 @@ public class PassManagerActivity extends AppCompatActivity {
     SharedPref sharedpref;
     private ArrayAdapter<String> mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    final ArrayList<String> idPass1 = new ArrayList<>();
+    final ArrayList<String> idPass = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +49,20 @@ public class PassManagerActivity extends AppCompatActivity {
         List<String> initialList = new ArrayList<>();
         mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
-        listPass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(PassManagerActivity.this, EditPassActivity.class);
-                intent.putExtra("Pass", idPass1.get(position));
-                startActivity(intent);
-            }
+        listPass.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(PassManagerActivity.this, EditPassActivity.class);
+            intent.putExtra("Pass", idPass.get(position));
+            startActivity(intent);
         });
 
         aggiornaDati();
 
 
         Button addPass = findViewById(R.id.addPass);
-        addPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PassManagerActivity.this, AddPassActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        addPass.setOnClickListener(v -> {
+            Intent intent = new Intent(PassManagerActivity.this, AddPassActivity.class);
+            startActivity(intent);
+            finish();
         });
 
 
@@ -96,8 +88,10 @@ public class PassManagerActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Pass p = child.getValue(Pass.class);
-                        mAdapter.add(p.getName());
-                        idPass1.add(p.getId());
+                        if (p != null) {
+                            mAdapter.add(p.getName());
+                            idPass.add(p.getId());
+                        }
                     }
                 }
             }

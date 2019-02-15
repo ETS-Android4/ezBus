@@ -26,21 +26,15 @@ public class ManagerFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manager, container, false);
 
         Button button1 = rootView.findViewById(R.id.routeManager);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RouteManagerActivity.class);
-                startActivity(intent);
-            }
+        button1.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), RouteManagerActivity.class);
+            startActivity(intent);
         });
 
         Button button2  = rootView.findViewById(R.id.passManager);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PassManagerActivity.class);
-                startActivity(intent);
-            }
+        button2.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PassManagerActivity.class);
+            startActivity(intent);
         });
 
         return rootView;

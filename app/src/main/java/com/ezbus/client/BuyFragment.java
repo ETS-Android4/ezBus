@@ -35,20 +35,10 @@ public class BuyFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_buy, container, false);
 
         Button buttonPass = view.findViewById(R.id.buyPass);
-        buttonPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(BuyPassActivity.class);
-            }
-        });
+        buttonPass.setOnClickListener(v -> startNewActivity(BuyPassActivity.class));
 
         Button buttonCredit = view.findViewById(R.id.recharge);
-        buttonCredit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity(RechargeActivity.class);
-            }
-        });
+        buttonCredit.setOnClickListener(v -> startNewActivity(RechargeActivity.class));
 
         credit = view.findViewById(R.id.credit);
         setCredit(LoginActivity.mAuth.getCurrentUser());
@@ -79,6 +69,12 @@ public class BuyFragment extends Fragment {
     private void startNewActivity(Class act) {
         Intent intent = new Intent(getContext(), act);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        setDataToView();
+        super.onResume();
     }
 
 }

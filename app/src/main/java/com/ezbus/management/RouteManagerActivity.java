@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -50,25 +48,19 @@ public class RouteManagerActivity extends AppCompatActivity {
         List<String> initialList = new ArrayList<>();
         mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listRoute.setAdapter(mAdapter);
-        listRoute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(RouteManagerActivity.this, EditRouteActivity.class);
-                intent.putExtra("Route", idRoute1.get(position));
-                startActivity(intent);
-            }
+        listRoute.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(RouteManagerActivity.this, EditRouteActivity.class);
+            intent.putExtra("Route", idRoute1.get(position));
+            startActivity(intent);
         });
 
         aggiornaDati();
 
         Button addRoute = findViewById(R.id.addRoute);
-        addRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RouteManagerActivity.this, AddRouteActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        addRoute.setOnClickListener(v -> {
+            Intent intent = new Intent(RouteManagerActivity.this, AddRouteActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

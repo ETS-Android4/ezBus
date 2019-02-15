@@ -18,10 +18,6 @@ public class Pocket {
 
     public Pocket() {
         this.credit = 0;
-        this.addCard(new Card("Ciao", "caro", 1.0, new Date(), 3));
-        /*this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
-        this.addTicket(new Ticket("Ciao", "caro", 1.0, new Date()));
-        this.addPass(new Pass("compId", "Castelfidardo", "Urbano 1", "urbano", 15));*/
     }
 
     boolean isEmpty() {
@@ -42,7 +38,7 @@ public class Pocket {
         return this.myTickets;
     }
 
-    private void addTicket(Ticket newTicket) {
+    void addTicket(Ticket newTicket) {
         myTickets.add(newTicket);
     }
 
@@ -50,7 +46,7 @@ public class Pocket {
         return this.myCards;
     }
 
-    private void addCard(Card newCard) {
+    void addCard(Card newCard) {
         myCards.add(newCard);
     }
 
@@ -58,7 +54,7 @@ public class Pocket {
         return this.myPasses;
     }
 
-    private void addPass(Pass newPass) {
+    void addPass(Pass newPass) {
         myPasses.add(newPass);
     }
 

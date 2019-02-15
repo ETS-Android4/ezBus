@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.ezbus.R;
@@ -29,16 +28,13 @@ public class SettingsActivity extends AppCompatActivity {
         if(sharedpref.loadNightModeState())
             change_theme.setChecked(true);
 
-        change_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    sharedpref.setNightModeState(true);
-                    startNewActivity(SettingsActivity.class);
-                } else {
-                    sharedpref.setNightModeState(false);
-                    startNewActivity(SettingsActivity.class);
-                }
+        change_theme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                sharedpref.setNightModeState(true);
+                startNewActivity(SettingsActivity.class);
+            } else {
+                sharedpref.setNightModeState(false);
+                startNewActivity(SettingsActivity.class);
             }
         });
 

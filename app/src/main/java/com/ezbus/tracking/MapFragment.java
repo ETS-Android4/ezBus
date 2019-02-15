@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import com.ezbus.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -39,7 +38,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -166,16 +164,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         try {
             if (mLocationPermissionsGranted) {
                 final Task<Location> location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()) {
-                            Location currentLocation = (Location) task.getResult();
-                            if (currentLocation!=null)
-                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                        "My Location");
+                location.addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        Location currentLocation = (Location) task.getResult();
+                        if (currentLocation!=null)
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                    "My Location");
 
-                        }
                     }
                 });
             }
@@ -247,19 +242,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         mSearchText.setAdapter(autocompleteMap);
 
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+        mSearchText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if(actionId == EditorInfo.IME_ACTION_SEARCH
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                    || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
 
-                    geoLocate();
-                }
-
-                return false;
+                geoLocate();
             }
+
+            return false;
         });
     }
 

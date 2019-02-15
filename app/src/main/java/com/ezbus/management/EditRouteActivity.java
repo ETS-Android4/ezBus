@@ -1,7 +1,6 @@
 package com.ezbus.management;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,29 +62,16 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
         listStop2 = findViewById(R.id.scelta2);
 
         Button addStop = findViewById(R.id.aggiungiFermata);
-        addStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EditRouteActivity.this, AddStopActivity.class);
-                startActivity(intent);
-            }
+        addStop.setOnClickListener(v -> {
+            Intent intent = new Intent(EditRouteActivity.this, AddStopActivity.class);
+            startActivity(intent);
         });
 
         Button saveRoute = findViewById(R.id.salvaTratta);
-        saveRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editRoute();
-            }
-        });
+        saveRoute.setOnClickListener(v -> editRoute());
 
         Button delRoute = findViewById(R.id.eliminaTratta);
-        delRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteRoute();
-            }
-        });
+        delRoute.setOnClickListener(v -> deleteRoute());
 
         List<String> initialList1 = new ArrayList<>();
         List<String> initialList2 = new ArrayList<>();
@@ -103,16 +88,12 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
 
     private void deleteRoute() {
         AlertDialog.Builder logout = new AlertDialog.Builder(EditRouteActivity.this);
-        logout.setMessage("Vuoi davvero eliminare la tratta?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                rootRef.child("routes").child(idRoute).removeValue();
-                finish();
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //Operazione annullata
-            }
+        logout.setMessage("Vuoi davvero eliminare la tratta?").setPositiveButton("Si", (dialog, id) -> {
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            rootRef.child("routes").child(idRoute).removeValue();
+            finish();
+        }).setNegativeButton("No", (dialog, id) -> {
+            //Operazione annullata
         });
         logout.show();
     }
@@ -135,28 +116,18 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren())
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
-                            mAdapter1.add(s.getName());
-                            idStop1.add(s.getId());
-                            mAdapter2.add(s.getName());
-                            idStop2.add(s.getId());
+                        mAdapter1.add(s.getName());
+                        idStop1.add(s.getId());
+                        mAdapter2.add(s.getName());
+                        idStop2.add(s.getId());
                     }
                 for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
                     if (child.child("id").getValue().equals(idRoute)) {
                         routeName.setText(child.child("name").getValue().toString());
                         String idStart = child.child("start").getValue().toString();
                         String idDest = child.child("end").getValue().toString();
-                        getNameStop(1, idStart, new MyCallback() {
-                            @Override
-                            public void onCallback(String value) {
-                                listStop1.setSelection(mAdapter1.getPosition(value));
-                            }
-                        });
-                        getNameStop(2, idDest, new MyCallback() {
-                            @Override
-                            public void onCallback(String value) {
-                                listStop2.setSelection(mAdapter2.getPosition(value));
-                            }
-                        });
+                        getNameStop(1, idStart, value -> listStop1.setSelection(mAdapter1.getPosition(value)));
+                        getNameStop(2, idDest, value -> listStop2.setSelection(mAdapter2.getPosition(value)));
                     }
                 }
             }

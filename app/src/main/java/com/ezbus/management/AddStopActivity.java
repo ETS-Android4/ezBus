@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,19 +31,16 @@ public class AddStopActivity extends AppCompatActivity {
         final EditText lon = findViewById(R.id.lonPosition);
 
         Button saveStop = findViewById(R.id.saveStop);
-        saveStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String companyId = LoginActivity.mAuth.getUid();
-                if (!TextUtils.isEmpty(nameStop.getText().toString().trim()) &&
-                        !TextUtils.isEmpty(lat.getText().toString().trim()) &&
-                        !TextUtils.isEmpty(lon.getText().toString().trim())) {
-                    addStop(new Stop(nameStop.getText().toString(), new Position(Double.parseDouble(lat.getText().toString()),
-                            Double.parseDouble(lon.getText().toString())), companyId));
-                    finish();
-                }
-                else Toast.makeText(AddStopActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
+        saveStop.setOnClickListener(v -> {
+            String companyId = LoginActivity.mAuth.getUid();
+            if (!TextUtils.isEmpty(nameStop.getText().toString().trim()) &&
+                    !TextUtils.isEmpty(lat.getText().toString().trim()) &&
+                    !TextUtils.isEmpty(lon.getText().toString().trim())) {
+                addStop(new Stop(nameStop.getText().toString(), new Position(Double.parseDouble(lat.getText().toString()),
+                        Double.parseDouble(lon.getText().toString())), companyId));
+                finish();
             }
+            else Toast.makeText(AddStopActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
         });
     }
 

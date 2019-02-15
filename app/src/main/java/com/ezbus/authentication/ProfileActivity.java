@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 
     private static TextView email;
-    private static TextView username;
+    private static TextView name;
     private static User user;
     static SharedPref sharedpref;
 
@@ -38,19 +38,17 @@ public class ProfileActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        email = findViewById(R.id.Email);
-        username = findViewById(R.id.Username);
+        email = findViewById(R.id.email);
+        name = findViewById(R.id.name);
 
-        if (user == null)
-            setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
-        else
-            setDataToView();
+        if (user == null) setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
+        else setDataToView();
     }
 
     private static void setDataToView() {
         if (email != null) {
             email.setText("Email: " + user.getEmail());
-            username.setText("Username: " + user.getName());
+            name.setText("Nome: " + user.getName());
         }
     }
 

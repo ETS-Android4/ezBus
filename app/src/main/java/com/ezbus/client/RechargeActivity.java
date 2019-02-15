@@ -5,16 +5,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
+import com.google.firebase.database.DatabaseReference;
 
 public class RechargeActivity extends AppCompatActivity {
 
-    private TextView credit, recharge;
-    private int amount;
+    TextView credit, recharge;
+    Button plus, minus, confirm;
+    double amount = 5.0; //Ricarica consigliata iniziale
+    double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
     SharedPref sharedpref;
 
 
@@ -29,18 +33,23 @@ public class RechargeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recharge);
 
         credit = findViewById(R.id.credit);
-        credit.setText(Double.toString(ProfileActivity.getClient().getMyPocket().getCredit()));
+        plus = findViewById(R.id.plus);
+        minus = findViewById(R.id.minus);
         recharge = findViewById(R.id.recharge);
+        credit.setText(Double.toString(myCredit) + " €");
+        confirm = findViewById(R.id.confirm);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    void changeCredit(int c) {
+    void changeCredit(Double c) {
         if (!(amount == 0 && c < 0)) {
             amount += c;
-            recharge.setText(Integer.toString(amount));
+            recharge.setText(Double.toString(amount) + " €");
+            if (amount==0) confirm.setEnabled(false);
+            else confirm.setEnabled(true);
         }
     }
 
@@ -53,10 +62,10 @@ public class RechargeActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.plus:
-                changeCredit(1);
+                changeCredit(1.0);
                 break;
             case R.id.minus:
-                changeCredit(-1);
+                changeCredit(-1.0);
                 break;
             case R.id.confirm:
                 ProfileActivity.getClient().getMyPocket().updateCredit(amount);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 
 import com.ezbus.R;
@@ -24,19 +23,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         client = findViewById(R.id.client);
         company = findViewById(R.id.company);
-        client.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAnswer("Client");
-                startNewActivity();
-            }
+        client.setOnClickListener(v -> {
+            setAnswer("Client");
+            startNewActivity();
         });
-        company.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAnswer("Company");
-                startNewActivity();
-            }
+        company.setOnClickListener(v -> {
+            setAnswer("Company");
+            startNewActivity();
         });
     }
 
