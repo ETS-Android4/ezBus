@@ -14,18 +14,18 @@ import java.io.InputStream;
 
 public class PrivacyActivity extends AppCompatActivity {
 
-    public String text;
-    public TextView privacy;
-    public TextView txtPrivacy;
+    private TextView privacy;
+    private TextView txtPrivacy;
     SharedPref sharedpref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         this.sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
 
@@ -33,21 +33,18 @@ public class PrivacyActivity extends AppCompatActivity {
         this.privacy = findViewById(R.id.privacy);
 
         //genera il viewText dato un file txt (INCOMPLETO)
-            text = "";
+        try {
+            InputStream is = getAssets().open("app/java/res/raw/privacy.txt");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            //is.read(buffer);
+            is.close();
+            txtPrivacy.setText(new String(buffer));
 
-            try {
-                InputStream is = getAssets().open("app/java/res/raw/privacy.txt");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                //is.read(buffer);
-                is.close();
-                text = new String(buffer);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            txtPrivacy.setText(text);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
     public void onClick(View view) {
         finish();

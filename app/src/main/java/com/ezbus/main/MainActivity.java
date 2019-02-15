@@ -96,33 +96,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
             FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
-            if (sharedpref.isClient()) {
-                if (currentUser == null) {
-                    navUsername.setText("Ospite");
-                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                } else {
-                    navUsername.setText(currentUser.getEmail());
-                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                }
-            }
-            else {
-                if (currentUser == null) {
-                    navUsername.setText("Ospite");
-                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
-                } else {
-                    navUsername.setText(currentUser.getEmail());
-                    navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                    navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                    navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
-                }
+            if (currentUser == null) {
+                navUsername.setText("Ospite");
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
+            } else {
+                navUsername.setText(currentUser.getEmail());
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             }
 
             navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
@@ -137,52 +122,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
-            switch (item.getItemId()) {
-                case R.id.tab1:
-                    setFragment(1);
-                    return true;
-                case R.id.tab2:
-                    if (currentUser == null) {
-                        startNewActivity(LoginActivity.class);
-                        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-                        return false;
-                    } else {
+            if (currentUser == null) {
+                startNewActivity(LoginActivity.class);
+                //overridePendingTransition(R.transition.fadein, R.transition.fadeout);
+                return false;
+            } else {
+                switch (item.getItemId()) {
+                    case R.id.tab1:
+                        setFragment(1);
+                        return true;
+                    case R.id.tab2:
                         setFragment(2);
                         return true;
-                    }
-                case R.id.tab3:
-                    if (currentUser == null) {
-                        startNewActivity(LoginActivity.class);
-                        return false;
-                    } else {
+                    case R.id.tab3:
                         setFragment(3);
                         return true;
-                    }
-                case R.id.tab4:
-                    if (currentUser == null) {
-                        startNewActivity(LoginActivity.class);
-                        return false;
-                    } else {
+                    case R.id.tab4:
                         setFragment(4);
                         return true;
-                    }
-                case R.id.tab5:
-                    if (currentUser == null) {
-                        startNewActivity(LoginActivity.class);
-                        return false;
-                    } else {
+                    case R.id.tab5:
                         setFragment(5);
                         return true;
-                    }
+                }
             }
             return false;
         }
     };
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
 
     private void setFragment(int fragmentId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -266,6 +231,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override

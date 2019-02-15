@@ -18,7 +18,6 @@ import com.ezbus.main.SharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextUsername;
     private EditText editTextPassword;
-    private CheckBox check1;
+    private CheckBox checkPrivacy;
     private Company newCompany;
     SharedPref sharedpref;
 
@@ -49,19 +48,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         this.editTextUsername = findViewById(R.id.editTextUsername);
         this.editTextEmail = findViewById(R.id.editTextEmail);
         this.editTextPassword = findViewById(R.id.editTextPassword);
+        this.checkPrivacy = findViewById(R.id.checkPrivacy);
 
         Button signUpButton = findViewById(R.id.buttonSignup);
         signUpButton.setOnClickListener(this);
-
-        this.check1 = findViewById(R.id.check1);
-
-        Button privacyButton = findViewById(R.id.privacybutton);
-        privacyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewActivity();
-            }
-        });
+        Button privacyButton = findViewById(R.id.buttonPrivacy);
+        privacyButton.setOnClickListener(this);
     }
 
     @Override
@@ -69,12 +61,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onConfigurationChanged(newConfig);
     }
 
-    private void registerUser() {
+    private void registerCompany() {
         //Parametri di Input
         String company = editTextCompany.getText().toString().trim();
         String iva = editTextIVA.getText().toString().trim();
-        final String username = editTextUsername.getText().toString().trim();
-        final String email = editTextEmail.getText().toString().trim();
+        String username = editTextUsername.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
         if (!checkData(company, iva, username, email, password)) return;
@@ -85,61 +77,56 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    //Se avvenuta con successo
-                    if (task.isSuccessful()) {
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        if (currentUser != null) {
-                            newCompany.setUid(currentUser.getUid());
-                            FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
-                            LoginActivity.mAuth.getInstance().signOut();
-                            LoginActivity.mGoogleSignInClient.signOut();
-                        }
-                        Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
-                        finish();
+                //Se avvenuta con successo
+                if (task.isSuccessful()) {
+                    FirebaseUser currentUser = LoginActivity.mAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        newCompany.setUid(currentUser.getUid());
+                        FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
+                        LoginActivity.mAuth.getInstance().signOut();
+                        LoginActivity.mGoogleSignInClient.signOut();
                     }
-                    else Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else Toast.makeText(RegisterActivity.this,"L'email non è valida o è già stata usata. Riprova!",Toast.LENGTH_LONG).show();
                 }
             });
     }
 
     private boolean checkData(String company, String iva, String username, String email, String password) {
-        if (TextUtils.isEmpty(company)) {
-            Toast.makeText(this,"Il campo Nome Azienda deve essere compilato!",Toast.LENGTH_LONG).show();
-            return false;
-        } else if(TextUtils.isEmpty(iva)){
-            Toast.makeText(this,"Il campo Partita IVA deve essere compilato!",Toast.LENGTH_LONG).show();
-            return false;
-        } else if(iva.length() != 11){
-            Toast.makeText(this,"La partita IVA è composta da 11 cifre! Riprova",Toast.LENGTH_LONG).show();
-            return false;
-        } else if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Inserisci l'Email",Toast.LENGTH_LONG).show();
-            return false;
-        } else if(TextUtils.isEmpty(username)){
-            Toast.makeText(this,"Inserisci un Username",Toast.LENGTH_LONG).show();
-            return false;
-        } else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Inserisci la Password",Toast.LENGTH_LONG).show();
-            return false;
-        } else if (password.length()<8) {
-            Toast.makeText(this, "La password deve essere composta da almeno 8 caratteri", Toast.LENGTH_LONG).show();
-            return false;
-        } else if(!check1.isChecked()) {
-            Toast.makeText(this, "Devi accettare i termini e le condizioni della Privacy.", Toast.LENGTH_LONG).show();
-            return false;
-        }
+        if (TextUtils.isEmpty(company)) errorMessage("Il campo Nome Azienda deve essere compilato!");
+        else if (TextUtils.isEmpty(iva)) errorMessage("Il campo Partita IVA deve essere compilato!");
+        else if (iva.length() != 11) errorMessage("La partita IVA è composta da 11 cifre! Riprova");
+        else if (TextUtils.isEmpty(email)) errorMessage("Inserisci l'Email");
+        else if (TextUtils.isEmpty(username)) errorMessage("Inserisci un Username");
+        else if (TextUtils.isEmpty(password)) errorMessage("Inserisci la Password");
+        else if (password.length()<8) errorMessage("La password deve essere composta da almeno 8 caratteri");
+        else if (!checkPrivacy.isChecked()) errorMessage("Devi accettare i termini e le condizioni della Privacy");
 
         return true;
     }
 
-    private void startNewActivity() {
-        Intent intent = new Intent(this, PrivacyActivity.class);
+    private boolean errorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    private void startNewActivity(Class act) {
+        Intent intent = new Intent(this, act);
         startActivity(intent);
     }
 
     @Override
     public void onClick(View view) {
-        registerUser();
+        switch (view.getId()) {
+            case R.id.buttonSignup:
+                registerCompany();
+                break;
+            case R.id.buttonPrivacy:
+                startNewActivity(PrivacyActivity.class);
+                break;
+        }
     }
 
     @Override

@@ -203,9 +203,9 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
         aggiornaDati();
     }
 
-
     @Override
     public void onCallback(String value) {
 
     }
+
 }

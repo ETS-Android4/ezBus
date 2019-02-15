@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private User newUser;
     SharedPref sharedpref;
 
 
@@ -72,12 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             findViewById(R.id.signInUser).setVisibility(View.GONE);
             findViewById(R.id.loginCompany).setVisibility(View.VISIBLE);
-            findViewById(R.id.signInCompany).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loginCompany();
-                }
-            });
+            findViewById(R.id.signInCompany).setOnClickListener(this);
         }
     }
 
@@ -107,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) firebaseAuthWithGoogle(account);
+                if (account != null) loginClient(account);
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
                 updateUI(null);
@@ -115,9 +109,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void loginClient(GoogleSignInAccount acct) {
         final GoogleSignInAccount account = acct;
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        Log.d(TAG, "loginClient:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
         mAuth.signInWithCredential(credential)
@@ -125,42 +119,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if (task.isSuccessful()) {
-                    if (user!=null) {
-                        final String uid = user.getUid();
-                        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
-                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                newUser = new Client();
-                                if (dataSnapshot.exists()) {
-                                    newUser = dataSnapshot.getValue(Client.class);
-                                    ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
-                                } else {
-                                    newUser = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
-                                    newUser.setUid(uid);
-                                    rootRef.setValue(newUser);
-                                    ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
-                                }
+                if (task.isSuccessful() && user!=null) {
+                    final String uid = user.getUid();
+                    final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                Client newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
+                                newClient.setUid(uid);
+                                rootRef.setValue(newClient);
                             }
+                            ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-                    }
-                } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.getException());
-                }
+                        }
+                    });
+                } else  Log.w(TAG, "signInWithCredential:failure", task.getException());
                 updateUI(user);
                 }
             });
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void loginCompany() {
@@ -182,6 +163,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
         }
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     /* Utile perchè forse rimuove proprio dal database l'utente
@@ -218,13 +204,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.signInUser)
-            signIn();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.signInUser:
+                signIn();
+                break;
+            case R.id.signInCompany:
+                loginCompany();
+                break;
+        }
     }
 
     @Override
     public void onBackPressed() {
         finish();
     }
+
 }

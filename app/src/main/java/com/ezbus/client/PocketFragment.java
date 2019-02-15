@@ -24,9 +24,6 @@ import java.util.List;
 
 public class PocketFragment extends Fragment {
 
-    private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
-
-
     public PocketFragment() { }
 
     @Override
@@ -48,6 +45,7 @@ public class PocketFragment extends Fragment {
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
+        private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
         private ItemFragment fragTickets = new ItemFragment();
         private ItemFragment fragCards = new ItemFragment();
         private ItemFragment fragPasses = new ItemFragment();

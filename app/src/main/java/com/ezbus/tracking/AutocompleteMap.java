@@ -30,7 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
-
     private static final String TAG = "PlaceAutoCompleteAd";
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
 
@@ -49,7 +48,7 @@ public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implem
     //Initializes with a resource for text rows and autocomplete query bounds.
     //@see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
     AutocompleteMap(Context context, GoogleApiClient googleApiClient,
-                                    LatLngBounds bounds, AutocompleteFilter filter) {
+                    LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
@@ -87,7 +86,6 @@ public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implem
     }
 
     //Returns the filter for the current set of autocomplete results
-
     @Override
     @SuppressWarnings("unchecked")
     public Filter getFilter() {

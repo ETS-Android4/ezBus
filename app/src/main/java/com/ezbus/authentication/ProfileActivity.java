@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.Email);
         username = findViewById(R.id.Username);
 
-        if (getUser() == null)
+        if (user == null)
             setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
         else
             setDataToView();
@@ -49,8 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static void setDataToView() {
         if (email != null) {
-            email.setText("Email: " + getUser().getEmail());
-            username.setText("Username: " + getUser().getName());
+            email.setText("Email: " + user.getEmail());
+            username.setText("Username: " + user.getName());
         }
     }
 
@@ -60,8 +60,12 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    public static User getUser() {
-        return user;
+    public static Client getClient() {
+        return (Client) user;
+    }
+
+    public static Company getCompany() {
+        return (Company) user;
     }
 
     public static void resetUser() {

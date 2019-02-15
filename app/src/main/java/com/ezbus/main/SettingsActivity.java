@@ -18,7 +18,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(this);
-
         if(sharedpref.loadNightModeState()) {
             setTheme(R.style.App_Dark);
         }  else setTheme(R.style.App_Green);
@@ -66,4 +65,5 @@ public class SettingsActivity extends AppCompatActivity {
     public void onBackPressed() {
         startNewActivity(MainActivity.class);
     }
+
 }
