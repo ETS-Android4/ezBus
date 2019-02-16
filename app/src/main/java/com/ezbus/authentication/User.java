@@ -27,4 +27,6 @@ public abstract class User {
         return this.email;
     }
 
+    abstract void databaseSync();
+
 }

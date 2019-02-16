@@ -5,7 +5,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Pocket {
@@ -40,6 +39,7 @@ public class Pocket {
 
     void addTicket(Ticket newTicket) {
         myTickets.add(newTicket);
+        databaseSync();
     }
 
     List<Card> getMyCards() {
@@ -48,6 +48,7 @@ public class Pocket {
 
     void addCard(Card newCard) {
         myCards.add(newCard);
+        databaseSync();
     }
 
     List<Pass> getMyPasses() {
@@ -56,11 +57,12 @@ public class Pocket {
 
     void addPass(Pass newPass) {
         myPasses.add(newPass);
+        databaseSync();
     }
 
     private void databaseSync() {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef.child("clients").child(ProfileActivity.getClient().getUid()).child("myPocket").setValue(this);
+        DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients");
+        path.child(ProfileActivity.getClient().getUid()).child("myPocket").setValue(this);
     }
 
 }

@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -72,22 +71,22 @@ public class ProfileActivity extends AppCompatActivity {
 
     public static void setUser(FirebaseUser newUser, final String type) {
         if (newUser != null) {
-            Query search = FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid());
-            search.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (type.equals("clients"))
-                        user = dataSnapshot.getValue(Client.class);
-                    else if (type.equals("companies"))
-                        user = dataSnapshot.getValue(Company.class);
-                    setDataToView();
-                }
+            FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (type.equals("clients"))
+                            user = dataSnapshot.getValue(Client.class);
+                        else if (type.equals("companies"))
+                            user = dataSnapshot.getValue(Company.class);
+                        setDataToView();
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
         }
     }
 

@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -114,32 +113,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this, task -> {
-            FirebaseUser user = mAuth.getCurrentUser();
-            if (task.isSuccessful()) {
-                if (user!=null) {
-                    final String uid = user.getUid();
-                    final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("clients").child(uid);
-                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.exists()) {
-                                Client newClient = new Client(account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
-                                newClient.setUid(uid);
-                                rootRef.setValue(newClient);
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (task.isSuccessful()) {
+                    if (user!=null) {
+                        final String id = user.getUid();
+                        FirebaseDatabase.getInstance().getReference("/clients/"+id)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.exists())
+                                    new Client(id, account.getGivenName(), account.getFamilyName(), account.getEmail(), new Pocket());
+                                ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
                             }
-                            ProfileActivity.setUser(mAuth.getCurrentUser(), sharedpref.getQuery());
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
                 }
-            } else {
-                Log.w(TAG, "signInWithCredential:failure", task.getException());
-            }
-            updateUI(user);
+                updateUI(user);
             });
     }
 
@@ -150,13 +146,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!email.equals("") && !password.equals("")) {
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (task.isSuccessful()) {
-                    ProfileActivity.setUser(currentUser, sharedpref.getQuery());
-                } else {
-                    Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
-                }
-                updateUI(currentUser);
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if (task.isSuccessful()) {
+                        ProfileActivity.setUser(currentUser, sharedpref.getQuery());
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
+                    }
+                    updateUI(currentUser);
                 });
         }
     }

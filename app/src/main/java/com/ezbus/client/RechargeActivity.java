@@ -11,14 +11,13 @@ import android.widget.TextView;
 import com.ezbus.R;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
-import com.google.firebase.database.DatabaseReference;
 
 public class RechargeActivity extends AppCompatActivity {
 
-    TextView credit, recharge;
-    Button plus, minus, confirm;
-    double amount = 5.0; //Ricarica consigliata iniziale
-    double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
+    private TextView credit, recharge;
+    private Button plus, minus, confirm;
+    private double amount = 5.0; //Ricarica consigliata iniziale
+    private double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
     SharedPref sharedpref;
 
 

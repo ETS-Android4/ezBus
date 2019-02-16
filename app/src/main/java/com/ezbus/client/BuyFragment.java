@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.authentication.ProfileActivity;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,13 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class BuyFragment extends Fragment {
 
-    View view;
-    private static TextView credit;
+    private View view;
+    private TextView credit;
 
 
-    public BuyFragment() {
-
-    }
+    public BuyFragment() { }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +33,6 @@ public class BuyFragment extends Fragment {
 
         Button buttonPass = view.findViewById(R.id.buyPass);
         buttonPass.setOnClickListener(v -> startNewActivity(BuyPassActivity.class));
-
         Button buttonCredit = view.findViewById(R.id.recharge);
         buttonCredit.setOnClickListener(v -> startNewActivity(RechargeActivity.class));
 
@@ -51,7 +47,7 @@ public class BuyFragment extends Fragment {
         search.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                setDataToView();
+                setDataToView(dataSnapshot.getValue(Double.class));
             }
 
             @Override
@@ -61,20 +57,13 @@ public class BuyFragment extends Fragment {
         });
     }
 
-    private static void setDataToView() {
-        double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
-        credit.setText(Double.toString(myCredit) + " €");
+    private void setDataToView(Double credit) {
+        this.credit.setText(credit + " €");
     }
 
     private void startNewActivity(Class act) {
         Intent intent = new Intent(getContext(), act);
         startActivity(intent);
-    }
-
-    @Override
-    public void onResume() {
-        setDataToView();
-        super.onResume();
     }
 
 }

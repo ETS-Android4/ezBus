@@ -85,7 +85,7 @@ public class PocketFragment extends Fragment {
         void setFragments() {
             if (currentClient != null) {
                 String id = currentClient.getUid();
-                FirebaseDatabase.getInstance().getReference().child("clients").child(id).child("myPocket")
+                FirebaseDatabase.getInstance().getReference("/clients/"+id+"/myPocket")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

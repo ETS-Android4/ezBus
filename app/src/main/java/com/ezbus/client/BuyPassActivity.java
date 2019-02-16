@@ -5,14 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.authentication.Client;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +27,7 @@ public class BuyPassActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     final ArrayList<String> idPass = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +53,11 @@ public class BuyPassActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idPass.get(position))) {
-                        Pass p = child.getValue(Pass.class);
+                        Pass newPass = child.getValue(Pass.class);
                         List<Pass> myPasses = ProfileActivity.getClient().getMyPocket().getMyPasses();
                         Boolean trovato = false;
                         for (Pass abbonamento : myPasses) {
-                            if (abbonamento.getId().equals(p.getId())) {
+                            if (abbonamento.getId().equals(newPass.getId())) {
                                 //Andiamo a cercare se è gia presente un abbonamento con quell'id
                                 trovato = true;
                                 break;
@@ -67,15 +65,11 @@ public class BuyPassActivity extends AppCompatActivity {
                         }
                         if (!trovato) {
                             //Andiamo a vedere se il credito è sufficiente
-                            Double creditoAttuale = ProfileActivity.getClient().getMyPocket().getCredit();
-                            Double prezzoPass = p.getPrice();
-                            if (creditoAttuale >= p.getPrice()) {
-                                myPasses.add(p);
-                                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                                rootRef.child("clients").child(ProfileActivity.getClient().getUid()).child("myPocket")
-                                        .child("myPasses").setValue(myPasses);
-                                rootRef.child("clients").child(ProfileActivity.getClient().getUid()).child("myPocket")
-                                        .child("credit").setValue(creditoAttuale - prezzoPass);
+                            Double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
+                            Double passPrice = newPass.getPrice();
+                            if (myCredit >= newPass.getPrice()) {
+                                ProfileActivity.getClient().getMyPocket().updateCredit(-passPrice);
+                                ProfileActivity.getClient().getMyPocket().addPass(newPass);
                                 Toast.makeText(getApplicationContext(),"Abbonamento acquistato",Toast.LENGTH_SHORT).show();
                             }
                             else Toast.makeText(getApplicationContext(),"Credito insufficiente per l'operazione",Toast.LENGTH_SHORT).show();
@@ -126,4 +120,5 @@ public class BuyPassActivity extends AppCompatActivity {
             }
         });
     }
+
 }

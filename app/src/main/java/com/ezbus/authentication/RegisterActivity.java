@@ -28,7 +28,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextPassword;
     private CheckBox checkPrivacy;
-    private Company newCompany;
     SharedPref sharedpref;
 
 
@@ -61,23 +60,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void registerCompany() {
         //Parametri di Input
-        String company = editTextCompany.getText().toString().trim();
-        String iva = editTextIVA.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
+        final String company = editTextCompany.getText().toString().trim();
+        final String iva = editTextIVA.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
         if (!checkData(company, iva, email, password)) return;
 
         //Creazione nuova azienda
-        newCompany = new Company(company, iva, email);
         LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, task -> {
                 //Se avvenuta con successo
                 if (task.isSuccessful()) {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
-                        newCompany.setUid(currentUser.getUid());
-                        FirebaseDatabase.getInstance().getReference().child(sharedpref.getQuery()).child(currentUser.getUid()).setValue(newCompany);
+                        new Company(currentUser.getUid(), company, iva, email);
                         LoginActivity.mAuth.getInstance().signOut();
                         LoginActivity.mGoogleSignInClient.signOut();
                     }
