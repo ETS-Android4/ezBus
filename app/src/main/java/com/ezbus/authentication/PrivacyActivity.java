@@ -14,14 +14,9 @@ import java.io.InputStream;
 
 public class PrivacyActivity extends AppCompatActivity {
 
-    private TextView privacy;
-    private TextView txtPrivacy;
-    SharedPref sharedpref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -29,8 +24,7 @@ public class PrivacyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
 
-        this.txtPrivacy = findViewById(R.id.txtPrivacy);
-        this.privacy = findViewById(R.id.privacy);
+        TextView txtPrivacy = findViewById(R.id.txtPrivacy);
 
         //genera il viewText dato un file txt (INCOMPLETO)
         try {

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,13 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddPassActivity extends AppCompatActivity {
 
-    SharedPref sharedpref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -42,23 +37,25 @@ public class AddPassActivity extends AppCompatActivity {
 
         final EditText namePass = findViewById(R.id.editText_namePass);
         final EditText nameCity = findViewById(R.id.editText_nameCity);
-        final EditText nameType = findViewById(R.id.editText_typePass);
+        final EditText nameDays = findViewById(R.id.editText_nameDays);
         final EditText pricePass = findViewById(R.id.editText_pricePass);
 
         Button savePass = findViewById(R.id.save_pass);
-        savePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String companyId = LoginActivity.mAuth.getUid();
-                if (!TextUtils.isEmpty(namePass.getText().toString().trim()) &&
-                        !TextUtils.isEmpty(nameCity.getText().toString().trim()) &&
-                        !TextUtils.isEmpty(nameType.getText().toString().trim()) &&
-                        !TextUtils.isEmpty(pricePass.getText().toString().trim())) {
-                    addPass(new Pass(companyId, namePass.getText().toString().trim(), nameCity.getText().toString().trim(),
-                            nameType.getText().toString().trim(), Double.parseDouble(pricePass.getText().toString().trim())));
-                }
-                else Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
+        savePass.setOnClickListener(view -> {
+            String companyId = LoginActivity.mAuth.getUid();
+            if (!TextUtils.isEmpty(namePass.getText().toString().trim()) &&
+                    !TextUtils.isEmpty(nameCity.getText().toString().trim()) &&
+                    !TextUtils.isEmpty(nameDays.getText().toString().trim()) &&
+                    !TextUtils.isEmpty(pricePass.getText().toString().trim())) {
+
+                double price = Double.parseDouble(pricePass.getText().toString().trim());
+                int expiration = Integer.parseInt(nameDays.getText().toString().trim());
+                String name = namePass.getText().toString().trim();
+                String city = nameCity.getText().toString().trim();
+                addPass(new Pass(companyId, price, expiration, name, city));
+
             }
+            else Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
         });
     }
 

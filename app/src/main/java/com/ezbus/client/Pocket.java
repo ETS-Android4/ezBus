@@ -12,16 +12,15 @@ public class Pocket {
     private double credit;
     private List<Ticket> myTickets = new ArrayList<>();
     private List<Card> myCards = new ArrayList<>();
-    private List<Pass> myPasses = new ArrayList<>();
+    private List<Pass> myPass = new ArrayList<>();
 
 
     public Pocket() {
         this.credit = 0;
     }
 
-    boolean isEmpty() {
-        if (getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPasses().size() == 0) return true;
-        else return false;
+    private boolean isEmpty() {
+        return getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPass().size() == 0;
     }
 
     double getCredit() {
@@ -51,12 +50,12 @@ public class Pocket {
         databaseSync();
     }
 
-    List<Pass> getMyPasses() {
-        return this.myPasses;
+    List<Pass> getMyPass() {
+        return this.myPass;
     }
 
     void addPass(Pass newPass) {
-        myPasses.add(newPass);
+        myPass.add(newPass);
         databaseSync();
     }
 

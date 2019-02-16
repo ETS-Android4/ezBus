@@ -20,12 +20,11 @@ public class ProfileActivity extends AppCompatActivity {
     private static TextView email;
     private static TextView name;
     private static User user;
-    static SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -59,10 +58,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     public static Client getClient() {
         return (Client) user;
-    }
-
-    public static Company getCompany() {
-        return (Company) user;
     }
 
     public static void resetUser() {

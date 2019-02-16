@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
+import com.ezbus.main.SharedPref;
 import com.ezbus.tracking.Position;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,6 +20,11 @@ public class AddStopActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPref sharedpref = new SharedPref(this);
+        if (sharedpref.loadNightModeState())
+            setTheme(R.style.App_Dark);
+        else setTheme(R.style.App_Green);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_stop);
 
@@ -36,15 +42,15 @@ public class AddStopActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(nameStop.getText().toString().trim()) &&
                     !TextUtils.isEmpty(lat.getText().toString().trim()) &&
                     !TextUtils.isEmpty(lon.getText().toString().trim())) {
-                addStop(new Stop(nameStop.getText().toString(), new Position(Double.parseDouble(lat.getText().toString()),
-                        Double.parseDouble(lon.getText().toString())), companyId));
+                addStop(new Stop( companyId, new Position(Double.parseDouble(lat.getText().toString()),
+                        Double.parseDouble(lon.getText().toString())), nameStop.getText().toString()));
                 finish();
             }
             else Toast.makeText(AddStopActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void addStop (Stop s) {
+    private void addStop(Stop s) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         String uid = s.getId();
         rootRef.child("stops").child(uid).setValue(s);

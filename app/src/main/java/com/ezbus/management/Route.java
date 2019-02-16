@@ -6,21 +6,20 @@ import java.util.UUID;
 
 public class Route {
 
-    private String name;
     private String id;
     private String companyId;
+    private String name;
     private String idStartStop;
     private String idEndStop;
     private List<Track> tracks;
 
-    public Route() {
-        this.id = UUID.randomUUID().toString();
-    }
 
-    Route (String name, String companyId, String idStartStop, String idEndStop) {
-        this.name = name;
+    public Route() { }
+
+    Route (String companyId, String name, String idStartStop, String idEndStop) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
+        this.name = name;
         this.idStartStop = idStartStop;
         this.idEndStop = idEndStop;
         this.tracks  = new ArrayList<>();

@@ -32,14 +32,14 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editText_typePass"
+            android:id="@+id/editText_nameDays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Tipologia"
+            android:hint="Durata (Giorni)"
             android:textColorHint="?attr/textColorHint"
             android:textColor="?attr/textcolor"
-            android:inputType="text" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editText_pricePass"

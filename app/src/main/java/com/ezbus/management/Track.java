@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Track {
+class Track {
 
     private String time;
-    private String name;
-    private List<Stop> stops;
     private String id;
+    private List<Stop> stops;
 
 
-    public Track(String name, String time) {
-        this.name = name;
+    public Track(String time) {
         this.time = time;
         this.id = UUID.randomUUID().toString();
         this.stops = new ArrayList<>();
@@ -21,10 +19,6 @@ public class Track {
 
     public String getTime() {
         return this.time;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public String getId() {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,20 +29,17 @@ import com.ezbus.client.PocketFragment;
 import com.ezbus.management.ManagerFragment;
 import com.ezbus.tracking.DriverFragment;
 import com.ezbus.tracking.MapFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle mToggle;
     public static NavigationView navigationView;
-    SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.NoApp_Dark);
         else setTheme(R.style.NoApp_Green);
@@ -88,12 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-            LoginActivity.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
             FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
             if (currentUser == null) {
                 navUsername.setText("Ospite");
@@ -116,118 +108,73 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
-            if (currentUser == null) {
-                startNewActivity(LoginActivity.class);
-                //overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-                return false;
-            } else {
-                switch (item.getItemId()) {
-                    case R.id.tab1:
-                        setFragment(1);
-                        return true;
-                    case R.id.tab2:
-                        setFragment(2);
-                        return true;
-                    case R.id.tab3:
-                        setFragment(3);
-                        return true;
-                    case R.id.tab4:
-                        setFragment(4);
-                        return true;
-                    case R.id.tab5:
-                        setFragment(5);
-                        return true;
+            = item -> {
+                FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    startNewActivity(LoginActivity.class);
+                    return false;
+                } else {
+                    switch (item.getItemId()) {
+                        case R.id.tab1:
+                            setFragment(1);
+                            return true;
+                        case R.id.tab2:
+                            setFragment(2);
+                            return true;
+                        case R.id.tab3:
+                            setFragment(3);
+                            return true;
+                        case R.id.tab4:
+                            setFragment(4);
+                            return true;
+                        case R.id.tab5:
+                            setFragment(5);
+                            return true;
+                    }
                 }
-            }
-            return false;
-        }
-    };
+                return false;
+            };
 
     private void setFragment(int fragmentId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment1 = fragmentManager.findFragmentByTag("one");
+        Fragment fragment2 = fragmentManager.findFragmentByTag("two");
+        Fragment fragment3 = fragmentManager.findFragmentByTag("three");
+        Fragment fragment4 = fragmentManager.findFragmentByTag("four");
+        Fragment fragment5 = fragmentManager.findFragmentByTag("five");
 
         switch(fragmentId) {
             case 1:
-                if (fragmentManager.findFragmentByTag("one") != null) {
-                    //Se il fragment esiste, viene mostrato
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("one")).commit();
-                } else {
-                    //Se il fragment non esiste, lo crea
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), "one").commit();
-                }
-                //Se altri fragment sono visibili, vengono nascosti
-                if (fragmentManager.findFragmentByTag("two") != null) {
-                    getSupportActionBar().setElevation(10);
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("three") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("four") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("five") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
-                }
+                if (fragment1 != null) fragmentManager.beginTransaction().show(fragment1).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), "one").commit();
+                if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
+                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
+                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 2:
-                if (fragmentManager.findFragmentByTag("two") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("two")).commit();
-                } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
-                }
-                getSupportActionBar().setElevation(0);
-                if (fragmentManager.findFragmentByTag("one") != null){
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("three") != null){
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("three")).commit();
-                }
+                if (fragment2 != null) fragmentManager.beginTransaction().show(fragment2).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
+                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
+                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
                 break;
             case 3:
-                if (fragmentManager.findFragmentByTag("three") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("three")).commit();
-                } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "three").commit();
-                }
-                if (fragmentManager.findFragmentByTag("one") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("two") != null) {
-                    getSupportActionBar().setElevation(10);
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("two")).commit();
-                }
+                if (fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "three").commit();
+                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
+                if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                 break;
             case 4:
-                if (fragmentManager.findFragmentByTag("four") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("four")).commit();
-                } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), "four").commit();
-                }
-                if (fragmentManager.findFragmentByTag("one") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("five") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("five")).commit();
-                }
+                if (fragment4 != null) fragmentManager.beginTransaction().show(fragment4).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), "four").commit();
+                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 5:
-                if (fragmentManager.findFragmentByTag("five") != null) {
-                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("five")).commit();
-                } else {
-                    fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), "five").commit();
-                }
-                if (fragmentManager.findFragmentByTag("one") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("one")).commit();
-                }
-                if (fragmentManager.findFragmentByTag("four") != null) {
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("four")).commit();
-                }
+                if (fragment5 != null) fragmentManager.beginTransaction().show(fragment5).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), "five").commit();
+                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
+                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
                 break;
         }
     }
@@ -279,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Se l'utente accetta di uscire
             ProfileActivity.resetUser();
             LoginActivity.mAuth.getInstance().signOut();
-            LoginActivity.mGoogleSignInClient.signOut();
+            if (LoginActivity.googleSignInClient!=null) LoginActivity.googleSignInClient.signOut();
             startNewActivity(act);
             finish();
         })
@@ -294,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-    public String getAnswer() {
+    private String getAnswer() {
         SharedPreferences sp = getSharedPreferences("pref",0);
         return sp.getString("Scelta","Empty");
     }

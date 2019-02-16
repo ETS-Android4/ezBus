@@ -1,13 +1,11 @@
 package com.ezbus.client;
 
-import java.util.Date;
-
 class Item {
 
-    protected String id;
-    protected String companyId;
+    String id;
+    String companyId;
     double price;
-    Date expiration;
+    int expiration;
 
 
     public String getId() {
@@ -22,7 +20,7 @@ class Item {
         return this.price;
     }
 
-    public Date getExpiration() {
+    public int getExpiration() {
         return this.expiration;
     }
 

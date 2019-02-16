@@ -13,8 +13,6 @@ import com.ezbus.R;
 
 public class ManagerFragment extends Fragment {
 
-
-
     public ManagerFragment() {
         //Required empty public constructor
     }

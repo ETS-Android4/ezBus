@@ -14,12 +14,8 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,7 +24,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextPassword;
     private CheckBox checkPrivacy;
-    SharedPref sharedpref;
+    private Company newCompany;
+    private SharedPref sharedpref;
 
 
     @Override
@@ -60,9 +57,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void registerCompany() {
         //Parametri di Input
-        final String company = editTextCompany.getText().toString().trim();
-        final String iva = editTextIVA.getText().toString().trim();
-        final String email = editTextEmail.getText().toString().trim();
+        String company = editTextCompany.getText().toString().trim();
+        String iva = editTextIVA.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
         if (!checkData(company, iva, email, password)) return;
@@ -76,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (currentUser != null) {
                         new Company(currentUser.getUid(), company, iva, email);
                         LoginActivity.mAuth.getInstance().signOut();
-                        LoginActivity.mGoogleSignInClient.signOut();
                     }
                     Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
                     finish();
@@ -86,13 +82,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean checkData(String company, String iva, String email, String password) {
-        if (TextUtils.isEmpty(company)) errorMessage("Il campo Nome Azienda deve essere compilato!");
-        else if (TextUtils.isEmpty(iva)) errorMessage("Il campo Partita IVA deve essere compilato!");
-        else if (iva.length() != 11) errorMessage("La partita IVA è composta da 11 cifre! Riprova");
-        else if (TextUtils.isEmpty(email)) errorMessage("Inserisci l'Email");
-        else if (TextUtils.isEmpty(password)) errorMessage("Inserisci la Password");
-        else if (password.length()<8) errorMessage("La password deve essere composta da almeno 8 caratteri");
-        else if (!checkPrivacy.isChecked()) errorMessage("Devi accettare i termini e le condizioni della Privacy");
+        if (TextUtils.isEmpty(company)) return errorMessage("Il campo Nome Azienda deve essere compilato!");
+        else if (TextUtils.isEmpty(iva)) return errorMessage("Il campo Partita IVA deve essere compilato!");
+        else if (iva.length() != 11) return errorMessage("La partita IVA è composta da 11 cifre! Riprova");
+        else if (TextUtils.isEmpty(email)) return errorMessage("Inserisci l'Email");
+        else if (TextUtils.isEmpty(password)) return errorMessage("Inserisci la Password");
+        else if (password.length()<8) return errorMessage("La password deve essere composta da almeno 8 caratteri");
+        else if (!checkPrivacy.isChecked()) return errorMessage("Devi accettare i termini e le condizioni della Privacy");
 
         return true;
     }

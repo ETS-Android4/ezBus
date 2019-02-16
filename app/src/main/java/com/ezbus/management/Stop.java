@@ -6,21 +6,18 @@ import java.util.UUID;
 
 public class Stop {
 
-    private Position position;
-    private String name;
     private String id;
     private String companyId;
-    private double km;
-
-    public Stop() {
-        this.id = UUID.randomUUID().toString();
-    }
+    private Position position;
+    private String name;
 
 
-    Stop (String name, Position position, String companyId) {
-        this.position = position;
+    Stop() { }
+
+    Stop (String companyId, Position position, String name) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
+        this.position = position;
         this.name = name;
     }
 

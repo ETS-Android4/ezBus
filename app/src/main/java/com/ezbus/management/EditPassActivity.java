@@ -21,14 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EditPassActivity extends AppCompatActivity {
 
-    SharedPref sharedpref;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private String idPass;
-    private EditText namePass, cityPass, typePass, pricePass;
+    private EditText namePass, cityPass, dataPass, pricePass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -45,7 +44,7 @@ public class EditPassActivity extends AppCompatActivity {
         namePass = findViewById(R.id.nomePass);
         pricePass = findViewById(R.id.prezzoPass);
         cityPass = findViewById(R.id.cittaPass);
-        typePass = findViewById(R.id.tipoPass);
+        dataPass = findViewById(R.id.dataPass);
 
         aggiornaDati();
 
@@ -67,14 +66,13 @@ public class EditPassActivity extends AppCompatActivity {
         logout.show();
     }
 
-
     private void savePass() {
         if (!TextUtils.isEmpty(namePass.getText().toString().trim()) && !TextUtils.isEmpty(pricePass.getText().toString().trim()) &&
-        !TextUtils.isEmpty(typePass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
+        !TextUtils.isEmpty(dataPass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef.child("pass").child(idPass).child("name").setValue(namePass.getText().toString().trim());
             rootRef.child("pass").child(idPass).child("price").setValue(Double.parseDouble(pricePass.getText().toString().trim()));
-            rootRef.child("pass").child(idPass).child("type").setValue(typePass.getText().toString().trim());
+            rootRef.child("pass").child(idPass).child("expiration").setValue(Integer.parseInt(dataPass.getText().toString().trim()));
             rootRef.child("pass").child(idPass).child("city").setValue(cityPass.getText().toString().trim());
             finish();
         }
@@ -90,7 +88,7 @@ public class EditPassActivity extends AppCompatActivity {
                         namePass.setText(child.child("name").getValue().toString());
                         pricePass.setText(child.child("price").getValue().toString());
                         cityPass.setText(child.child("city").getValue().toString());
-                        typePass.setText(child.child("type").getValue().toString());
+                        dataPass.setText(child.child("expiration").getValue().toString());
                     }
                 }
             }

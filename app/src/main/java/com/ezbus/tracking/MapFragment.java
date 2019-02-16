@@ -58,9 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private AutoCompleteTextView mSearchText;
-    public Boolean mLocationPermissionsGranted = false;
+    private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
 
     public MapFragment() { }
@@ -104,6 +103,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
 
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -29,20 +29,17 @@ import java.util.List;
 
 public class EditRouteActivity extends AppCompatActivity implements MyCallback {
 
-    SharedPref sharedpref;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    private ArrayAdapter<String> mAdapter1;
-    private ArrayAdapter<String> mAdapter2;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private ArrayAdapter<String> mAdapter1, mAdapter2;
     private EditText routeName;
     private Spinner listStop1, listStop2;
-    final ArrayList<String> idStop1 = new ArrayList<>();
-    final ArrayList<String> idStop2 = new ArrayList<>();
+    private final ArrayList<String> idStop1 = new ArrayList<>();
+    private final ArrayList<String> idStop2 = new ArrayList<>();
     private String idRoute;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);

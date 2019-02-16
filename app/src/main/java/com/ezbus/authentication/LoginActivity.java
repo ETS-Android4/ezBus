@@ -20,6 +20,7 @@ import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -37,11 +38,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-    public static GoogleSignInClient mGoogleSignInClient;
+    public static GoogleSignInClient googleSignInClient;
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private EditText editTextEmail;
     private EditText editTextPassword;
-    SharedPref sharedpref;
+    private SharedPref sharedpref;
 
 
     @Override
@@ -70,6 +71,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.loginCompany).setVisibility(View.VISIBLE);
             findViewById(R.id.signInCompany).setOnClickListener(this);
         }
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override
@@ -158,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 

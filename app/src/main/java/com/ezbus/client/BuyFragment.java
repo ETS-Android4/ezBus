@@ -21,15 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class BuyFragment extends Fragment {
 
-    private View view;
-    private TextView credit;
+    private static TextView credit;
 
 
     public BuyFragment() { }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_buy, container, false);
+        View view = inflater.inflate(R.layout.fragment_buy, container, false);
 
         Button buttonPass = view.findViewById(R.id.buyPass);
         buttonPass.setOnClickListener(v -> startNewActivity(BuyPassActivity.class));

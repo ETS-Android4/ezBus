@@ -12,19 +12,19 @@ public class SharedPref {
         MySharedPref = context.getSharedPreferences("filename", Context.MODE_PRIVATE);
     }
 
-    //salvataggio tema
+    //Salvataggio Dark Theme
     void setNightModeState(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
         editor.putBoolean("NightMode", state);
         editor.apply();
     }
 
-    //caricamento stato tema notturno
+    //Caricamento Dark Theme
     public Boolean loadNightModeState() {
         return MySharedPref.getBoolean("NightMode", false);
     }
 
-    public void setClient(Boolean state) {
+    void setClient(Boolean state) {
         SharedPreferences.Editor editor =  MySharedPref.edit();
         editor.putBoolean("Client", state);
         editor.apply();

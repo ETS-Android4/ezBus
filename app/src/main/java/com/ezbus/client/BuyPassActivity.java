@@ -23,15 +23,14 @@ import java.util.List;
 
 public class BuyPassActivity extends AppCompatActivity {
 
-    SharedPref sharedpref;
     private ArrayAdapter<String> mAdapter;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    final ArrayList<String> idPass = new ArrayList<>();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private final ArrayList<String> idPass = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -54,7 +53,7 @@ public class BuyPassActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idPass.get(position))) {
                         Pass newPass = child.getValue(Pass.class);
-                        List<Pass> myPasses = ProfileActivity.getClient().getMyPocket().getMyPasses();
+                        List<Pass> myPasses = ProfileActivity.getClient().getMyPocket().getMyPass();
                         Boolean trovato = false;
                         for (Pass abbonamento : myPasses) {
                             if (abbonamento.getId().equals(newPass.getId())) {

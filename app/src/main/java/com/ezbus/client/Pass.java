@@ -6,30 +6,23 @@ public class Pass extends Item {
 
     private String name;
     private String city;
-    private String type;
 
 
-    public Pass() {
-        this.id = UUID.randomUUID().toString();
-    }
+    public Pass() {}
 
-    public Pass(String companyId, String name, String city, String type, double price) {
+    public Pass(String companyId, double price, int expiration, String name, String city) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
+        this.price = price;
+        this.expiration = expiration;
         this.name = name;
         this.city = city;
-        this.type = type;
-        this.price = price;
     }
 
-    public String getName() { return name; }
-
-    public String getType() {
-        return type;
-    }
+    public String getName() { return this.name; }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
 }

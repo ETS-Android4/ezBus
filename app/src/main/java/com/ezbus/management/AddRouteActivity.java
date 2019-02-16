@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,17 +29,14 @@ import java.util.List;
 
 public class AddRouteActivity extends AppCompatActivity {
 
-    SharedPref sharedpref;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    private ArrayAdapter<String> mAdapter1;
-    private ArrayAdapter<String> mAdapter2;
-    final ArrayList<String> idStop1 = new ArrayList<>();
-    final ArrayList<String> idStop2 = new ArrayList<>();
+    private ArrayAdapter<String> mAdapter1, mAdapter2;
+    private final ArrayList<String> idStop1 = new ArrayList<>();
+    private final ArrayList<String> idStop2 = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -59,37 +55,20 @@ public class AddRouteActivity extends AppCompatActivity {
         final Spinner listStop2 = findViewById(R.id.spinner2);
 
         Button addStop = findViewById(R.id.addStop);
-        addStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddRouteActivity.this, AddStopActivity.class);
-                startActivity(intent);
-            }
+        addStop.setOnClickListener(v -> {
+            Intent intent = new Intent(AddRouteActivity.this, AddStopActivity.class);
+            startActivity(intent);
         });
 
         Button saveRoute = findViewById(R.id.saveRoute);
-        saveRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String companyId = LoginActivity.mAuth.getUid();
-                /*Stop start = new Stop("Capolinea", new Position(43.1488538,13.0990438), companyId);
-                Stop dest = new Stop("Farmacia", new Position(43.1763307,13.069168), companyId);
-                addStop(start);
-                addStop(dest);
-                Track track = new Track("Corsa 1", "16:00");
-                Stop s  = new Stop("Fermata Intermedia", new Position(43.1503307,13.082168), companyId);
-                addStop(s);
-                track.addStop(s);
-                addTrack(track);
-                Route route = new Route("Linea R", companyId, start.getId(), dest.getId());
-                addRoute(route);*/
-                if (!TextUtils.isEmpty(routeName.getText().toString().trim())) {
-                    addRoute(new Route(routeName.getText().toString().trim(), companyId, idStop1.get(listStop1.getSelectedItemPosition()),
-                            idStop2.get(listStop2.getSelectedItemPosition())));
-                }
-                else {
-                    Toast.makeText(AddRouteActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
-                }
+        saveRoute.setOnClickListener(v -> {
+            String companyId = LoginActivity.mAuth.getUid();
+            if (!TextUtils.isEmpty(routeName.getText().toString().trim())) {
+                addRoute(new Route(companyId, routeName.getText().toString().trim(), idStop1.get(listStop1.getSelectedItemPosition()),
+                        idStop2.get(listStop2.getSelectedItemPosition())));
+            }
+            else {
+                Toast.makeText(AddRouteActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -111,6 +90,7 @@ public class AddRouteActivity extends AppCompatActivity {
     }
 
     private void aggiornaDati() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -44,7 +44,7 @@ public class ItemFragment extends Fragment {
         this.list.setAdapter(new ListAdapter(listItem));
     }
 
-    class ListAdapter extends BaseAdapter {
+    private class ListAdapter extends BaseAdapter {
 
         private int count;
         private List<? extends Item> listItem;

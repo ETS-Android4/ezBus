@@ -1,36 +1,24 @@
 package com.ezbus.client;
 
-import java.util.Date;
+import com.ezbus.management.Route;
+
 import java.util.UUID;
 
 class Card extends Item {
 
-    private String start;
-    private String destination;
-    private int validity;
+    private Route route;
 
 
     public Card() {}
 
-    public Card(String start, String destination, double price, Date date, int validity) {
+    public Card(String companyId, double price, int expiration, Route route) {
         this.id = UUID.randomUUID().toString();
+        this.companyId = companyId;
         this.price = price;
-        this.expiration = date;
-        this.start = start;
-        this.destination = destination;
-        this.validity = validity;
+        this.expiration = expiration;
+        this.route = route;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public int getValidity() {
-        return validity;
-    }
+    public Route getRoute() { return this.route; }
 
 }

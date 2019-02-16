@@ -1,9 +1,9 @@
 package com.ezbus.authentication;
 
-public abstract class User {
+abstract class User {
 
     private String uid;
-    protected String name;
+    String name;
     String email;
 
 
@@ -15,12 +15,8 @@ public abstract class User {
         this.uid = uid;
     }
 
-    public String getName() {
+    String getName() {
         return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     String getEmail() {

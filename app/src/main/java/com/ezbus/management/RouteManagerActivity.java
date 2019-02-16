@@ -25,14 +25,13 @@ import java.util.List;
 public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    SharedPref sharedpref;
-    final ArrayList<String> idRoute1 = new ArrayList<>();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private final ArrayList<String> idRoute1 = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);

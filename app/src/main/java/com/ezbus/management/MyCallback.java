@@ -1,7 +1,7 @@
 package com.ezbus.management;
 
-/* Interfaccia necessaria per fare uscire valori dal metodo onDataChange */
+/* Interfaccia necessaria per fare uscire stringhe dal metodo onDataChange */
 
-public interface MyCallback {
+interface MyCallback {
     void onCallback(String value);
 }

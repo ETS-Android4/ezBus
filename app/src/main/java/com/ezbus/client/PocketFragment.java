@@ -43,7 +43,7 @@ public class PocketFragment extends Fragment {
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
         private ItemFragment fragTickets = new ItemFragment();
@@ -77,12 +77,12 @@ public class PocketFragment extends Fragment {
             return fragmentTitle.get(position);
         }
 
-        void addFragment(Fragment fragment, String title) {
+        private void addFragment(Fragment fragment, String title) {
             fragmentList.add(fragment);
             fragmentTitle.add(title);
         }
 
-        void setFragments() {
+        private void setFragments() {
             if (currentClient != null) {
                 String id = currentClient.getUid();
                 FirebaseDatabase.getInstance().getReference("/clients/"+id+"/myPocket")
@@ -92,7 +92,7 @@ public class PocketFragment extends Fragment {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
                             fragTickets.updateItem(pocket.getMyTickets());
                             fragCards.updateItem(pocket.getMyCards());
-                            fragPasses.updateItem(pocket.getMyPasses());
+                            fragPasses.updateItem(pocket.getMyPass());
                         }
 
                         @Override

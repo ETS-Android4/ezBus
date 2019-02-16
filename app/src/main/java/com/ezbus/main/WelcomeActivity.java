@@ -10,9 +10,6 @@ import com.ezbus.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    Button company, client;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +18,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setAnswer("Empty");
         if (getIntent().getBooleanExtra("EXIT", false)) finish();
 
-        client = findViewById(R.id.client);
-        company = findViewById(R.id.company);
+        Button client = findViewById(R.id.client);
+        Button company = findViewById(R.id.company);
         client.setOnClickListener(v -> {
             setAnswer("Client");
             startNewActivity();
@@ -39,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
         finish();
     }
 
-    public void setAnswer(String theAnswer) {
+    private void setAnswer(String theAnswer) {
         SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
         editor.putString("Scelta", theAnswer);
         editor.apply();

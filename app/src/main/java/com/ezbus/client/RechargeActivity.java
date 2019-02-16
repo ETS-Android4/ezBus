@@ -14,16 +14,14 @@ import com.ezbus.main.SharedPref;
 
 public class RechargeActivity extends AppCompatActivity {
 
-    private TextView credit, recharge;
-    private Button plus, minus, confirm;
+    private TextView recharge;
+    private Button confirm;
     private double amount = 5.0; //Ricarica consigliata iniziale
-    private double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
-    SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Green);
@@ -31,9 +29,8 @@ public class RechargeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
 
-        credit = findViewById(R.id.credit);
-        plus = findViewById(R.id.plus);
-        minus = findViewById(R.id.minus);
+        double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
+        TextView credit = findViewById(R.id.credit);
         recharge = findViewById(R.id.recharge);
         credit.setText(Double.toString(myCredit) + " €");
         confirm = findViewById(R.id.confirm);
@@ -43,7 +40,7 @@ public class RechargeActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    void changeCredit(Double c) {
+    private void changeCredit(Double c) {
         if (!(amount == 0 && c < 0)) {
             amount += c;
             recharge.setText(Double.toString(amount) + " €");

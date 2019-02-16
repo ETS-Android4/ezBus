@@ -11,12 +11,9 @@ import com.ezbus.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    SharedPref sharedpref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if(sharedpref.loadNightModeState()) {
             setTheme(R.style.App_Dark);
         }  else setTheme(R.style.App_Green);
