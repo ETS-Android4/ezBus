@@ -75,7 +75,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private AutoCompleteTextView mSearchText;
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    //NEW
     private ArrayList<LatLng> MarkerPoints;
 
 
@@ -120,6 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setPadding(0,70,0,0);
         }
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -136,7 +136,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions stop = new MarkerOptions()
                             .position(cod)
-                            //.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            //Problema crash
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
                             .title(name)
                             .anchor(0.5f, 0.5f);
                     mMap.addMarker(stop);
@@ -150,56 +151,52 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     LatLng cod = new LatLng(latitude, longitude);
                     MarkerOptions bus = new MarkerOptions()
                             .position(cod)
-                            //.icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
+                            .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
                             .title(name)
                             .anchor(0.5f, 0.5f);
                     mMap.addMarker(bus);
                 }
                 //NEW CODE
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng point) {
-                        // Already two locations
-                        if (MarkerPoints.size() > 1) {
-                            MarkerPoints.clear();
-                            mMap.clear();
-                        }
+                mMap.setOnMapClickListener(point -> {
+                    // Already two locations
+                    if (MarkerPoints.size() > 1) {
+                        MarkerPoints.clear();
+                        mMap.clear();
+                    }
 
-                        // Adding new item to the ArrayList
-                        MarkerPoints.add(point);
+                    // Adding new item to the ArrayList
+                    MarkerPoints.add(point);
 
-                        // Creating MarkerOptions
-                        MarkerOptions options = new MarkerOptions();
+                    // Creating MarkerOptions
+                    MarkerOptions options = new MarkerOptions();
 
-                        // Setting the position of the marker
-                        options.position(point);
+                    // Setting the position of the marker
+                    options.position(point);
 
-                        /**
-                         * For the start location, the color of marker is GREEN and
-                         * for the end location, the color of marker is RED.
-                         */
-                        if (MarkerPoints.size() == 1) {
-                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                        } else if (MarkerPoints.size() == 2) {
-                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        }
-                        mMap.addMarker(options);
-                        if (MarkerPoints.size() >= 2) {
-                            LatLng origin = MarkerPoints.get(0);
-                            LatLng dest = MarkerPoints.get(1);
-                            // Getting URL to the Google Directions API
-                            String url = getUrl(origin, dest);
-                            Log.d("onMapClick", url);
-                            FetchUrl FetchUrl = new FetchUrl();
+                    /**
+                     * For the start location, the color of marker is GREEN and
+                     * for the end location, the color of marker is RED.
+                     */
+                    if (MarkerPoints.size() == 1) {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    } else if (MarkerPoints.size() == 2) {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    }
+                    mMap.addMarker(options);
+                    if (MarkerPoints.size() >= 2) {
+                        LatLng origin = MarkerPoints.get(0);
+                        LatLng dest = MarkerPoints.get(1);
+                        // Getting URL to the Google Directions API
+                        String url = getUrl(origin, dest);
+                        Log.d("onMapClick", url);
+                        FetchUrl FetchUrl = new FetchUrl();
 
-                            // Start downloading json data from Google Directions API
-                            FetchUrl.execute(url);
-                            //move map camera
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-                        }}
-
-                });
+                        // Start downloading json data from Google Directions API
+                        FetchUrl.execute(url);
+                        //move map camera
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                    }});
             }
             private String getUrl(LatLng origin, LatLng dest) {
 
@@ -404,7 +401,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                 final Task<Location> location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
-                        Location currentLocation = (Location) task.getResult();
+                        Location currentLocation = task.getResult();
                         if (currentLocation!=null)
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     "My Location");
@@ -511,9 +508,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         }
 
     }
-
-
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

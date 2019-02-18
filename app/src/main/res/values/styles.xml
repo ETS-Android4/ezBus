@@ -30,7 +30,7 @@
         <item name="navItemColor">#096156</item>
         <item name="toolbarStyle">@style/ToolBar.Green</item>
         <item name="android:actionMenuTextColor">#808080</item>
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>

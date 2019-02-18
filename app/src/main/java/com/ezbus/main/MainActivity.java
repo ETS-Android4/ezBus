@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenu;
@@ -17,8 +18,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ezbus.R;
@@ -34,9 +38,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ActionBarDrawerToggle mToggle;
     public static NavigationView navigationView;
     private SharedPref sharedpref;
+    private DrawerLayout mDrawerLayout;
 
 
     @Override
@@ -57,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
             ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
 
-            Toolbar mToolBar = findViewById(R.id.action_bar);
-            setSupportActionBar(mToolBar);
-
             BottomNavigationView mMainNav = findViewById(R.id.main_nav);
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
@@ -77,14 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             mMainNav.getMenu().getItem(1).setChecked(true);
-            DrawerLayout mDrawerLayout = findViewById(R.id.drag_layout);
-            mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-            mDrawerLayout.addDrawerListener(mToggle);
-            mToggle.syncState();
-
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null)
-                actionBar.setDisplayHomeAsUpEnabled(true);
+            mDrawerLayout = findViewById(R.id.drag_layout);
 
             View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername = headerLayout.findViewById(R.id.textView);
@@ -120,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     switch (id) {
                         case R.id.tab0:
+                            if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) mDrawerLayout.openDrawer(Gravity.LEFT);
                             return true;
                         case R.id.tab1:
                             setFragment(1);
@@ -161,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                 if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
+                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
                 break;
             case 3:
                 if (fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
@@ -180,14 +176,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

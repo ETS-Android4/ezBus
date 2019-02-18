@@ -8,74 +8,75 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:background="?attr/backgroundcolor">
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.ezbus.authentication.LoginActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.ezbus.authentication.LoginActivity">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/backgroundcolor"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            android:paddingBottom="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/loginCompany"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/backgroundcolor"
-                android:orientation="vertical">
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:paddingBottom="0dp">
 
-                <EditText
-                    android:id="@+id/emailCompany"
+                <LinearLayout
+                    android:id="@+id/loginCompany"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:hint="Email"
-                    android:textColorHint="?attr/textColorHint"
-                    android:textColor="?attr/textcolor"
-                    android:inputType="textEmailAddress" />
+                    android:layout_height="match_parent"
+                    android:background="?attr/backgroundcolor"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/passwordCompany"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:hint="Password"
-                    android:textColorHint="?attr/textColorHint"
-                    android:textColor="?attr/textcolor"
-                    android:inputType="textPassword" />
+                    <EditText
+                        android:id="@+id/emailCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:hint="Email"
+                        android:textColorHint="?attr/textColorHint"
+                        android:textColor="?attr/textcolor"
+                        android:inputType="textEmailAddress" />
 
-                <Button
-                    android:id="@+id/signInCompany"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="Entra" />
+                    <EditText
+                        android:id="@+id/passwordCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:hint="Password"
+                        android:textColorHint="?attr/textColorHint"
+                        android:textColor="?attr/textcolor"
+                        android:inputType="textPassword" />
 
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/signInCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="Entra" />
 
-        </ScrollView>
+                </LinearLayout>
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/signInUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="visible"
-            tools:visibility="gone" />
+            </ScrollView>
 
-    </RelativeLayout>
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/signInUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                tools:visibility="gone" />
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

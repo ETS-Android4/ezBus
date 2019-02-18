@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +8,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundcolor"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
+        android:background="?attr/backgroundcolor"
         android:paddingBottom="0dp">
 
         <LinearLayout
@@ -20,6 +19,12 @@
             android:background="?attr/backgroundcolor"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/rectangle" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -32,15 +37,15 @@
                 android:id="@+id/buyTicket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Acquista Biglietto"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:text="Acquista Biglietto" />
 
             <Button
                 android:id="@+id/buyCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Acquista Tessera"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:text="Acquista Tessera" />
 
             <Button
                 android:id="@+id/buyPass"
