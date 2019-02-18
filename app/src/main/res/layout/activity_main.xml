@@ -6,11 +6,13 @@
     android:id="@+id/drag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/cardbackground"
     tools:context="com.ezbus.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/main_nav"
@@ -20,6 +22,7 @@
             android:background="?attr/cardbackground"
             app:itemIconTint="?attr/navItemColor"
             app:itemTextColor="?attr/navItemColor"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/main" />
 
         <LinearLayout

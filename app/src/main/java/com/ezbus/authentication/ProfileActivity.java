@@ -60,6 +60,10 @@ public class ProfileActivity extends AppCompatActivity {
         return (Client) user;
     }
 
+    public static Company getCompany() {
+        return (Company) user;
+    }
+
     public static void resetUser() {
         user = null;
     }

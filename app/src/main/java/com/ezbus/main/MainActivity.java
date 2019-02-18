@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -35,11 +36,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ActionBarDrawerToggle mToggle;
     public static NavigationView navigationView;
+    private SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPref sharedpref = new SharedPref(this);
+        sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.NoApp_Dark);
         else setTheme(R.style.NoApp_Green);
@@ -63,17 +65,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setNavigationItemSelectedListener(this);
 
             if (getAnswer().equals("Client")) {
+                mMainNav.getMenu().getItem(2).setTitle("Pocket");
                 mMainNav.getMenu().removeItem(R.id.tab4);
-                mMainNav.getMenu().removeItem(R.id.tab5);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                 sharedpref.setClient(true); //Client
             } else if (getAnswer().equals("Company")) {
-                mMainNav.getMenu().removeItem(R.id.tab2);
+                mMainNav.getMenu().getItem(2).setTitle("Manager");
                 mMainNav.getMenu().removeItem(R.id.tab3);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 sharedpref.setClient(false); //Company
             }
 
+            mMainNav.getMenu().getItem(1).setChecked(true);
             DrawerLayout mDrawerLayout = findViewById(R.id.drag_layout);
             mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
             mDrawerLayout.addDrawerListener(mToggle);
@@ -110,11 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
                 FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
-                if (currentUser == null) {
+                int id = item.getItemId();
+                if (currentUser == null && (id != R.id.tab0 && id != R.id.tab1)) {
                     startNewActivity(LoginActivity.class);
                     return false;
                 } else {
-                    switch (item.getItemId()) {
+                    switch (id) {
+                        case R.id.tab0:
+                            return true;
                         case R.id.tab1:
                             setFragment(1);
                             return true;
@@ -127,9 +133,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         case R.id.tab4:
                             setFragment(4);
                             return true;
-                        case R.id.tab5:
-                            setFragment(5);
-                            return true;
                     }
                 }
                 return false;
@@ -137,44 +140,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setFragment(int fragmentId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment1 = fragmentManager.findFragmentByTag("one");
-        Fragment fragment2 = fragmentManager.findFragmentByTag("two");
-        Fragment fragment3 = fragmentManager.findFragmentByTag("three");
-        Fragment fragment4 = fragmentManager.findFragmentByTag("four");
-        Fragment fragment5 = fragmentManager.findFragmentByTag("five");
+        Fragment fragment1 = fragmentManager.findFragmentByTag("1");
+        Fragment fragment2 = fragmentManager.findFragmentByTag("2");
+        Fragment fragment3 = fragmentManager.findFragmentByTag("3");
+        Fragment fragment4 = fragmentManager.findFragmentByTag("4");
 
         switch(fragmentId) {
             case 1:
                 if (fragment1 != null) fragmentManager.beginTransaction().show(fragment1).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), "one").commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                 if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
                 if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
-                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 2:
                 if (fragment2 != null) fragmentManager.beginTransaction().show(fragment2).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), "two").commit();
+                else {
+                    if (sharedpref.isClient()) fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), Integer.toString(fragmentId)).commit();
+                    else fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), Integer.toString(fragmentId)).commit();
+                }
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                 if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
                 break;
             case 3:
                 if (fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), "three").commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                 if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                 break;
             case 4:
                 if (fragment4 != null) fragmentManager.beginTransaction().show(fragment4).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), "four").commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
-                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
-                break;
-            case 5:
-                if (fragment5 != null) fragmentManager.beginTransaction().show(fragment5).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), "five").commit();
-                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
-                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
+                if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                 break;
         }
     }

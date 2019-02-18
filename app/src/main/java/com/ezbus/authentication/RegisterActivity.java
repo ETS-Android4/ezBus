@@ -24,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextPassword;
     private CheckBox checkPrivacy;
-    private Company newCompany;
     private SharedPref sharedpref;
 
 

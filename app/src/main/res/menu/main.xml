@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/tab0"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:orderInCategory="100"
+        android:title="Menu"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/tab1"
         android:icon="@drawable/ic_menu_map"
         android:orderInCategory="100"
@@ -21,12 +27,6 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/tab4"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:orderInCategory="100"
-        android:title="Manager"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/tab5"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="100"
         android:title="Conducente"
