@@ -279,7 +279,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     try {
                         // Fetching the data from web service
                         data = downloadUrl(url[0]);
-                        Log.d("Background Task data", data.toString());
+                        Log.d("Background Task data", data);
                     } catch (Exception e) {
                         Log.d("Background Task", e.toString());
                     }
@@ -312,7 +312,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
                     try {
                         jObject = new JSONObject(jsonData[0]);
-                        Log.d("ParserTask",jsonData[0].toString());
+                        Log.d("ParserTask",jsonData[0]);
                         DataParser parser = new DataParser();
                         Log.d("ParserTask", parser.toString());
 
