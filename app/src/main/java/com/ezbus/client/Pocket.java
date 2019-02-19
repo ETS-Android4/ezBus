@@ -38,7 +38,7 @@ public class Pocket {
 
     void addTicket(Ticket newTicket) {
         myTickets.add(newTicket);
-        databaseSync();
+        updateCredit(-newTicket.getPrice());
     }
 
     List<Card> getMyCards() {
@@ -47,7 +47,7 @@ public class Pocket {
 
     void addCard(Card newCard) {
         myCards.add(newCard);
-        databaseSync();
+        updateCredit(-newCard.getPrice());
     }
 
     List<Pass> getMyPass() {
@@ -56,7 +56,7 @@ public class Pocket {
 
     void addPass(Pass newPass) {
         myPass.add(newPass);
-        databaseSync();
+        updateCredit(-newPass.getPrice());
     }
 
     private void databaseSync() {
