@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.client.BuyTicketActivity;
+import com.ezbus.main.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -68,6 +69,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private GoogleMap mMap;
     private boolean start = false;
     private String idStart, idDest, nomeStart, nomeDest;
+    private SharedPref sharedpref;
 
 
     public MapFragment() { }
@@ -76,6 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
+        sharedpref = new SharedPref(getActivity());
     }
 
     @Override
@@ -157,7 +160,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         });
     }
 
-    //Da problemi quando si modificano i dati nel Database (probabile che il bug sia di getContext()
+    //Da problemi quando si modificano i dati nel Database mentre si è Ospite (probabile che il bug sia di getContext()
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
         Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
@@ -292,7 +295,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
     @Override
     public void onInfoWindowClick(Marker m) {
-        if (m.getSnippet()!=null) {
+        if (m.getSnippet()!=null && sharedpref.isClient()) {
             if (!start) {
                 idStart = m.getSnippet();
                 nomeStart = m.getTitle();
@@ -312,9 +315,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     startActivity(intent);
                     start = false;
                 })
-                        .setNegativeButton("No", (dialog, id) -> {
-                            //Operazione annullata
-                        });
+                .setNegativeButton("No", (dialog, id) -> {
+                    //Operazione annullata
+                });
                 choice.show();
                 start = false;
             }

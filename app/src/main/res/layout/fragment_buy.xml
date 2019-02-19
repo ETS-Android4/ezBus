@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Acquista biglietti, abbonamenti o tessere per poter viaggiare regolarmente sugli autobus ezBus"
+                android:text="Acquista tessere o abbonamenti per poter viaggiare regolarmente sugli autobus ezBus. L'acquisto di biglietti deve essere effettuato sulla mappa."
                 android:textColor="?attr/textcolor"
                 android:textSize="18sp" />
 
@@ -38,7 +38,6 @@
                 android:id="@+id/buyCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:text="Acquista Tessera" />
 
             <Button

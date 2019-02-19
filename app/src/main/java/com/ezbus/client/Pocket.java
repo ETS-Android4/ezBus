@@ -19,10 +19,6 @@ public class Pocket {
         this.credit = 0;
     }
 
-    private boolean isEmpty() {
-        return getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPass().size() == 0;
-    }
-
     double getCredit() {
         return this.credit;
     }

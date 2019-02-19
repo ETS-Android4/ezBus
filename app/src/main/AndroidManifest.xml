@@ -18,13 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/App.Green">
         <activity
+            android:name=".client.BuyCardActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Acquista Tessera" />
+        <activity
             android:name=".client.BuyTicketActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Acquista Biglietto"></activity>
-        <activity
-            android:name=".management.PriceManagerActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Gestione Prezzi" />
+            android:label="Acquista Biglietto" />
         <activity
             android:name=".management.EditPassActivity"
             android:configChanges="orientation|screenSize"

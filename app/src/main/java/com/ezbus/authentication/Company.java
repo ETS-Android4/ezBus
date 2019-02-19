@@ -10,7 +10,6 @@ import java.util.List;
 class Company extends User {
 
     private String iva;
-    private List<Route> routes;
 
 
     Company() { }
@@ -20,16 +19,11 @@ class Company extends User {
         this.name = name;
         this.email = email;
         this.iva = iva;
-        this.routes = new ArrayList<>();
         databaseSync();
     }
 
     public String getIva() {
         return this.iva;
-    }
-
-    public List<Route> getRoutes() {
-        return routes;
     }
 
     @Override

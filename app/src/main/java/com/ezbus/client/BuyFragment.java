@@ -30,6 +30,8 @@ public class BuyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_buy, container, false);
 
+        Button buttonCard = view.findViewById(R.id.buyCard);
+        buttonCard.setOnClickListener(v -> startNewActivity(BuyCardActivity.class));
         Button buttonPass = view.findViewById(R.id.buyPass);
         buttonPass.setOnClickListener(v -> startNewActivity(BuyPassActivity.class));
         Button buttonCredit = view.findViewById(R.id.recharge);
