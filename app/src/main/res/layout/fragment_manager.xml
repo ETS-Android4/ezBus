@@ -35,6 +35,12 @@
             android:layout_height="wrap_content"
             android:text="Gestione Abbonamenti" />
 
+        <Button
+            android:id="@+id/priceManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gestione Prezzi" />
+
     </LinearLayout>
 
 </FrameLayout>

@@ -35,6 +35,12 @@ public class ManagerFragment extends Fragment {
             startActivity(intent);
         });
 
+        Button button3 = rootView.findViewById(R.id.priceManager);
+        button3.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PriceManagerActivity.class);
+            startActivity(intent);
+        });
+
         return rootView;
     }
 
