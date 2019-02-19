@@ -1,18 +1,16 @@
 package com.ezbus.client;
 
-import com.ezbus.management.Stop;
-
 import java.util.UUID;
 
 class Ticket extends Item {
 
-    private Stop start;
-    private Stop end;
+    private String start;
+    private String end;
 
 
     public Ticket() {}
 
-    public Ticket(String companyId, double price, int expiration, Stop start, Stop end) {
+    public Ticket(String companyId, double price, int expiration, String start, String end) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
         this.price = price;
@@ -21,11 +19,11 @@ class Ticket extends Item {
         this.end = end;
     }
 
-    public Stop getStart() {
+    public String getStart() {
         return this.start;
     }
 
-    public Stop getEnd() {
+    public String getEnd() {
         return this.end;
     }
 
