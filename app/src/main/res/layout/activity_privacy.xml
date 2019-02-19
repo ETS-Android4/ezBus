@@ -26,35 +26,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
+            <TextView
+                android:id="@+id/privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="Termini e condizioni della Privacy. "
+                android:textSize="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/privacy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Termini e condizioni della Privacy. "
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+                <TextView
+                    android:id="@+id/txtPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="503dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="10dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
 
-        <TextView
-            android:id="@+id/txtPrivacy"
-            android:layout_width="match_parent"
-            android:layout_height="503dp"
-            android:layout_marginTop="50dp"
-            android:textSize="10dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+        </LinearLayout>
 
-
-
-
-
-    </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

@@ -75,7 +75,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:padding="15dp"
                 android:text="Termini e Condizioni per la Privacy"
                 android:textAppearance="?android:attr/textAppearanceSmall" />

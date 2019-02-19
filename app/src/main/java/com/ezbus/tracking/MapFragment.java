@@ -119,7 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.setPadding(0,70,0,0);
+            mMap.setPadding(0,160,0,0);
         }
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();

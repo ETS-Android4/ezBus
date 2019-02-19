@@ -13,12 +13,13 @@
         <ImageView
             android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:src="@drawable/rectangle" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Menu per la gestione degli autobus e degli abbonamenti dell'azienda, con la possibilità di aggiungere, modificare o rimuovere elementi"
             android:textSize="18sp" />
 

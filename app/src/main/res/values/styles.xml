@@ -13,6 +13,7 @@
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
         <item name="navItemColor">#096156</item>
+        <item name="android:actionBarSize">50dp</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
