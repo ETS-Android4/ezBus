@@ -83,7 +83,7 @@ public class BuyPassActivity extends AppCompatActivity {
                     }
                 }));
 
-        aggiornaDati();
+        setDataToView();
     }
 
     @Override
@@ -95,10 +95,10 @@ public class BuyPassActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        aggiornaDati();
+        setDataToView();
     }
 
-    private void aggiornaDati() {
+    private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

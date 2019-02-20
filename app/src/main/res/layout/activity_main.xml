@@ -20,8 +20,8 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="?attr/cardbackground"
-            app:itemIconTint="?attr/navItemColor"
-            app:itemTextColor="?attr/navItemColor"
+            app:itemIconTint="@drawable/custom_selector"
+            app:itemTextColor="@drawable/custom_selector"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/main" />
 

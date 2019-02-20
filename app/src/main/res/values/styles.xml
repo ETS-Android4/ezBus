@@ -13,14 +13,14 @@
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
         <item name="navItemColor">#096156</item>
-        <item name="android:actionBarSize">50dp</item>
+        <item name="android:actionBarSize">55dp</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="NoApp.Green" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#096156</item>
-        <item name="colorPrimaryDark">#096156</item>
+        <item name="colorPrimary">#2A3842</item>
+        <item name="colorPrimaryDark">#2A3842</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#fdfdfd</item>
         <item name="cardbackground">#fafafa</item>
@@ -28,12 +28,12 @@
         <item name="textColorHint">#aaa</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
-        <item name="navItemColor">#096156</item>
+        <item name="navItemColor">#2A3842</item>
         <item name="toolbarStyle">@style/ToolBar.Green</item>
+        <item name="android:fontFamily">@font/argentum</item>
         <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
