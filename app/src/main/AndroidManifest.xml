@@ -17,15 +17,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/App.Green">
-        <activity android:name=".client.ViewItemActivity"></activity>
+        <activity
+            android:name=".client.BuyCardActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Acquista Tessera" />
         <activity
             android:name=".client.BuyTicketActivity"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Biglietto" />
-        <activity
-            android:name=".management.PriceManagerActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Gestione Prezzi" />
         <activity
             android:name=".management.EditPassActivity"
             android:configChanges="orientation|screenSize"

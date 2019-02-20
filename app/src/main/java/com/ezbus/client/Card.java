@@ -1,24 +1,22 @@
 package com.ezbus.client;
 
-import com.ezbus.management.Route;
-
 import java.util.UUID;
 
 class Card extends Item {
 
-    private Route route;
+    private String idRoute;
 
 
     public Card() {}
 
-    public Card(String companyId, double price, int expiration, Route route) {
+    public Card(String companyId, int expiration, String idRoute) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
-        this.price = price;
+        this.price = 20; //Per ora prezzo fisso
         this.expiration = expiration;
-        this.route = route;
+        this.idRoute = idRoute;
     }
 
-    public Route getRoute() { return this.route; }
+    public String getIdRoute() { return this.idRoute; }
 
 }
