@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setNavigationItemSelectedListener(this);
 
             if (getAnswer().equals("Client")) {
-                mMainNav.getMenu().getItem(2).setTitle("Pocket");
+                mMainNav.getMenu().getItem(2).setTitle("POCKET");
                 mMainNav.getMenu().removeItem(R.id.tab4);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                 sharedpref.setClient(true); //Client
             } else if (getAnswer().equals("Company")) {
-                mMainNav.getMenu().getItem(2).setTitle("Manager");
+                mMainNav.getMenu().getItem(2).setTitle("MANAGER");
                 mMainNav.getMenu().removeItem(R.id.tab3);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 sharedpref.setClient(false); //Company

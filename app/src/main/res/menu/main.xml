@@ -5,30 +5,30 @@
         android:id="@+id/tab0"
         android:icon="@drawable/ic_menu_black_24dp"
         android:orderInCategory="100"
-        android:title="Menu"
+        android:title="MENU"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab1"
         android:icon="@drawable/ic_menu_map"
         android:orderInCategory="100"
-        android:title="Mappa"
+        android:title="MAPPA"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab2"
         android:icon="@drawable/ic_home_black_24dp"
         android:orderInCategory="100"
-        android:title="Portafoglio"
+        android:title="POCKET"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab3"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="100"
-        android:title="Acquista"
+        android:title="ACQUISTA"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab4"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="100"
-        android:title="Conducente"
+        android:title="CONDUCENTE"
         app:showAsAction="never" />
 </menu>

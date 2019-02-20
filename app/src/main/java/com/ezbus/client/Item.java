@@ -4,6 +4,7 @@ class Item {
 
     String id;
     String companyId;
+    String name;
     double price;
     int expiration;
 
@@ -14,6 +15,10 @@ class Item {
 
     public String getCompanyId() {
         return this.companyId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public double getPrice() {

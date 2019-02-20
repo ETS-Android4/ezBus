@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezbus.R;
 
@@ -27,6 +28,7 @@ public class ItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
         list = view.findViewById(R.id.list_item);
+
         return view;
     }
 
@@ -40,20 +42,28 @@ public class ItemFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    void updateItem(List<? extends Item> listItem) {
-        this.list.setAdapter(new ListAdapter(listItem));
+    void updateItem(List<? extends Item> listItem, int image) {
+        ListAdapter adapter = new ListAdapter(listItem, image);
+        this.list.setAdapter(adapter);
+        this.list.setOnItemClickListener((parent, view, position, id) -> {
+            Toast.makeText(getContext(),adapter.getItem(position).getId(),Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), ViewItemActivity.class);
+            startActivity(intent);
+        });
     }
 
     private class ListAdapter extends BaseAdapter {
 
         private int count;
         private List<? extends Item> listItem;
+        private int image;
 
 
-        ListAdapter(List<? extends Item> listItem) {
+        ListAdapter(List<? extends Item> listItem, int image) {
             this.listItem = listItem;
             if (listItem != null) this.count = listItem.size();
             else this.count = 0;
+            this.image = image;
         }
 
         @Override
@@ -62,8 +72,8 @@ public class ItemFragment extends Fragment {
         }
 
         @Override
-        public Object getItem(int i) {
-            return null;
+        public Item getItem(int i) {
+            return listItem.get(i);
         }
 
         @Override
@@ -74,9 +84,10 @@ public class ItemFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_item, null);
-            ImageView imgview = view.findViewById(R.id.itemImage);
-            TextView title = view.findViewById(R.id.itemTitle);
-            title.setText(listItem.get(i).getId());
+            ImageView itemImage = view.findViewById(R.id.itemImage);
+            itemImage.setImageResource(this.image);
+            TextView itemTitle = view.findViewById(R.id.itemTitle);
+            itemTitle.setText(listItem.get(i).getName());
 
             return view;
         }

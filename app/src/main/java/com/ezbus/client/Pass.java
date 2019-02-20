@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class Pass extends Item {
 
-    private String name;
     private String city;
 
 
@@ -18,8 +17,6 @@ public class Pass extends Item {
         this.name = name;
         this.city = city;
     }
-
-    public String getName() { return this.name; }
 
     public String getCity() {
         return this.city;

@@ -11,13 +11,16 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/colorPrimaryDark"
+            android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="?attr/colorPrimary"
             android:paddingTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:tabGravity="fill"
+            app:tabGravity="center"
             app:tabIndicatorColor="@color/colorWhite"
-            app:tabMode="fixed"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="scrollable"
             app:tabTextAppearance="?android:attr/textAppearanceSmall"
             app:tabTextColor="@color/colorWhite" />
 

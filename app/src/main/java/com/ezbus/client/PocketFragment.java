@@ -57,9 +57,9 @@ public class PocketFragment extends Fragment {
         ViewPagerAdapter(FragmentManager manager) {
             super(manager);
             setFragments();
-            addFragment(fragTickets, "Biglietti");
-            addFragment(fragCards, "Tessere");
-            addFragment(fragPasses, "Abbonamenti");
+            addFragment(fragTickets, "TICKETS");
+            addFragment(fragCards, "CARDS");
+            addFragment(fragPasses, "PASS");
         }
 
         @Override
@@ -90,9 +90,9 @@ public class PocketFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
-                            fragTickets.updateItem(pocket.getMyTickets());
-                            fragCards.updateItem(pocket.getMyCards());
-                            fragPasses.updateItem(pocket.getMyPass());
+                            fragTickets.updateItem(pocket.getMyTickets(), R.drawable.ticket);
+                            fragCards.updateItem(pocket.getMyCards(), R.drawable.ticket);
+                            fragPasses.updateItem(pocket.getMyPass(), R.drawable.ticket);
                         }
 
                         @Override

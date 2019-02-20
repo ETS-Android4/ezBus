@@ -51,7 +51,7 @@ public class AddStopActivity extends AppCompatActivity {
     }
 
     private void addStop(Stop s) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("/map");
         String uid = s.getId();
         rootRef.child("stops").child(uid).setValue(s);
     }

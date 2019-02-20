@@ -29,13 +29,13 @@ import java.util.List;
 
 public class EditRouteActivity extends AppCompatActivity implements MyCallback {
 
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private ArrayAdapter<String> mAdapter1, mAdapter2;
     private EditText routeName;
     private Spinner listStop1, listStop2;
     private final ArrayList<String> idStop1 = new ArrayList<>();
     private final ArrayList<String> idStop2 = new ArrayList<>();
     private String idRoute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         idRoute = getIntent().getSerializableExtra("Route").toString();
-        aggiornaDati();
+        setDataToView();
 
         routeName = findViewById(R.id.nomeTratta);
         listStop1 = findViewById(R.id.scelta1);
@@ -95,17 +95,16 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
         logout.show();
     }
 
-
     private void saveRoute() {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef.child("routes").child(idRoute).child("name").setValue(routeName.getText().toString().trim());
-        rootRef.child("routes").child(idRoute).child("start").setValue(idStop1.get(listStop1.getSelectedItemPosition()));
-        rootRef.child("routes").child(idRoute).child("end").setValue(idStop2.get(listStop2.getSelectedItemPosition()));
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("/routes/"+idRoute);
+        rootRef.child("name").setValue(routeName.getText().toString().trim());
+        rootRef.child("start").setValue(idStop1.get(listStop1.getSelectedItemPosition()));
+        rootRef.child("end").setValue(idStop2.get(listStop2.getSelectedItemPosition()));
         finish();
     }
 
-    private void aggiornaDati() {
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setDataToView() {
+        FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter1.clear();
@@ -137,7 +136,7 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
     }
 
     private void getNameStop(final int i, final String idStop, final MyCallback myCallback) {
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
@@ -168,7 +167,7 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
     @Override
     protected void onResume() {
         super.onResume();
-        aggiornaDati();
+        setDataToView();
     }
 
     @Override

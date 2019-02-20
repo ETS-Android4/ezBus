@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.client.BuyTicketActivity;
+import com.ezbus.main.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -46,7 +48,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -68,12 +69,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private GoogleMap mMap;
     private boolean start = false;
     private String idStart, idDest, nomeStart, nomeDest;
+    private List<Marker> markers = new ArrayList<>();
+    private SharedPref sharedpref;
 
 
     public MapFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        sharedpref = new SharedPref(getContext());
         super.onCreate(savedInstanceState);
         getLocationPermission();
     }
@@ -98,7 +102,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnInfoWindowClickListener(this);
+        if (sharedpref.isClient()) mMap.setOnInfoWindowClickListener(this);
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -113,11 +117,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.setPadding(0,160,0,0);
         }
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("/map").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mMap.clear();
+                markers.removeAll(markers);
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
                     String lon = child.child("position").child("coordY").getValue().toString();
@@ -126,13 +130,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lon);
                     LatLng cod = new LatLng(latitude, longitude);
-                    MarkerOptions stop = new MarkerOptions()
+                    Marker stop = mMap.addMarker(new MarkerOptions()
                             .position(cod)
                             .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
+                            .visible(mMap.getCameraPosition().zoom>12)
                             .title(name)
                             .snippet(id)
-                            .anchor(0.5f, 0.5f);
-                    mMap.addMarker(stop);
+                            .anchor(0.5f, 0.5f));
+                    markers.add(stop);
                 }
                 for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
@@ -141,12 +146,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lon);
                     LatLng cod = new LatLng(latitude, longitude);
-                    MarkerOptions bus = new MarkerOptions()
+                    Marker bus = mMap.addMarker(new MarkerOptions()
                             .position(cod)
-                            .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_bus))
+                            .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
+                            .visible(mMap.getCameraPosition().zoom>12)
                             .title(name)
-                            .anchor(0.5f, 0.5f);
-                    mMap.addMarker(bus);
+                            .anchor(0.5f, 0.5f));
+                    markers.add(bus);
                 }
             }
 
@@ -155,9 +161,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
             }
         });
+
+        mMap.setOnCameraMoveListener(() -> {
+            CameraPosition cameraPosition = mMap.getCameraPosition();
+            for(Marker m:markers) {
+                m.setVisible(cameraPosition.zoom>12);
+            }
+        });
     }
 
-    //Da problemi quando si modificano i dati nel Database (probabile che il bug sia di getContext()
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
         Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
@@ -278,7 +290,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         }
 
-        if(list.size() > 0){
+        if (list.size() > 0) {
             Address address = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),
                     address.getAddressLine(0));
@@ -312,12 +324,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     startActivity(intent);
                     start = false;
                 })
-                        .setNegativeButton("No", (dialog, id) -> {
-                            //Operazione annullata
-                        });
+                .setNegativeButton("No", (dialog, id) -> {
+                    //Operazione annullata
+                });
                 choice.show();
                 start = false;
             }
         }
     }
+
 }
