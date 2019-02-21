@@ -42,7 +42,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/ic_magnify"
             android:background="@null"
-            android:hint="Cerca fermate autobus"
+            android:hint="Cerca località sulla mappa"
             android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textColor="#000"
