@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
+import com.ezbus.authentication.PrivacyActivity;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.authentication.RegisterActivity;
 import com.ezbus.client.BuyFragment;
@@ -82,12 +84,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_privacy).setVisible(true);
                 if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             } else {
                 navUsername.setText(currentUser.getEmail());
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_privacy).setVisible(true);
                 if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             }
 
@@ -189,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 startNewActivity(SettingsActivity.class);
                 break;
+            case R.id.nav_privacy:
+                startNewActivity(PrivacyActivity.class);
+                break;
             case R.id.nav_welcome:
                 signOut("Vuoi ritornare alla schermata iniziale?", WelcomeActivity.class);
                 break;
@@ -225,4 +232,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return sp.getString("Scelta","Empty");
     }
 
+   /* @Override
+    public void onResume(){
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // API 21
+            editText.setShowSoftInputOnFocus(false);
+        } else { // API 11-20
+            editText.setTextIsSelectable(true);
+        }
+    } */
 }

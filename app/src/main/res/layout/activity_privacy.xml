@@ -41,11 +41,14 @@
                 tools:layout_editor_absoluteY="0dp" />
 
                 <TextView
-                    android:id="@+id/txtPrivacy"
+                    android:id="@+id/privacyfull"
                     android:layout_width="match_parent"
                     android:layout_height="503dp"
-                    android:layout_marginTop="50dp"
-                    android:textSize="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:text="Questo è un testo di prova sulla normativa della Privacy. "
+                    android:textSize="15dp"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="0dp" />
 

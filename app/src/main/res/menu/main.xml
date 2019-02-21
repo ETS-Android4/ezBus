@@ -15,19 +15,19 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/tab2"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="100"
         android:title="POCKET"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab3"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_menu_buy"
         android:orderInCategory="100"
         android:title="ACQUISTA"
         app:showAsAction="never" />
     <item
         android:id="@+id/tab4"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_menu_manager"
         android:orderInCategory="100"
         android:title="DRIVER"
         app:showAsAction="never" />
