@@ -1,6 +1,7 @@
 package com.ezbus.authentication;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,21 +24,11 @@ public class PrivacyActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView privacy = findViewById(R.id.privacyfull);
 
-        TextView txtPrivacy = findViewById(R.id.txtPrivacy);
-
-        //genera il viewText dato un file txt (INCOMPLETO)
-        try {
-            InputStream is = getAssets().open("app/java/res/raw/privacy.txt");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            //is.read(buffer);
-            is.close();
-            txtPrivacy.setText(new String(buffer));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void onClick(View view) {
