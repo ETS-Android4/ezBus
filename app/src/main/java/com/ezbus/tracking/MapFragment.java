@@ -194,7 +194,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                         if (currentLocation!=null)
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     "My Location");
-
                     }
                 });
             }

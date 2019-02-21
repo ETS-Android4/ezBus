@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.NoApp_Dark);
-        else setTheme(R.style.NoApp_Green);
+        else setTheme(R.style.NoApp_Blue);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

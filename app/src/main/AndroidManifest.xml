@@ -16,7 +16,31 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/App.Green">
+        android:theme="@style/App.Blue">
+        <activity
+            android:name=".main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="ezBus"
+            android:theme="@style/NoApp.Blue">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".authentication.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Login" />
+        <activity
+            android:name=".authentication.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Registrazione">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ezbus.authentication.RegisterActivity" />
+        </activity>
         <activity
             android:name=".client.BuyCardActivity"
             android:configChanges="orientation|screenSize"
@@ -63,30 +87,6 @@
             android:configChanges="orientation|screenSize"
             android:label="Profilo" />
         <activity
-            android:name=".main.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="ezBus"
-            android:theme="@style/NoApp.Green">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".authentication.LoginActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Login" />
-        <activity
-            android:name=".authentication.RegisterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Registrazione">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ezbus.authentication.RegisterActivity" />
-        </activity>
-        <activity
             android:name=".main.SettingsActivity"
             android:configChanges="orientation|screenSize"
             android:label="Impostazioni" />
@@ -102,6 +102,10 @@
             android:name=".management.PassManagerActivity"
             android:configChanges="orientation|screenSize"
             android:label="Gestione Abbonamenti" />
+        <activity
+            android:name=".client.ViewItemActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

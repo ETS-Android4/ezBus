@@ -29,7 +29,7 @@ public class BuyTicketActivity extends AppCompatActivity {
         SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
-        else setTheme(R.style.App_Green);
+        else setTheme(R.style.App_Blue);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -48,7 +48,7 @@ public class BuyTicketActivity extends AppCompatActivity {
         buyTicket.setOnClickListener(v -> database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)){
                         String idCompany = child.child("companyId").getValue().toString();
                         List<Ticket> myTicket = ProfileActivity.getClient().getMyPocket().getMyTickets();

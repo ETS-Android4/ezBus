@@ -7,6 +7,8 @@
         <attr name="textColorHint"  format="color" />
         <attr name="tintcolor" format="color" />
         <attr name="buttoncolor" format="color" />
+        <attr name="colorActiveTab" format="color" />
+        <attr name="colorInactiveTab" format="color" />
         <attr name="navItemColor" format="color" />
         <attr name="toolbarStyle" format="reference" />
     </declare-styleable>

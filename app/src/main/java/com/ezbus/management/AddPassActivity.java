@@ -26,7 +26,7 @@ public class AddPassActivity extends AppCompatActivity {
         SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
-        else setTheme(R.style.App_Green);
+        else setTheme(R.style.App_Blue);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pass);

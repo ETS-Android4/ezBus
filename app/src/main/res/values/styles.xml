@@ -1,6 +1,45 @@
 <resources>
 
     <!-- Base application theme -->
+
+    <!-- blue/day mode theme -->
+    <style name="App.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#303F4B</item>
+        <item name="colorPrimaryDark">#303F4B</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">#fdfdfd</item>
+        <item name="cardbackground">#fafafa</item>
+        <item name="textcolor">#808080</item>
+        <item name="textColorHint">#aaa</item>
+        <item name="tintcolor">#ffffff</item>
+        <item name="buttoncolor">#388E3C</item>
+        <item name="navItemColor">#303F4B</item>
+        <item name="android:actionBarSize">55dp</item>
+        <item name="android:actionMenuTextColor">#808080</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+    <style name="NoApp.Blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#303F4B</item>
+        <item name="colorPrimaryDark">#303F4B</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">#fdfdfd</item>
+        <item name="cardbackground">#fafafa</item>
+        <item name="textcolor">#808080</item>
+        <item name="textColorHint">#aaa</item>
+        <item name="tintcolor">#ffffff</item>
+        <item name="buttoncolor">#388E3C</item>
+        <item name="colorActiveTab">#303F4B</item>
+        <item name="colorInactiveTab">#999999</item>
+        <item name="navItemColor">#303F4B</item>
+        <item name="toolbarStyle">@style/ToolBar.Blue</item>
+        <item name="android:fontFamily">@font/argentum</item>
+        <item name="android:actionMenuTextColor">#808080</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
     <!-- green/day mode theme -->
     <style name="App.Green" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#096156</item>
@@ -19,8 +58,8 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="NoApp.Green" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#2A3842</item>
-        <item name="colorPrimaryDark">#2A3842</item>
+        <item name="colorPrimary">#096156</item>
+        <item name="colorPrimaryDark">#096156</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#fdfdfd</item>
         <item name="cardbackground">#fafafa</item>
@@ -28,7 +67,9 @@
         <item name="textColorHint">#aaa</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#388E3C</item>
-        <item name="navItemColor">#2A3842</item>
+        <item name="colorActiveTab">#096156</item>
+        <item name="colorInactiveTab">#999999</item>
+        <item name="navItemColor">#096156</item>
         <item name="toolbarStyle">@style/ToolBar.Green</item>
         <item name="android:fontFamily">@font/argentum</item>
         <item name="android:actionMenuTextColor">#808080</item>
@@ -56,49 +97,29 @@
         <item name="colorPrimary">#202020</item>
         <item name="colorPrimaryDark">#202020</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">#eaeaea</item>
         <item name="backgroundcolor">#303030</item>
         <item name="cardbackground">#202020</item>
         <item name="textcolor">#ffffff</item>
         <item name="textColorHint">#ccc</item>
         <item name="tintcolor">#ffffff</item>
         <item name="buttoncolor">#000</item>
+        <item name="colorActiveTab">#eaeaea</item>
+        <item name="colorInactiveTab">#909090</item>
         <item name="navItemColor">#fcfcfc</item>
         <item name="toolbarStyle">@style/ToolBar.Dark</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-    </style>
-
-    <!-- blue/day mode theme -->
-    <style name="App.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#124063</item>
-        <item name="colorPrimaryDark">#124063</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#fcfcfc</item>
-        <item name="cardbackground">#ffffff</item>
-        <item name="textcolor">#F1F1F1</item>
-        <item name="tintcolor">#202020</item>
-        <item name="buttoncolor">#388E3C</item>
-        <item name="navItemColor">#124063</item>
-        <item name="android:actionMenuTextColor">#808080</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-    </style>
-    <style name="NoApp.Blue" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#124063</item>
-        <item name="colorPrimaryDark">#124063</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#fdfdfd</item>
-        <item name="cardbackground">#fafafa</item>
-        <item name="textcolor">#F1F1F1</item>
-        <item name="tintcolor">#202020</item>
-        <item name="buttoncolor">#388E3C</item>
-        <item name="navItemColor">#124063</item>
-        <item name="android:actionMenuTextColor">#808080</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <!-- ToolBar theme -->
+    <style name="ToolBar.Blue" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#F1F1F1</item>
+        <item name="android:textColorSecondary">#F1F1F1</item>
+        <item name="android:background">#2A3842</item>
+        <item name="actionMenuTextColor">#F1F1F1</item>
+    </style>
     <style name="ToolBar.Green" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">#F1F1F1</item>
         <item name="android:textColorSecondary">#F1F1F1</item>
@@ -117,13 +138,16 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <style name="App.Blue.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
     <style name="App.Green.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
