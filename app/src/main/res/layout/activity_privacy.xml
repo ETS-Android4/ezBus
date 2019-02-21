@@ -10,13 +10,13 @@
     android:paddingTop="0dp"
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
-    android:background="?attr/backgroundcolor"
+    android:background="?attr/colorBackground"
     tools:context="com.ezbus.authentication.PrivacyActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/colorBackground"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:paddingBottom="0dp">

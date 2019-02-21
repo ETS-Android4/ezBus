@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorCard"
+    android:fillViewport="true"
+    android:gravity="fill"
     tools:context="com.ezbus.tracking.DriverFragment">
 
     <ImageView
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:src="@drawable/rectangle" />
+        android:src="@drawable/rectangle"
+        android:elevation="10dp" />
 
-</FrameLayout>
+</RelativeLayout>

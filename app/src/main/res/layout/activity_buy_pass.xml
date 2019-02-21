@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Clicca su uno dei seguenti abbonamenti che si desidera acquistare"
-            android:textColor="?attr/textcolor"
+            android:textColor="?attr/colorText"
             android:textSize="18sp" />
 
         <ListView

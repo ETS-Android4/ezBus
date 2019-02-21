@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorCard"
+    android:fillViewport="true"
+    android:gravity="fill"
     tools:context="com.ezbus.management.ManagerFragment">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:src="@drawable/rectangle" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="55dp">
 
-        <ImageView
-            android:id="@+id/bar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:src="@drawable/rectangle" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Menu per la gestione degli autobus e degli abbonamenti dell'azienda, con la possibilità di aggiungere, modificare o rimuovere elementi"
-            android:textSize="18sp" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/routeManager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gestione Tratte" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Menu per la gestione degli autobus e degli abbonamenti dell'azienda, con la possibilità di aggiungere, modificare o rimuovere elementi"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/passManager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gestione Abbonamenti" />
+            <Button
+                android:id="@+id/routeManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gestione Tratte" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/passManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gestione Abbonamenti" />
 
-</FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

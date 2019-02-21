@@ -10,13 +10,13 @@
     android:paddingTop="0dp"
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
-    android:background="?attr/backgroundcolor"
+    android:background="?attr/colorBackground"
     tools:context=".authentication.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/colorBackground"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:paddingBottom="0dp">
@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/backgroundcolor"
+            android:background="?attr/colorBackground"
             android:orientation="vertical">
 
             <EditText
@@ -33,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Nome Azienda"
-                android:textColorHint="?attr/textColorHint"
-                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/colorTextHint"
+                android:textColor="?attr/colorText"
                 android:inputType="text" />
 
             <EditText
@@ -43,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Partita IVA"
-                android:textColorHint="?attr/textColorHint"
+                android:textColorHint="?attr/colorTextHint"
                 android:inputType="number"
-                android:textColor="?attr/textcolor"
+                android:textColor="?attr/colorText"
                 android:maxLength="11"/>
 
             <EditText
@@ -54,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Email"
-                android:textColorHint="?attr/textColorHint"
-                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/colorTextHint"
+                android:textColor="?attr/colorText"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -64,8 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Password"
-                android:textColorHint="?attr/textColorHint"
-                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/colorTextHint"
+                android:textColor="?attr/colorText"
                 android:inputType="textPassword" />
 
             <Button

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="?attr/backgroundcolor">
+    android:background="?attr/colorBackground">
 
     <TextView
         android:id="@+id/textView"
@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="38dp"
         android:text="Ospite"
-        android:textColor="?attr/textcolor"
+        android:textColor="?attr/colorText"
         android:textSize="17sp"
         android:layout_marginLeft="15dp"/>
 

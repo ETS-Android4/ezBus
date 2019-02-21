@@ -14,10 +14,11 @@
         android:layout_marginBottom="55dp"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="6dp"
+        android:dividerHeight="8dp"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:paddingRight="20dp"
+        android:paddingBottom="25dp"
         tools:layout_editor_absoluteX="72dp"
         tools:layout_editor_absoluteY="8dp" />
 

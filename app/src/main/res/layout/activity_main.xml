@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="?attr/cardbackground"
+    android:background="?attr/colorBackground"
     tools:context="com.ezbus.main.MainActivity">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="?attr/cardbackground"
+            android:background="?attr/colorBackground"
             app:itemIconTint="@drawable/custom_selector"
             app:itemTextColor="@drawable/custom_selector"
             app:labelVisibilityMode="labeled"

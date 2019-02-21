@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundcolor"
+        android:background="?attr/colorBackground"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:paddingBottom="0dp">
@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/backgroundcolor"
+            android:background="?attr/colorBackground"
             android:orientation="vertical">
 
             <EditText
@@ -27,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Nome Tratta"
-                android:textColorHint="?attr/textColorHint"
-                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/colorTextHint"
+                android:textColor="?attr/colorText"
                 android:inputType="text" />
 
             <TextView
