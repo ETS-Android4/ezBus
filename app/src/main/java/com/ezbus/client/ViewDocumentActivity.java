@@ -33,9 +33,9 @@ public class ViewDocumentActivity extends AppCompatActivity {
         TextView txtDocument3 = findViewById(R.id.documentExpiration);
         TextView txtDocument4 = findViewById(R.id.documentNumber);
         txtDocument1.setText(document.getName());
-        txtDocument2.setText("Prezzo: "+ Double.toString(document.getPrice())+"Euro");
+        txtDocument2.setText("Prezzo: "+ Double.toString(document.getPrice())+" €");
         txtDocument3.setText("Giorni rimasti: "+ Integer.toString(document.getExpiration()));
-        String numero = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber())  : null;
+        String numero = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber())  : "1";
         txtDocument4.setText("Quantità: "+ numero);
     }
 
