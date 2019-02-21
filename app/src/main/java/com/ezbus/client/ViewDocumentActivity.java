@@ -27,16 +27,21 @@ public class ViewDocumentActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         Document document = (Document) getIntent().getExtras().getSerializable("Document");
-        ImageView imgDocument = findViewById(R.id.documentImage);
-        TextView txtDocument1 = findViewById(R.id.documentName);
-        TextView txtDocument2= findViewById(R.id.documentPrice);
-        TextView txtDocument3 = findViewById(R.id.documentExpiration);
-        TextView txtDocument4 = findViewById(R.id.documentNumber);
-        txtDocument1.setText(document.getName());
-        txtDocument2.setText("Prezzo: "+ Double.toString(document.getPrice())+" €");
-        txtDocument3.setText("Giorni rimasti: "+ Integer.toString(document.getExpiration()));
-        String numero = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber())  : "1";
-        txtDocument4.setText("Quantità: "+ numero);
+
+        ImageView docImage = findViewById(R.id.documentImage);
+        if (document instanceof Ticket) docImage.setImageResource(R.drawable.ticket);
+        else if (document instanceof Card) docImage.setImageResource(R.drawable.card);
+        else if (document instanceof Pass) docImage.setImageResource(R.drawable.pass);
+
+        TextView docName = findViewById(R.id.documentName);
+        TextView docPrice = findViewById(R.id.documentPrice);
+        TextView docExpiration = findViewById(R.id.documentExpiration);
+        TextView docNumber = findViewById(R.id.documentNumber);
+        docName.setText(document.getName());
+        docPrice.setText("Prezzo: " + Double.toString(document.getPrice())+" €");
+        docExpiration.setText("Giorni rimasti: " + Integer.toString(document.getExpiration()));
+        String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber())  : "1";
+        docNumber.setText("Quantità: " + number);
     }
 
     @Override
