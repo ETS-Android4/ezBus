@@ -29,8 +29,8 @@ import android.widget.Toast;
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
 import com.ezbus.client.BuyTicketActivity;
-import com.ezbus.main.MainActivity;
 import com.ezbus.main.SharedPref;
+import com.ezbus.main.WelcomeActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,19 +60,19 @@ import java.util.List;
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnInfoWindowClickListener {
 
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private AutoCompleteTextView mSearchText;
-    private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private boolean start = false;
     private String idStart, idDest, nomeStart, nomeDest;
     private List<Marker> markers = new ArrayList<>();
     private SharedPref sharedpref;
+    private Boolean mLocationPermissionsGranted = false;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
 
 
     public MapFragment() { }
@@ -81,7 +81,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(getContext());
         super.onCreate(savedInstanceState);
-        getLocationPermission();
+        getLocationPermission(); //Richiesta permessi
     }
 
     @Override
@@ -106,7 +106,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         mMap = googleMap;
         if (sharedpref.isClient()) mMap.setOnInfoWindowClickListener(this);
 
-        if (mLocationPermissionsGranted) {
+        if (WelcomeActivity.mLocationPermissionsGranted || mLocationPermissionsGranted) {
             getDeviceLocation();
 
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -188,7 +188,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         try {
-            if (mLocationPermissionsGranted) {
+            if (WelcomeActivity.mLocationPermissionsGranted || mLocationPermissionsGranted) {
                 final Task<Location> location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
@@ -213,46 +213,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             mMap.addMarker(options);
             //Per ora non aggiungo marker
         }*/
-    }
-
-    private void getLocationPermission(){
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
-
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(getActivity(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                mLocationPermissionsGranted = true;
-            } else {
-                ActivityCompat.requestPermissions(getActivity(),
-                        permissions,
-                        LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    permissions,
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionsGranted = false;
-
-        switch(requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for (int grantResult : grantResults) {
-                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionsGranted = false;
-                            return;
-                        }
-                    }
-                    mLocationPermissionsGranted = true;
-                }
-            }
-        }
     }
 
     private void initSearch() {
@@ -338,5 +298,43 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
         }
     }
+    private void getLocationPermission(){
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
 
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(getActivity(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mLocationPermissionsGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    permissions,
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mLocationPermissionsGranted = false;
+
+        switch(requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE:{
+                if(grantResults.length > 0){
+                    for (int grantResult : grantResults) {
+                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                            mLocationPermissionsGranted = false;
+                            return;
+                        }
+                    }
+                    mLocationPermissionsGranted = true;
+                }
+            }
+        }
+    }
 }

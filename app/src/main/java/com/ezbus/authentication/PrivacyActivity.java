@@ -10,9 +10,6 @@ import android.widget.TextView;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 public class PrivacyActivity extends AppCompatActivity {
 
     @Override

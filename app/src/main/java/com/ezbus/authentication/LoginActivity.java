@@ -164,22 +164,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void signIn() {
+    private void externalSignIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
-    /* Utile perchè forse rimuove proprio dal database l'utente
-    private void revokeAccess() {
-        mAuth.signOut();
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }*/
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -206,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.signInUser:
-                signIn();
+                externalSignIn();
                 break;
             case R.id.signInCompany:
                 loginCompany();

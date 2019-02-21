@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static NavigationView navigationView;
     private SharedPref sharedpref;
     private DrawerLayout mDrawerLayout;
+
 
 
     @Override
@@ -84,19 +84,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_privacy).setVisible(true);
                 if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             } else {
                 navUsername.setText(currentUser.getEmail());
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_privacy).setVisible(true);
                 if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             }
 
-            navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             setFragment(1);
+            navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
     }
@@ -193,9 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 startNewActivity(SettingsActivity.class);
                 break;
-            case R.id.nav_privacy:
-                startNewActivity(PrivacyActivity.class);
-                break;
             case R.id.nav_welcome:
                 signOut("Vuoi ritornare alla schermata iniziale?", WelcomeActivity.class);
                 break;
@@ -231,14 +226,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sp = getSharedPreferences("pref",0);
         return sp.getString("Scelta","Empty");
     }
-
-   /* @Override
-    public void onResume(){
-        super.onResume();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // API 21
-            editText.setShowSoftInputOnFocus(false);
-        } else { // API 11-20
-            editText.setTextIsSelectable(true);
-        }
-    } */
 }

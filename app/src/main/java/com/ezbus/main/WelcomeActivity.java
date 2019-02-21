@@ -1,19 +1,38 @@
 package com.ezbus.main;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.ezbus.R;
+import com.ezbus.tracking.MapFragment;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    public static Boolean mLocationPermissionsGranted = false;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPref sharedpref = new SharedPref(this);
+        if (sharedpref.loadNightModeState())
+            setTheme(R.style.NoApp_Dark);
+        else setTheme(R.style.NoApp_Blue);
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        getLocationPermission(); //Richiesta permessi
 
         setAnswer("Empty");
         if (getIntent().getBooleanExtra("EXIT", false)) finish();
@@ -41,5 +60,47 @@ public class WelcomeActivity extends AppCompatActivity {
         editor.putString("Scelta", theAnswer);
         editor.apply();
     }
+
+    private void getLocationPermission(){
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if (ContextCompat.checkSelfPermission(this,
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this,
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mLocationPermissionsGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    permissions,
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mLocationPermissionsGranted = false;
+
+        switch(requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE:{
+                if(grantResults.length > 0){
+                    for (int grantResult : grantResults) {
+                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                            mLocationPermissionsGranted = false;
+                            return;
+                        }
+                    }
+                    mLocationPermissionsGranted = true;
+                }
+            }
+        }
+    }
+
+
 
 }
