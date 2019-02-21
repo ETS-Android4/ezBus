@@ -57,9 +57,9 @@ public class PocketFragment extends Fragment {
         ViewPagerAdapter(FragmentManager manager) {
             super(manager);
             setFragments();
-            addFragment(fragTickets, "TICKETS");
-            addFragment(fragCards, "CARDS");
-            addFragment(fragPasses, "PASS");
+            addFragment(fragTickets, "BIGLIETTI");
+            addFragment(fragCards, "TESSERE");
+            addFragment(fragPasses, "ABBONAMENTI");
         }
 
         @Override
