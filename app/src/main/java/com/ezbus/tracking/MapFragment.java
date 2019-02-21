@@ -27,7 +27,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.ezbus.R;
+import com.ezbus.authentication.LoginActivity;
 import com.ezbus.client.BuyTicketActivity;
+import com.ezbus.main.MainActivity;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -133,7 +135,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     Marker stop = mMap.addMarker(new MarkerOptions()
                             .position(cod)
                             .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_fermata))
-                            .visible(mMap.getCameraPosition().zoom>12)
+                            .visible(mMap.getCameraPosition().zoom>5)
                             .title(name)
                             .snippet(id)
                             .anchor(0.5f, 0.5f));
@@ -149,7 +151,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     Marker bus = mMap.addMarker(new MarkerOptions()
                             .position(cod)
                             .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_bus))
-                            .visible(mMap.getCameraPosition().zoom>12)
+                            .visible(mMap.getCameraPosition().zoom>5)
                             .title(name)
                             .anchor(0.5f, 0.5f));
                     markers.add(bus);
@@ -165,7 +167,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         mMap.setOnCameraMoveListener(() -> {
             CameraPosition cameraPosition = mMap.getCameraPosition();
             for(Marker m:markers) {
-                m.setVisible(cameraPosition.zoom>12);
+                m.setVisible(cameraPosition.zoom>5);
             }
         });
     }
@@ -317,10 +319,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                 choice.setTitle("Vuoi acquistare un biglietto?");
                 choice.setMessage("Da "+nomeStart+" a "+nomeDest).setPositiveButton("Si", (dialog, id) -> {
                     //Scelta confermata
-                    Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
-                    intent.putExtra("Start", idStart);
-                    intent.putExtra("Dest", idDest);
-                    startActivity(intent);
+                    if (LoginActivity.googleSignInClient!=null) {
+                        Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
+                        intent.putExtra("Start", idStart);
+                        intent.putExtra("Dest", idDest);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Devi essere loggato per acquistare", Toast.LENGTH_SHORT).show();
+                    }
                     start = false;
                 })
                 .setNegativeButton("No", (dialog, id) -> {

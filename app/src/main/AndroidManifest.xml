@@ -42,6 +42,10 @@
                 android:value="com.ezbus.authentication.RegisterActivity" />
         </activity>
         <activity
+            android:name=".client.ViewDocumentActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Visualizza Titolo Viaggio" />
+        <activity
             android:name=".client.BuyCardActivity"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Tessera" />
@@ -102,10 +106,6 @@
             android:name=".management.PassManagerActivity"
             android:configChanges="orientation|screenSize"
             android:label="Gestione Abbonamenti" />
-        <activity
-            android:name=".client.ViewItemActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -29,6 +29,6 @@
         android:id="@+id/tab4"
         android:icon="@drawable/ic_menu_manager"
         android:orderInCategory="100"
-        android:title="CONDUCENTE"
+        android:title="DRIVER"
         app:showAsAction="never" />
 </menu>

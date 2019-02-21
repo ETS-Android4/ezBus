@@ -1,11 +1,7 @@
 package com.ezbus.authentication;
 
-import com.ezbus.management.Route;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class Company extends User {
 

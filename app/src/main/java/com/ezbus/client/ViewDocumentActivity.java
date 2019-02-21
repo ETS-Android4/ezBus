@@ -1,14 +1,14 @@
 package com.ezbus.client;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 
-public class ViewItemActivity extends AppCompatActivity {
+public class ViewDocumentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class ViewItemActivity extends AppCompatActivity {
         else setTheme(R.style.App_Blue);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_item);
+        setContentView(R.layout.activity_view_document);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)

@@ -1,6 +1,6 @@
 package com.ezbus.client;
 
-class Item {
+class Document {
 
     String id;
     String companyId;

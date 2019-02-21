@@ -2,7 +2,7 @@ package com.ezbus.client;
 
 import java.util.UUID;
 
-public class Pass extends Item {
+public class Pass extends Document {
 
     private String city;
 

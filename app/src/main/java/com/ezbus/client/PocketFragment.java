@@ -46,9 +46,9 @@ public class PocketFragment extends Fragment {
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
-        private ItemFragment fragTickets = new ItemFragment();
-        private ItemFragment fragCards = new ItemFragment();
-        private ItemFragment fragPasses = new ItemFragment();
+        private DocumentFragment fragTickets = new DocumentFragment();
+        private DocumentFragment fragCards = new DocumentFragment();
+        private DocumentFragment fragPasses = new DocumentFragment();
 
         private final List<Fragment> fragmentList = new ArrayList<>();
         private final List<String> fragmentTitle = new ArrayList<>();
@@ -90,9 +90,9 @@ public class PocketFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
-                            fragTickets.updateItem(pocket.getMyTickets(), R.drawable.ticket);
-                            fragCards.updateItem(pocket.getMyCards(), R.drawable.ticket);
-                            fragPasses.updateItem(pocket.getMyPass(), R.drawable.ticket);
+                            fragTickets.updateDocuments(pocket.getMyTickets(), R.drawable.ticket);
+                            fragCards.updateDocuments(pocket.getMyCards(), R.drawable.ticket);
+                            fragPasses.updateDocuments(pocket.getMyPass(), R.drawable.ticket);
                         }
 
                         @Override

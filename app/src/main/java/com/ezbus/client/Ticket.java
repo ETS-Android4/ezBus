@@ -2,7 +2,7 @@ package com.ezbus.client;
 
 import java.util.UUID;
 
-class Ticket extends Item {
+class Ticket extends Document {
 
     private String start;
     private String end;
