@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ezbus.R;
 
@@ -27,7 +26,7 @@ public class DocumentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_document, container, false);
-        list = view.findViewById(R.id.list_item);
+        list = view.findViewById(R.id.list_document);
 
         return view;
     }
@@ -46,8 +45,10 @@ public class DocumentFragment extends Fragment {
         ListAdapter adapter = new ListAdapter(documents, image);
         this.list.setAdapter(adapter);
         this.list.setOnItemClickListener((parent, view, position, id) -> {
-            Toast.makeText(getContext(),adapter.getItem(position).getId(),Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), ViewDocumentActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Document", adapter.getItem(position));
+            intent.putExtras(bundle);
             startActivity(intent);
         });
     }

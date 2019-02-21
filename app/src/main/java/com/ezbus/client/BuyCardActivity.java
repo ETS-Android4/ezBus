@@ -48,43 +48,43 @@ public class BuyCardActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
         listPass.setOnItemClickListener((parent, view, position, id) -> database.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
-                            if (child.child("id").getValue().toString().equals(idRoute.get(position))) {
-                                String idCompany = child.child("companyId").getValue().toString();
-                                Route newRoute = child.getValue(Route.class);
-                                Card newCard = new Card(idCompany, 30, newRoute.getId());
-                                List<Card> myCards = ProfileActivity.getClient().getMyPocket().getMyCards();
-                                boolean trovato = false;
-                                for (Card tessera : myCards) {
-                                    if (tessera.getIdRoute().equals(newRoute.getId())) {
-                                        //Andiamo a cercare se è gia presente un abbonamento con quell'id
-                                        trovato = true;
-                                        break;
-                                    }
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
+                        if (child.child("id").getValue().toString().equals(idRoute.get(position))) {
+                            String idCompany = child.child("companyId").getValue().toString();
+                            Route newRoute = child.getValue(Route.class);
+                            Card newCard = new Card(idCompany, 30, newRoute.getId(), newRoute.getName());
+                            List<Card> myCards = ProfileActivity.getClient().getMyPocket().getMyCards();
+                            boolean trovato = false;
+                            for (Card card : myCards) {
+                                if (card.getRouteId().equals(newRoute.getId())) {
+                                    //Andiamo a cercare se è gia presente un abbonamento con quell'id
+                                    trovato = true;
+                                    break;
                                 }
-                                if (!trovato) {
-                                    //Andiamo a vedere se il credito è sufficiente
-                                    double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
-                                    double cardPrice = newCard.getPrice();
-                                    if (myCredit >= cardPrice) {
-                                        ProfileActivity.getClient().getMyPocket().addCard(newCard);
-                                        Toast.makeText(getApplicationContext(),"Tessera acquistata",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else Toast.makeText(getApplicationContext(),"Credito insufficiente per l'operazione",Toast.LENGTH_SHORT).show();
-                                }
-                                else Toast.makeText(getApplicationContext(),"Già possiedi questa tessera",Toast.LENGTH_SHORT).show();
                             }
+                            if (!trovato) {
+                                //Andiamo a vedere se il credito è sufficiente
+                                double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
+                                double cardPrice = newCard.getPrice();
+                                if (myCredit >= cardPrice) {
+                                    ProfileActivity.getClient().getMyPocket().addCard(newCard);
+                                    Toast.makeText(getApplicationContext(),"Tessera acquistata",Toast.LENGTH_SHORT).show();
+                                }
+                                else Toast.makeText(getApplicationContext(),"Credito insufficiente per l'operazione",Toast.LENGTH_SHORT).show();
+                            }
+                            else Toast.makeText(getApplicationContext(),"Già possiedi questa tessera",Toast.LENGTH_SHORT).show();
                         }
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                }));
+                }
+            }));
 
         aggiornaDati();
     }
@@ -121,4 +121,5 @@ public class BuyCardActivity extends AppCompatActivity {
             }
         });
     }
+
 }

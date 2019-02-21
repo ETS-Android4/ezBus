@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
@@ -23,6 +25,11 @@ public class ViewDocumentActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Document document = (Document) getIntent().getExtras().getSerializable("Document");
+        ImageView imgDocument = findViewById(R.id.documentImage);
+        TextView txtDocument = findViewById(R.id.documentName);
+        txtDocument.setText(document.getName());
     }
 
     @Override

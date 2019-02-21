@@ -44,7 +44,7 @@
         <activity
             android:name=".client.ViewDocumentActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Visualizza Titolo Viaggio" />
+            android:label="" />
         <activity
             android:name=".client.BuyCardActivity"
             android:configChanges="orientation|screenSize"

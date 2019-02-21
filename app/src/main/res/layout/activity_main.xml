@@ -6,8 +6,8 @@
     android:id="@+id/drag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="?attr/colorBackground"
+    android:fitsSystemWindows="true"
     tools:context="com.ezbus.main.MainActivity">
 
     <RelativeLayout

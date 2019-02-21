@@ -1,6 +1,8 @@
 package com.ezbus.client;
 
-class Document {
+import java.io.Serializable;
+
+class Document implements Serializable {
 
     String id;
     String companyId;

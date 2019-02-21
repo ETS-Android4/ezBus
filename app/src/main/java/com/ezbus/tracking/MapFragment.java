@@ -271,33 +271,37 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                 nomeStart = m.getTitle();
                 start = true;
                 Toast.makeText(getActivity(), "Partenza impostata", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 idDest = m.getSnippet();
                 nomeDest = m.getTitle();
-                AlertDialog.Builder choice = new AlertDialog.Builder(this.getActivity());
-                choice.setTitle("Vuoi acquistare un biglietto?");
-                choice.setMessage("Da "+nomeStart+" a "+nomeDest).setPositiveButton("Si", (dialog, id) -> {
-                    //Scelta confermata
-                    if (LoginActivity.googleSignInClient!=null) {
-                        Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
-                        intent.putExtra("Start", idStart);
-                        intent.putExtra("Dest", idDest);
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(getActivity(), "Devi essere loggato per acquistare", Toast.LENGTH_SHORT).show();
-                    }
+                if (idDest.equals(idStart)) {
+                    Toast.makeText(getActivity(), "Non puoi comprare un biglietto con partenza e destinazione coincidenti", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder choice = new AlertDialog.Builder(this.getActivity());
+                    choice.setTitle("Vuoi acquistare un biglietto?");
+                    choice.setMessage("Da " + nomeStart + " a " + nomeDest).setPositiveButton("Si", (dialog, id) -> {
+                        //Scelta confermata
+                        if (LoginActivity.mAuth.getCurrentUser() != null) {
+                            Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
+                            intent.putExtra("Start", idStart);
+                            intent.putExtra("Dest", idDest);
+                            intent.putExtra("Name", nomeStart + " - " + nomeDest);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getActivity(), "Devi essere loggato per acquistare", Toast.LENGTH_SHORT).show();
+                        }
+                        start = false;
+                    })
+                            .setNegativeButton("No", (dialog, id) -> {
+                                //Operazione annullata
+                            });
+                    choice.show();
                     start = false;
-                })
-                .setNegativeButton("No", (dialog, id) -> {
-                    //Operazione annullata
-                });
-                choice.show();
-                start = false;
+                }
             }
         }
     }
+
     private void getLocationPermission(){
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -337,4 +341,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
         }
     }
+
 }

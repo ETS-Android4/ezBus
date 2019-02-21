@@ -12,11 +12,11 @@ class Ticket extends Document {
     public Ticket() {
     }
 
-    public Ticket(String companyId, String start, String end) {
+    public Ticket(String companyId, String start, String end, String name) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
-        //Per adesso impostiamo un prezzo fisso
-        this.price = 5;
+        this.name = name;
+        this.price = 5; //Per ora prezzo fisso
         this.expiration = 30;
         this.start = start;
         this.end = end;

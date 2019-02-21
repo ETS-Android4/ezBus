@@ -24,6 +24,7 @@ public class BuyTicketActivity extends AppCompatActivity {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPref sharedpref = new SharedPref(this);
@@ -40,6 +41,7 @@ public class BuyTicketActivity extends AppCompatActivity {
 
         String idStart = getIntent().getSerializableExtra("Start").toString();
         String idDest = getIntent().getSerializableExtra("Dest").toString();
+        String nameTicket = getIntent().getSerializableExtra("Name").toString();
         TextView start = findViewById(R.id.partenza);
         TextView dest = findViewById(R.id.destinazione);
         start.setText(idStart);
@@ -49,7 +51,7 @@ public class BuyTicketActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
-                    if (child.child("id").getValue().toString().equals(idStart)){
+                    if (child.child("id").getValue().toString().equals(idStart)) {
                         String idCompany = child.child("companyId").getValue().toString();
                         List<Ticket> myTicket = ProfileActivity.getClient().getMyPocket().getMyTickets();
                         boolean trovato = false;
@@ -65,7 +67,7 @@ public class BuyTicketActivity extends AppCompatActivity {
                             }
                         }
                         if (!trovato) {
-                            newTicket = new Ticket(idCompany, idStart, idDest);
+                            newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
                             if (ProfileActivity.getClient().getMyPocket().getCredit()>=newTicket.getPrice()) {
                                 ProfileActivity.getClient().getMyPocket().addTicket(newTicket);
                                 Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
