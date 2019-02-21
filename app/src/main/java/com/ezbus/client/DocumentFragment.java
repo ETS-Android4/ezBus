@@ -17,16 +17,16 @@ import com.ezbus.R;
 
 import java.util.List;
 
-public class ItemFragment extends Fragment {
+public class DocumentFragment extends Fragment {
 
     private ListView list;
 
 
-    public ItemFragment() { }
+    public DocumentFragment() { }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_document, container, false);
         list = view.findViewById(R.id.list_item);
 
         return view;
@@ -42,12 +42,12 @@ public class ItemFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    void updateItem(List<? extends Item> listItem, int image) {
-        ListAdapter adapter = new ListAdapter(listItem, image);
+    void updateDocuments(List<? extends Document> documents, int image) {
+        ListAdapter adapter = new ListAdapter(documents, image);
         this.list.setAdapter(adapter);
         this.list.setOnItemClickListener((parent, view, position, id) -> {
             Toast.makeText(getContext(),adapter.getItem(position).getId(),Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(), ViewItemActivity.class);
+            Intent intent = new Intent(getContext(), ViewDocumentActivity.class);
             startActivity(intent);
         });
     }
@@ -55,13 +55,13 @@ public class ItemFragment extends Fragment {
     private class ListAdapter extends BaseAdapter {
 
         private int count;
-        private List<? extends Item> listItem;
+        private List<? extends Document> listDocuments;
         private int image;
 
 
-        ListAdapter(List<? extends Item> listItem, int image) {
-            this.listItem = listItem;
-            if (listItem != null) this.count = listItem.size();
+        ListAdapter(List<? extends Document> documents, int image) {
+            this.listDocuments = documents;
+            if (documents != null) this.count = documents.size();
             else this.count = 0;
             this.image = image;
         }
@@ -72,8 +72,8 @@ public class ItemFragment extends Fragment {
         }
 
         @Override
-        public Item getItem(int i) {
-            return listItem.get(i);
+        public Document getItem(int i) {
+            return listDocuments.get(i);
         }
 
         @Override
@@ -84,17 +84,17 @@ public class ItemFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_item, null);
-            ImageView itemImage = view.findViewById(R.id.itemImage);
-            itemImage.setImageResource(this.image);
-            TextView itemTitle = view.findViewById(R.id.itemTitle);
-            itemTitle.setText(listItem.get(i).getName());
+            ImageView documentItem = view.findViewById(R.id.itemImage);
+            documentItem.setImageResource(this.image);
+            TextView documentTitle = view.findViewById(R.id.itemTitle);
+            documentTitle.setText(listDocuments.get(i).getName());
 
             return view;
         }
 
         @Override
         public void notifyDataSetChanged() {
-            this.count = listItem.size();
+            this.count = listDocuments.size();
             super.notifyDataSetChanged();
         }
 

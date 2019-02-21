@@ -104,12 +104,12 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
     }
 
     private void setDataToView() {
-        FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter1.clear();
                 mAdapter2.clear();
-                for (DataSnapshot child : dataSnapshot.child("stops").getChildren())
+                for (DataSnapshot child : dataSnapshot.child("map").child("stops").getChildren())
                     if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
                         mAdapter1.add(s.getName());

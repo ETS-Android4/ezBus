@@ -2,7 +2,7 @@ package com.ezbus.client;
 
 import java.util.UUID;
 
-class Card extends Item {
+class Card extends Document {
 
     private String idRoute;
 
