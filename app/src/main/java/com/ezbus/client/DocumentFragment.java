@@ -41,8 +41,8 @@ public class DocumentFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    void updateDocuments(List<? extends Document> documents, int image) {
-        ListAdapter adapter = new ListAdapter(documents, image);
+    void updateDocuments(List<? extends Document> documents) {
+        ListAdapter adapter = new ListAdapter(documents);
         this.list.setAdapter(adapter);
         this.list.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(getContext(), ViewDocumentActivity.class);
@@ -57,14 +57,12 @@ public class DocumentFragment extends Fragment {
 
         private int count;
         private List<? extends Document> listDocuments;
-        private int image;
 
 
-        ListAdapter(List<? extends Document> documents, int image) {
+        ListAdapter(List<? extends Document> documents) {
             this.listDocuments = documents;
             if (documents != null) this.count = documents.size();
             else this.count = 0;
-            this.image = image;
         }
 
         @Override
@@ -86,7 +84,7 @@ public class DocumentFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_item, null);
             ImageView documentItem = view.findViewById(R.id.itemImage);
-            documentItem.setImageResource(this.image);
+            documentItem.setImageResource(listDocuments.get(i).getImage());
             TextView documentTitle = view.findViewById(R.id.itemTitle);
             documentTitle.setText(listDocuments.get(i).getName());
 

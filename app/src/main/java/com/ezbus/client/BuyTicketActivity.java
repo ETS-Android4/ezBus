@@ -18,8 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
 public class BuyTicketActivity extends AppCompatActivity {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -53,34 +51,13 @@ public class BuyTicketActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)) {
                         String idCompany = child.child("companyId").getValue().toString();
-                        List<Ticket> myTicket = ProfileActivity.getClient().getMyPocket().getMyTickets();
-                        boolean trovato = false;
-                        Ticket newTicket = null;
-                        int i=0;
-                        for (Ticket biglietto : myTicket) {
-                            if (biglietto.getStart().equals(idStart) && biglietto.getEnd().equals(idDest)) {
-                                //Andiamo a cercare se è gia presente un biglietto con quella partenza e destinazione
-                                trovato = true;
-                                newTicket = biglietto;
-                                i++;
-                                break;
-                            }
-                        }
-                        if (!trovato) {
-                            newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
-                            if (ProfileActivity.getClient().getMyPocket().getCredit()>=newTicket.getPrice()) {
-                                ProfileActivity.getClient().getMyPocket().addTicket(newTicket);
-                                Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
-                            }
-                            else Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            if (ProfileActivity.getClient().getMyPocket().getCredit()>=newTicket.getPrice()) {
-                                aumentaBiglietto(i, newTicket.getNumber()+1);
-                                ProfileActivity.getClient().getMyPocket().updateCredit(-newTicket.getPrice());
-                            }
-                            else Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
-                        }
+                        Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
+                        Pocket myPocket = ProfileActivity.getClient().getMyPocket();
+                        if (myPocket.getCredit()>=newTicket.getPrice()) {
+                            myPocket.addTicket(newTicket);
+                            Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
                         finish();
                         break;
                     }
@@ -92,14 +69,6 @@ public class BuyTicketActivity extends AppCompatActivity {
 
             }
         }));
-    }
-
-    private void aumentaBiglietto(int index, int number) {
-        String id = ProfileActivity.getClient().getUid();
-        //Non aumenta il biglietto sul database
-        database.child("clients").child(id).child("myPocket").child("myTickets")
-                .child(Integer.toString(index)).child("number").setValue(number);
-        Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
     }
 
     @Override

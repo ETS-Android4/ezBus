@@ -7,7 +7,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pocket {
+public class Pocket implements Manage {
 
     private double credit;
     private List<Ticket> myTickets = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Pocket {
     }
 
     void addTicket(Ticket newTicket) {
-        myTickets.add(newTicket);
+        search(myTickets, newTicket);
         updateCredit(-newTicket.getPrice());
     }
 
@@ -41,18 +41,24 @@ public class Pocket {
         return this.myCards;
     }
 
-    void addCard(Card newCard) {
-        myCards.add(newCard);
-        updateCredit(-newCard.getPrice());
+    boolean addCard(Card newCard) {
+        if (search(myCards, newCard)) return true;
+        else {
+            updateCredit(-newCard.getPrice());
+            return false;
+        }
     }
 
     List<Pass> getMyPass() {
         return this.myPass;
     }
 
-    void addPass(Pass newPass) {
-        myPass.add(newPass);
-        updateCredit(-newPass.getPrice());
+    boolean addPass(Pass newPass) {
+        if (search(myPass, newPass)) return true;
+        else {
+            updateCredit(-newPass.getPrice());
+            return false;
+        }
     }
 
     private void databaseSync() {

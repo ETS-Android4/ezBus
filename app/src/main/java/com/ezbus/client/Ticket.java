@@ -1,5 +1,7 @@
 package com.ezbus.client;
 
+import com.ezbus.R.drawable;
+
 import java.util.UUID;
 
 class Ticket extends Document {
@@ -33,6 +35,14 @@ class Ticket extends Document {
 
     public int getNumber() {
         return this.number;
+    }
+
+    void setNumber(int number) {
+        this.number = number;
+    }
+
+    int getImage() {
+        return drawable.ticket;
     }
 
 }

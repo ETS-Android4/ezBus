@@ -90,9 +90,9 @@ public class PocketFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
-                            fragTickets.updateDocuments(pocket.getMyTickets(), R.drawable.ticket);
-                            fragCards.updateDocuments(pocket.getMyCards(), R.drawable.card);
-                            fragPasses.updateDocuments(pocket.getMyPass(), R.drawable.pass);
+                            fragTickets.updateDocuments(pocket.getMyTickets());
+                            fragCards.updateDocuments(pocket.getMyCards());
+                            fragPasses.updateDocuments(pocket.getMyPass());
                         }
 
                         @Override

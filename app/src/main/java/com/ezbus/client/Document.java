@@ -2,7 +2,7 @@ package com.ezbus.client;
 
 import java.io.Serializable;
 
-class Document implements Serializable {
+abstract class Document implements Serializable {
 
     String id;
     String companyId;
@@ -30,5 +30,7 @@ class Document implements Serializable {
     public int getExpiration() {
         return this.expiration;
     }
+
+    abstract int getImage();
 
 }

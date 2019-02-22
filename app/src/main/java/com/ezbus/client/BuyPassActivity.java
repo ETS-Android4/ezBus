@@ -47,41 +47,31 @@ public class BuyPassActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<>(this, R.layout.row, R.id.textViewList, initialList);
         listPass.setAdapter(mAdapter);
         listPass.setOnItemClickListener((parent, view, position, id) -> database.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
-                            if (child.child("id").getValue().toString().equals(idPass.get(position))) {
-                                Pass newPass = child.getValue(Pass.class);
-                                List<Pass> myPasses = ProfileActivity.getClient().getMyPocket().getMyPass();
-                                boolean trovato = false;
-                                for (Pass abbonamento : myPasses) {
-                                    if (abbonamento.getId().equals(newPass.getId())) {
-                                        //Andiamo a cercare se è gia presente un abbonamento con quell'id
-                                        trovato = true;
-                                        break;
-                                    }
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                        if (child.child("id").getValue().toString().equals(idPass.get(position))) {
+                            Pass newPass = child.getValue(Pass.class);
+                            Pocket myPocket = ProfileActivity.getClient().getMyPocket();
+                            if (myPocket.getCredit()>=newPass.getPrice()) {
+                                if (myPocket.addPass(newPass)) Toast.makeText(getApplicationContext(), "Già possiedi questo abbonamento", Toast.LENGTH_SHORT).show();
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Abbonamento acquistato", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
-                                if (!trovato) {
-                                    //Andiamo a vedere se il credito è sufficiente
-                                    double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
-                                    double passPrice = newPass.getPrice();
-                                    if (myCredit >= passPrice) {
-                                        ProfileActivity.getClient().getMyPocket().addPass(newPass);
-                                        Toast.makeText(getApplicationContext(),"Abbonamento acquistato",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else Toast.makeText(getApplicationContext(),"Credito insufficiente per l'operazione",Toast.LENGTH_SHORT).show();
-                                }
-                                else Toast.makeText(getApplicationContext(),"Già possiedi questo abbonamento",Toast.LENGTH_SHORT).show();
-                            }
+                            } else
+                                Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+                            break;
                         }
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                }));
+                }
+            }));
 
         setDataToView();
     }

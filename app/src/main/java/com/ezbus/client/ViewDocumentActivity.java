@@ -29,9 +29,7 @@ public class ViewDocumentActivity extends AppCompatActivity {
         Document document = (Document) getIntent().getExtras().getSerializable("Document");
 
         ImageView docImage = findViewById(R.id.documentImage);
-        if (document instanceof Ticket) docImage.setImageResource(R.drawable.ticket);
-        else if (document instanceof Card) docImage.setImageResource(R.drawable.card);
-        else if (document instanceof Pass) docImage.setImageResource(R.drawable.pass);
+        docImage.setImageResource(document.getImage());
 
         TextView docName = findViewById(R.id.documentName);
         TextView docPrice = findViewById(R.id.documentPrice);

@@ -1,5 +1,7 @@
 package com.ezbus.client;
 
+import com.ezbus.R.drawable;
+
 import java.util.UUID;
 
 class Card extends Document {
@@ -18,6 +20,12 @@ class Card extends Document {
         this.routeId = routeId;
     }
 
-    public String getRouteId() { return this.routeId; }
+    public String getRouteId() {
+        return this.routeId;
+    }
+
+    int getImage() {
+        return drawable.card;
+    }
 
 }

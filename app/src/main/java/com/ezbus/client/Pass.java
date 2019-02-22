@@ -1,5 +1,7 @@
 package com.ezbus.client;
 
+import com.ezbus.R.drawable;
+
 import java.util.UUID;
 
 public class Pass extends Document {
@@ -20,6 +22,10 @@ public class Pass extends Document {
 
     public String getCity() {
         return this.city;
+    }
+
+    int getImage() {
+        return drawable.pass;
     }
 
 }
