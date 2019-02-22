@@ -24,7 +24,7 @@ class Card extends Document {
         return this.routeId;
     }
 
-    int getImage() {
+    int giveImage() {
         return drawable.card;
     }
 

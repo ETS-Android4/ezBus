@@ -24,7 +24,7 @@ public class Pass extends Document {
         return this.city;
     }
 
-    int getImage() {
+    int giveImage() {
         return drawable.pass;
     }
 

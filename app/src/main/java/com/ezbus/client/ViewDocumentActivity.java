@@ -34,16 +34,16 @@ public class ViewDocumentActivity extends AppCompatActivity {
         NumberFormat formatter = new DecimalFormat("#0.00");
 
         ImageView docImage = findViewById(R.id.documentImage);
-        docImage.setImageResource(document.getImage());
+        docImage.setImageResource(document.giveImage());
 
         TextView docName = findViewById(R.id.documentName);
         TextView docPrice = findViewById(R.id.documentPrice);
         TextView docExpiration = findViewById(R.id.documentExpiration);
         TextView docNumber = findViewById(R.id.documentNumber);
         docName.setText(document.getName());
-        docPrice.setText("Prezzo: " + formatter.format(document.getPrice())  +" €");
+        docPrice.setText("Prezzo: " + formatter.format(document.getPrice()) + " €");
         docExpiration.setText("Giorni rimasti: " + document.getExpiration());
-        String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber())  : "1";
+        String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber()) : "1";
         docNumber.setText("Quantità: " + number);
     }
 

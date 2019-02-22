@@ -84,7 +84,7 @@ public class DocumentFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_item, null);
             ImageView documentItem = view.findViewById(R.id.itemImage);
-            documentItem.setImageResource(listDocuments.get(i).getImage());
+            documentItem.setImageResource(listDocuments.get(i).giveImage());
             TextView documentTitle = view.findViewById(R.id.itemTitle);
             documentTitle.setText(listDocuments.get(i).getName());
 

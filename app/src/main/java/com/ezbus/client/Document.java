@@ -31,6 +31,6 @@ abstract class Document implements Serializable {
         return this.expiration;
     }
 
-    abstract int getImage();
+    abstract int giveImage();
 
 }

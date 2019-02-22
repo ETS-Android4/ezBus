@@ -41,7 +41,7 @@ class Ticket extends Document {
         this.number = number;
     }
 
-    int getImage() {
+    int giveImage() {
         return drawable.ticket;
     }
 
