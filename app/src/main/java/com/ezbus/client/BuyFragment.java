@@ -19,9 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class BuyFragment extends Fragment {
 
-    private static TextView credit;
+    private TextView credit;
 
 
     public BuyFragment() { }
@@ -59,7 +62,8 @@ public class BuyFragment extends Fragment {
     }
 
     private void setDataToView(Double credit) {
-        this.credit.setText(credit + " €");
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        this.credit.setText(formatter.format(credit) + " €");
     }
 
     private void startNewActivity(Class act) {

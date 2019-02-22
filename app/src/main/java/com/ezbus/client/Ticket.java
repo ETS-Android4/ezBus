@@ -25,15 +25,15 @@ class Ticket extends Document {
         this.number = 1;
     }
 
-    public String getStart() {
+    String getStart() {
         return this.start;
     }
 
-    public String getEnd() {
+    String getEnd() {
         return this.end;
     }
 
-    public int getNumber() {
+    int getNumber() {
         return this.number;
     }
 

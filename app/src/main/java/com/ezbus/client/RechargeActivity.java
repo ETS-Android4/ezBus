@@ -12,11 +12,15 @@ import com.ezbus.R;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class RechargeActivity extends AppCompatActivity {
 
     private TextView recharge;
     private Button confirm;
-    private double amount = 5.0; //Ricarica consigliata iniziale
+    private double amount = 5; //Ricarica iniziale consigliata
+    NumberFormat formatter = new DecimalFormat("#0.00");
 
 
     @Override
@@ -31,8 +35,8 @@ public class RechargeActivity extends AppCompatActivity {
 
         double myCredit = ProfileActivity.getClient().getMyPocket().getCredit();
         TextView credit = findViewById(R.id.credit);
+        credit.setText(formatter.format(myCredit) + " €");
         recharge = findViewById(R.id.recharge);
-        credit.setText(Double.toString(myCredit) + " €");
         confirm = findViewById(R.id.confirm);
 
         ActionBar actionBar = getSupportActionBar();
@@ -43,7 +47,7 @@ public class RechargeActivity extends AppCompatActivity {
     private void changeCredit(Double c) {
         if (!(amount == 0 && c < 0)) {
             amount += c;
-            recharge.setText(Double.toString(amount) + " €");
+            recharge.setText(formatter.format(amount) + " €");
             if (amount==0) confirm.setEnabled(false);
             else confirm.setEnabled(true);
         }

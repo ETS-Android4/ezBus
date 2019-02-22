@@ -20,7 +20,7 @@ class Card extends Document {
         this.routeId = routeId;
     }
 
-    public String getRouteId() {
+    String getRouteId() {
         return this.routeId;
     }
 

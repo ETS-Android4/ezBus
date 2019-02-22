@@ -7,7 +7,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pocket implements Manage {
+public class Pocket {
 
     private double credit;
     private List<Ticket> myTickets = new ArrayList<>();
@@ -33,8 +33,18 @@ public class Pocket implements Manage {
     }
 
     void addTicket(Ticket newTicket) {
-        search(myTickets, newTicket);
+        searchTicket(myTickets, newTicket);
         updateCredit(-newTicket.getPrice());
+    }
+
+    private void searchTicket(List<Ticket> list, Ticket newTicket) {
+        for(Ticket ticket : list) {
+            if (newTicket.getStart().equals(ticket.getStart()) && newTicket.getEnd().equals(ticket.getEnd())) {
+                ticket.setNumber(ticket.getNumber()+1);
+                return;
+            }
+        }
+        list.add(newTicket);
     }
 
     List<Card> getMyCards() {
@@ -42,11 +52,11 @@ public class Pocket implements Manage {
     }
 
     boolean addCard(Card newCard) {
-        if (search(myCards, newCard)) return true;
-        else {
-            updateCredit(-newCard.getPrice());
-            return false;
-        }
+        for(Card card : myCards)
+            if (newCard.getRouteId().equals(card.getRouteId())) return true;
+        myCards.add(newCard);
+        updateCredit(-newCard.getPrice());
+        return false;
     }
 
     List<Pass> getMyPass() {
@@ -54,11 +64,11 @@ public class Pocket implements Manage {
     }
 
     boolean addPass(Pass newPass) {
-        if (search(myPass, newPass)) return true;
-        else {
-            updateCredit(-newPass.getPrice());
-            return false;
-        }
+        for(Pass pass : myPass)
+            if (newPass.getId().equals(pass.getId())) return true;
+        myPass.add(newPass);
+        updateCredit(-newPass.getPrice());
+        return false;
     }
 
     private void databaseSync() {

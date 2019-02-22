@@ -20,7 +20,7 @@ public class Pass extends Document {
         this.city = city;
     }
 
-    public String getCity() {
+    String getCity() {
         return this.city;
     }
 
