@@ -53,8 +53,7 @@ public class PassManagerActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        aggiornaDati();
-
+        setDataToView();
 
         Button addPass = findViewById(R.id.addPass);
         addPass.setOnClickListener(v -> {
@@ -75,10 +74,10 @@ public class PassManagerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        aggiornaDati();
+        setDataToView();
     }
 
-    private void aggiornaDati() {
+    private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

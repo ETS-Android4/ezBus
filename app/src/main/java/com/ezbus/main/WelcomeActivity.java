@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.ezbus.R;
-import com.ezbus.tracking.MapFragment;
 
 public class WelcomeActivity extends AppCompatActivity {
 

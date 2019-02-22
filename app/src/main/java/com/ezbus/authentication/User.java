@@ -1,6 +1,6 @@
 package com.ezbus.authentication;
 
-abstract class User {
+abstract class User  {
 
     private String uid;
     String name;
@@ -22,7 +22,5 @@ abstract class User {
     String getEmail() {
         return this.email;
     }
-
-    abstract void databaseSync();
 
 }

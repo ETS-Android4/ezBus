@@ -71,9 +71,8 @@ public class Pocket {
         return false;
     }
 
-    private void databaseSync() {
+    void databaseSync() {
         DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients");
         path.child(ProfileActivity.getClient().getUid()).child("myPocket").setValue(this);
     }
-
 }

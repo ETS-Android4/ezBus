@@ -46,7 +46,7 @@ public class EditPassActivity extends AppCompatActivity {
         cityPass = findViewById(R.id.cittaPass);
         dataPass = findViewById(R.id.dataPass);
 
-        aggiornaDati();
+        setDataToView();
 
         Button saveRoute = findViewById(R.id.salvaPass);
         saveRoute.setOnClickListener(v -> savePass());
@@ -79,7 +79,7 @@ public class EditPassActivity extends AppCompatActivity {
         else Toast.makeText(EditPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
     }
 
-    private void aggiornaDati() {
+    private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

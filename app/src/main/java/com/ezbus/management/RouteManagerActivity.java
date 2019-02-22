@@ -53,7 +53,7 @@ public class RouteManagerActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        aggiornaDati();
+        setDataToView();
 
         Button addRoute = findViewById(R.id.addRoute);
         addRoute.setOnClickListener(v -> {
@@ -72,10 +72,10 @@ public class RouteManagerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        aggiornaDati();
+        setDataToView();
     }
 
-    private void aggiornaDati() {
+    private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

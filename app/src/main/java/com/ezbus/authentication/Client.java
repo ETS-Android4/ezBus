@@ -4,7 +4,7 @@ import com.ezbus.client.Pocket;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Client extends User {
+public class Client extends User implements DataSync {
 
     private String surname;
     private Pocket myPocket;
@@ -29,7 +29,6 @@ public class Client extends User {
         return myPocket;
     }
 
-    @Override
     public void databaseSync() {
         DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients/"+this.getUid());
         path.setValue(this);

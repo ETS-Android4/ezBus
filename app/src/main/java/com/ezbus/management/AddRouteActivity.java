@@ -48,7 +48,7 @@ public class AddRouteActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        aggiornaDati();
+        setDataToView();
 
         final EditText routeName = findViewById(R.id.nameRoute);
         final Spinner listStop1 = findViewById(R.id.spinner1);
@@ -89,7 +89,7 @@ public class AddRouteActivity extends AppCompatActivity {
         finish();
     }
 
-    private void aggiornaDati() {
+    private void setDataToView() {
         FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -140,7 +140,7 @@ public class AddRouteActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        aggiornaDati();
+        setDataToView();
     }
 
 }

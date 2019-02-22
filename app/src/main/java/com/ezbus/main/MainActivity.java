@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.authentication.PrivacyActivity;
 import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.authentication.RegisterActivity;
 import com.ezbus.client.BuyFragment;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static NavigationView navigationView;
     private SharedPref sharedpref;
     private DrawerLayout mDrawerLayout;
-
 
 
     @Override

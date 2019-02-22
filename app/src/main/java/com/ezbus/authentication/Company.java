@@ -3,7 +3,7 @@ package com.ezbus.authentication;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-class Company extends User {
+class Company extends User implements DataSync {
 
     private String iva;
 
@@ -22,7 +22,6 @@ class Company extends User {
         return this.iva;
     }
 
-    @Override
     public void databaseSync() {
         DatabaseReference path = FirebaseDatabase.getInstance().getReference("/companies/"+this.getUid());
         path.setValue(this);
