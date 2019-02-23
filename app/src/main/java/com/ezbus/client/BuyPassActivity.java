@@ -53,9 +53,10 @@ public class BuyPassActivity extends AppCompatActivity {
                     for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                         if (child.child("id").getValue().toString().equals(idPass.get(position))) {
                             Pass newPass = child.getValue(Pass.class);
+                            newPass.calculateExpiration(newPass.getValidity());
                             Pocket myPocket = ProfileActivity.getClient().getMyPocket();
                             if (myPocket.getCredit()>=newPass.getPrice()) {
-                                if (myPocket.addPass(newPass)) Toast.makeText(getApplicationContext(), "Già possiedi questo abbonamento", Toast.LENGTH_SHORT).show();
+                                if (myPocket.add(newPass)) Toast.makeText(getApplicationContext(), "Già possiedi questo abbonamento", Toast.LENGTH_SHORT).show();
                                 else {
                                     Toast.makeText(getApplicationContext(), "Abbonamento acquistato", Toast.LENGTH_SHORT).show();
                                     finish();

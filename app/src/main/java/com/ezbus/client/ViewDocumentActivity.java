@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
 public class ViewDocumentActivity extends AppCompatActivity {
 
@@ -42,7 +44,8 @@ public class ViewDocumentActivity extends AppCompatActivity {
         TextView docNumber = findViewById(R.id.documentNumber);
         docName.setText(document.getName());
         docPrice.setText("Prezzo: " + formatter.format(document.getPrice()) + " €");
-        docExpiration.setText("Giorni rimasti: " + document.getExpiration());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        docExpiration.setText("Scadenza: " + dateFormat.format(document.getExpiration()));
         String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber()) : "1";
         docNumber.setText("Quantità: " + number);
     }

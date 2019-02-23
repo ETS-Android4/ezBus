@@ -11,12 +11,12 @@ class Card extends Document {
 
     public Card() {}
 
-    public Card(String companyId, int expiration, String routeId, String routeName) {
+    public Card(String companyId, int validity, String routeId, String routeName) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
         this.name = routeName;
         this.price = 20; //Per ora prezzo fisso
-        this.expiration = expiration;
+        calculateExpiration(validity);
         this.routeId = routeId;
     }
 

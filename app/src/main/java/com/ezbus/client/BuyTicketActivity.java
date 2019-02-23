@@ -54,7 +54,7 @@ public class BuyTicketActivity extends AppCompatActivity {
                         Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
                         Pocket myPocket = ProfileActivity.getClient().getMyPocket();
                         if (myPocket.getCredit()>=newTicket.getPrice()) {
-                            myPocket.addTicket(newTicket);
+                            myPocket.add(newTicket);
                             Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();

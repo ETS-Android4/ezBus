@@ -19,7 +19,7 @@ class Ticket extends Document {
         this.companyId = companyId;
         this.name = name;
         this.price = 5; //Per ora prezzo fisso
-        this.expiration = 30;
+        calculateExpiration(3);
         this.start = start;
         this.end = end;
         this.number = 1;

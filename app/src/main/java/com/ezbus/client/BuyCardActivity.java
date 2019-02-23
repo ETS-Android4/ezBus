@@ -58,7 +58,7 @@ public class BuyCardActivity extends AppCompatActivity {
                             Card newCard = new Card(idCompany, 30, route.getId(), route.getName());
                             Pocket myPocket = ProfileActivity.getClient().getMyPocket();
                             if (myPocket.getCredit()>=newCard.getPrice()) {
-                                if (myPocket.addCard(newCard)) Toast.makeText(getApplicationContext(), "Già possiedi questa tessera", Toast.LENGTH_SHORT).show();
+                                if (myPocket.add(newCard)) Toast.makeText(getApplicationContext(), "Già possiedi questa tessera", Toast.LENGTH_SHORT).show();
                                 else {
                                     Toast.makeText(getApplicationContext(), "Tessera acquistata", Toast.LENGTH_SHORT).show();
                                     finish();

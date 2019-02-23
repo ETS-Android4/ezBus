@@ -1,6 +1,9 @@
 package com.ezbus.client;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 abstract class Document implements Serializable {
 
@@ -8,7 +11,7 @@ abstract class Document implements Serializable {
     String companyId;
     String name;
     double price;
-    int expiration;
+    Date expiration;
 
 
     public String getId() {
@@ -27,8 +30,20 @@ abstract class Document implements Serializable {
         return this.price;
     }
 
-    int getExpiration() {
+    Date getExpiration() {
         return this.expiration;
+    }
+
+    void calculateExpiration(int validity) {
+        Calendar c = new GregorianCalendar();
+        c.add(Calendar.DATE, validity);
+        Date expiration = c.getTime();
+        this.expiration = expiration;
+    }
+
+    boolean isValid() {
+        if (getExpiration().after(new Date())) return true;
+        return false;
     }
 
     abstract int giveImage();
