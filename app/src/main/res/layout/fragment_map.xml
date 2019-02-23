@@ -39,11 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/ic_magnify"
             android:background="@null"
             android:hint="Cerca località"
             android:imeOptions="actionSearch"
+            android:paddingLeft="40dp"
             android:singleLine="true"
             android:textColor="#000"
             android:textSize="15sp" />

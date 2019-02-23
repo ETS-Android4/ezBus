@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="?attr/colorBackground">
+    android:layout_margin="10dp"
+    android:background="?attr/colorBackground"
+    android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/profile"
@@ -15,9 +16,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Dati Utente"
+        android:textColor="?attr/colorText"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="?attr/colorText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="22dp"
-        android:text="Email"
-        android:textSize="18sp"
+        android:layout_marginTop="44dp"
+        android:text="Email:"
         android:textColor="?attr/colorText"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile" />
 
@@ -39,11 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
-        android:text="Nome"
-        android:textSize="18sp"
+        android:text="Nome:"
         android:textColor="?attr/colorText"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 

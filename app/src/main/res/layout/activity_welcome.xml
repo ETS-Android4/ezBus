@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.ezbus.main.WelcomeActivity">
 
-    <TextView
-        android:id="@+id/welcome"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center_horizontal"
-        android:text="Benvenuto su ezBus"
-        android:textColor="@android:color/white"
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/client"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Entra come cliente" />
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:text="Benvenuto su ezBus"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/company"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Entra come azienda" />
+        <Button
+            android:id="@+id/client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Entra come cliente" />
+
+        <Button
+            android:id="@+id/company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Entra come azienda" />
+
+    </LinearLayout>
 
 </LinearLayout>

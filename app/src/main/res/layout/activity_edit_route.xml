@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="?attr/colorBackground"
             android:orientation="vertical">
 
@@ -27,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Nome Tratta"
-                android:textColorHint="?attr/colorTextHint"
+                android:inputType="text"
                 android:textColor="?attr/colorText"
-                android:inputType="text" />
+                android:textColorHint="?attr/colorTextHint" />
 
             <TextView
                 android:id="@+id/primaFermata"

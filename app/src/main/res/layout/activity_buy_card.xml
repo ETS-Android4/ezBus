@@ -10,12 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Clicca su una delle seguenti tratte che si desidera acquistare"
+            android:layout_marginBottom="10dp"
+            android:text="Scegli quale abbonamento acquistare"
             android:textColor="?attr/colorText"
             android:textSize="18sp" />
 
