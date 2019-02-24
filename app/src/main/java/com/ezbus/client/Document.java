@@ -5,6 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Classe astratta che contiene comportamenti e informazioni dei titoli di viaggio.
+ */
+
 abstract class Document implements Serializable {
 
     String id;

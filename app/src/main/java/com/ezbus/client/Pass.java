@@ -4,6 +4,11 @@ import com.ezbus.R.drawable;
 
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Pass e il suo comportamento.
+ * L'abbonamento è un titolo di viaggio che consente di percorrere più tratte di un determinato territorio.
+ */
+
 public class Pass extends Document {
 
     private String city;

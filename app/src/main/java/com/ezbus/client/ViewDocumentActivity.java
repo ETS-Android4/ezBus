@@ -15,6 +15,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Classe che permette di visualizzare i dettagli di un titolo di viaggio.
+ */
+
 public class ViewDocumentActivity extends AppCompatActivity {
 
     @Override
@@ -31,13 +35,21 @@ public class ViewDocumentActivity extends AppCompatActivity {
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
+        //Prende l'oggetto passato dall'activity precedente
         Document document = (Document) getIntent().getExtras().getSerializable("Document");
+        setDataToView(document);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
+
+    private void setDataToView (Document document) {
         NumberFormat formatter = new DecimalFormat("#0.00");
-
         ImageView docImage = findViewById(R.id.documentImage);
         docImage.setImageResource(document.giveImage());
-
         TextView docName = findViewById(R.id.documentName);
         TextView docPrice = findViewById(R.id.documentPrice);
         TextView docExpiration = findViewById(R.id.documentExpiration);
@@ -48,12 +60,6 @@ public class ViewDocumentActivity extends AppCompatActivity {
         docExpiration.setText("Scadenza: " + dateFormat.format(document.getExpiration()));
         String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber()) : "1";
         docNumber.setText("Quantità: " + number);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
     }
 
 }

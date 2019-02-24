@@ -26,7 +26,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-/* Classe per i suggerimenti di Google durante la ricerca nella mappa */
+/**
+ * Classe esterna per i suggerimenti di Google durante la ricerca nella mappa.
+ */
 
 public class AutocompleteMap extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 

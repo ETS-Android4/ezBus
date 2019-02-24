@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment che contiene tutti i titoli di viaggio acquistati dividendoli in tre sezioni differenti.
+ */
+
 public class PocketFragment extends Fragment {
 
     public PocketFragment() { }
@@ -82,6 +86,7 @@ public class PocketFragment extends Fragment {
             fragmentTitle.add(title);
         }
 
+        //Applica la vista degli oggetti ai vari fragment, aggiornandola al variare dei dati
         private void setFragments() {
             if (currentClient != null) {
                 String id = currentClient.getUid();

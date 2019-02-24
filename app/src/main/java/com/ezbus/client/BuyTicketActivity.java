@@ -18,6 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Classe che permette l'acquisto di biglietti.
+ */
+
 public class BuyTicketActivity extends AppCompatActivity {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -37,6 +41,7 @@ public class BuyTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_ticket);
 
+        //Prende i dati passati dall'activity precedente
         String idStart = getIntent().getSerializableExtra("Start").toString();
         String idDest = getIntent().getSerializableExtra("Dest").toString();
         String nameTicket = getIntent().getSerializableExtra("Name").toString();
@@ -51,6 +56,7 @@ public class BuyTicketActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)) {
                         String idCompany = child.child("companyId").getValue().toString();
+                        //Creazione del biglietto in base alle fermate scelte
                         Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
                         Pocket myPocket = ProfileActivity.getClient().getMyPocket();
                         if (myPocket.getCredit()>=newTicket.getPrice()) {

@@ -4,6 +4,10 @@ import com.ezbus.R.drawable;
 
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Card e il suo comportamento.
+ * La tessera è un particolare titolo di viaggio che consente di abbonarsi ad una specifica tratta.
+ */
 class Card extends Document {
 
     private String routeId;

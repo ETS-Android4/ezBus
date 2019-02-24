@@ -29,6 +29,10 @@ import com.ezbus.tracking.DriverFragment;
 import com.ezbus.tracking.MapFragment;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Activity principale dell'applicazione.
+ */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static NavigationView navigationView;
@@ -46,18 +50,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Se non è ancora stata fatta la scelta, si apre la welcome
         if (getAnswer().equals("Empty")) {
             startNewActivity(WelcomeActivity.class);
             finish();
         }
         else {
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
+            //Passa al profilo il parametro clients o company in base alla scelta fatta
             ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
 
             BottomNavigationView mMainNav = findViewById(R.id.main_nav);
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
+            //In base alla scelta fatta, vengono modificati i menù
             if (getAnswer().equals("Client")) {
                 mMainNav.getMenu().getItem(2).setTitle("POCKET");
                 mMainNav.getMenu().removeItem(R.id.tab4);
@@ -76,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
+            //Prende i dati dell'utente se è loggato
             FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
             if (currentUser == null) {
                 navUsername.setText("Ospite");
@@ -91,12 +99,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
             }
 
+            //Imposta come fragment iniziale la mappa
             setFragment(1);
             navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
             mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
     }
 
+    //Imposta le azioni corrispondenti alle tab
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
                 FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
@@ -107,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     switch (id) {
                         case R.id.tab0:
+                            //Apre il menù laterale a sinistra
                             if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) mDrawerLayout.openDrawer(Gravity.LEFT);
                             return true;
                         case R.id.tab1:
@@ -126,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             };
 
+    //Viene mostrato il fragment corrispondente alla tab selezionata
     private void setFragment(int fragmentId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment1 = fragmentManager.findFragmentByTag("1");
@@ -171,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onConfigurationChanged(newConfig);
     }
 
+    //Azioni dei bottoni presenti nel menù laterale
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -199,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    //Esegue il logout dopo aver chiesto la conferma
     private void signOut(String message, final Class act) {
         AlertDialog.Builder logout = new AlertDialog.Builder(MainActivity.this);
         logout.setMessage(message).setPositiveButton("Si", (dialog, id) -> {
@@ -220,8 +234,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    //Prende il valore della scelta iniziale
     private String getAnswer() {
         SharedPreferences sp = getSharedPreferences("pref",0);
         return sp.getString("Scelta","Empty");
     }
+
 }

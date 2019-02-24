@@ -16,6 +16,10 @@ import com.ezbus.R;
 
 import java.util.List;
 
+/**
+ * Fragment che mostra la lista di un determinato titolo di viaggio.
+ */
+
 public class DocumentFragment extends Fragment {
 
     private ListView list;
@@ -41,6 +45,7 @@ public class DocumentFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //Aggiorna la lista dei titoli di viaggio in tempo reale
     void updateDocuments(List<? extends Document> documents) {
         ListAdapter adapter = new ListAdapter(documents);
         this.list.setAdapter(adapter);
@@ -53,6 +58,7 @@ public class DocumentFragment extends Fragment {
         });
     }
 
+    //Lista personalizzata per il contenimento e la vista degli oggetti
     private class ListAdapter extends BaseAdapter {
 
         private int count;

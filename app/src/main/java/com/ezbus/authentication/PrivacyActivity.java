@@ -10,6 +10,10 @@ import android.widget.TextView;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 
+/**
+ * Classe che genera la pagina contenente le normative della privacy.
+ */
+
 public class PrivacyActivity extends AppCompatActivity {
 
     @Override

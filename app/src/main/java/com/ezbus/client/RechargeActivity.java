@@ -15,12 +15,16 @@ import com.ezbus.main.SharedPref;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+/**
+ * Classe che permette di ricaricare il credito del cliente.
+ */
+
 public class RechargeActivity extends AppCompatActivity {
 
     private TextView recharge;
     private Button confirm;
     private double amount = 5; //Ricarica iniziale consigliata
-    NumberFormat formatter = new DecimalFormat("#0.00");
+    private NumberFormat formatter = new DecimalFormat("#0.00");
 
 
     @Override

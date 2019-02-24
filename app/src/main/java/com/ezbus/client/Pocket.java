@@ -8,6 +8,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che rappresenta il portafoglio personale del cliente.
+ * Contiene le liste degli oggetti acquistati e il credito residuo.
+ */
+
 public class Pocket implements DataSync {
 
     private double credit;
@@ -77,6 +82,7 @@ public class Pocket implements DataSync {
         list.add(newTicket);
     }
 
+    //Controlla quali titoli di viaggio sono scaduti e in tal caso li elimina dal database
     void checkDocuments() {
         if (!isEmpty()) {
             boolean check = false;

@@ -1,6 +1,10 @@
 package com.ezbus.authentication;
 
-abstract class User  {
+/**
+ * Classe astratta che contiene comportamenti e informazioni dell'utente.
+ */
+
+abstract class User {
 
     private String uid;
     String name;

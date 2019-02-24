@@ -4,6 +4,11 @@ import com.ezbus.client.Pocket;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Classe che descrive l'oggetto Client e il suo comportamento.
+ * Il cliente è un particolare tipo di utente che utilizza i servizi offerti dalle aziende.
+ */
+
 public class Client extends User implements DataSync {
 
     private String surname;

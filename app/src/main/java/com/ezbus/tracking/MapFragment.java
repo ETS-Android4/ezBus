@@ -57,6 +57,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//classe che visualizza una google map
+
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnInfoWindowClickListener {
 
@@ -172,6 +174,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         });
     }
 
+    //
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
         Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());

@@ -1,5 +1,9 @@
 package com.ezbus.tracking;
 
+/**
+ * Classe che esprime la posizione di un oggetto sulla mappa in coordinate geografiche.
+ */
+
 public class Position {
 
     private double coordX;

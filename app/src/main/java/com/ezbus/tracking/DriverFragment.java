@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 
 import com.ezbus.R;
 
+/**
+ * Fragment relativa alla pagina del conducente (non ancora implementata).
+ */
+
 public class DriverFragment extends Fragment {
 
 

@@ -21,6 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che permette l'acquisto di abbonamenti.
+ */
+
 public class BuyPassActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
@@ -52,6 +56,7 @@ public class BuyPassActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                         if (child.child("id").getValue().toString().equals(idPass.get(position))) {
+                            //Creazione nuovo abbonamento prendendo i dati dal database
                             Pass newPass = child.getValue(Pass.class);
                             newPass.calculateExpiration(newPass.getValidity());
                             Pocket myPocket = ProfileActivity.getClient().getMyPocket();
@@ -97,6 +102,7 @@ public class BuyPassActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                     Pass p = child.getValue(Pass.class);
                     if (p!=null) {
+                        //Ogni volta che viene aggiunto un elemento all'array viene aggiunto anche alla lista
                         mAdapter.add(p.getName());
                         idPass.add(p.getId());
                     }

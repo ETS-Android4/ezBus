@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che permette l'acquisto di tessere.
+ */
+
 public class BuyCardActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
@@ -55,6 +59,7 @@ public class BuyCardActivity extends AppCompatActivity {
                         if (child.child("id").getValue().toString().equals(idRoute.get(position))) {
                             String idCompany = child.child("companyId").getValue().toString();
                             Route route = child.getValue(Route.class);
+                            //Creazione nuova tessera in base all'id della route selezionata
                             Card newCard = new Card(idCompany, 30, route.getId(), route.getName());
                             Pocket myPocket = ProfileActivity.getClient().getMyPocket();
                             if (myPocket.getCredit()>=newCard.getPrice()) {
@@ -99,6 +104,7 @@ public class BuyCardActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
                     Route r = child.getValue(Route.class);
                     if (r!=null) {
+                        //Ogni volta che viene aggiunto un elemento all'array viene aggiunto anche alla lista
                         mAdapter.add(r.getName());
                         idRoute.add(r.getId());
                     }

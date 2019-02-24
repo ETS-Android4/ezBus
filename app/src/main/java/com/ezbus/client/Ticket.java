@@ -4,6 +4,11 @@ import com.ezbus.R.drawable;
 
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Ticket e il suo comportamento.
+ * Il biglietto è un titolo di viaggio che consente di percorrere una determinata tratta.
+ */
+
 class Ticket extends Document {
 
     private String start;
