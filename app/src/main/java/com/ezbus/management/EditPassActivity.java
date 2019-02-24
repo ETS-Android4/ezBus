@@ -19,6 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Activity che permette all'azienda di modificare i propri abbonamenti.
+ */
+
 public class EditPassActivity extends AppCompatActivity {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -54,6 +58,7 @@ public class EditPassActivity extends AppCompatActivity {
         deletePass.setOnClickListener(v -> removePass());
     }
 
+    //Permette la rimozione dell'abbonamento dal database
     private void removePass() {
         AlertDialog.Builder logout = new AlertDialog.Builder(EditPassActivity.this);
         logout.setMessage("Vuoi davvero eliminare l'abbonamento?").setPositiveButton("Si", (dialog, id) -> {
@@ -66,6 +71,7 @@ public class EditPassActivity extends AppCompatActivity {
         logout.show();
     }
 
+    //Salva le modifiche effettuate nel database
     private void savePass() {
         if (!TextUtils.isEmpty(namePass.getText().toString().trim()) && !TextUtils.isEmpty(pricePass.getText().toString().trim()) &&
         !TextUtils.isEmpty(dataPass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
@@ -79,6 +85,7 @@ public class EditPassActivity extends AppCompatActivity {
         else Toast.makeText(EditPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
     }
 
+    //Carica i dati dell'abbonamento da modificare
     private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,4 +112,5 @@ public class EditPassActivity extends AppCompatActivity {
         finish();
         return true;
     }
+
 }

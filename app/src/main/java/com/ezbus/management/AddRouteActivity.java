@@ -27,6 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity che permette all'azienda di aggiungere una nuova tratta al database.
+ */
+
 public class AddRouteActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter1, mAdapter2;
@@ -63,6 +67,7 @@ public class AddRouteActivity extends AppCompatActivity {
         Button saveRoute = findViewById(R.id.saveRoute);
         saveRoute.setOnClickListener(v -> {
             String companyId = LoginActivity.mAuth.getUid();
+            //Controlla se i campi sono compilati
             if (!TextUtils.isEmpty(routeName.getText().toString().trim())) {
                 addRoute(new Route(companyId, routeName.getText().toString().trim(), idStop1.get(listStop1.getSelectedItemPosition()),
                         idStop2.get(listStop2.getSelectedItemPosition())));
@@ -80,6 +85,7 @@ public class AddRouteActivity extends AppCompatActivity {
         listStop2.setAdapter(mAdapter2);
     }
 
+    //Aggiunge una nuova tratta al database
     private void addRoute(Route r) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         String uid = r.getId();
@@ -89,6 +95,7 @@ public class AddRouteActivity extends AppCompatActivity {
         finish();
     }
 
+    //Aggiorna la lista delle fermate
     private void setDataToView() {
         FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

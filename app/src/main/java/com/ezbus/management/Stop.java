@@ -4,6 +4,11 @@ import com.ezbus.tracking.Position;
 
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Stop e il suo comportamento.
+ * Una fermata è punto iniziale, intermedio o finale del tragitto percorso da un autobus.
+ */
+
 public class Stop {
 
     private String id;

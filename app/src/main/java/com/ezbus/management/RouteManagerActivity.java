@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity per la gestione delle tratte da parte dell'azienda.
+ */
+
 public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
@@ -75,6 +79,7 @@ public class RouteManagerActivity extends AppCompatActivity {
         setDataToView();
     }
 
+    //Aggiorna la lista delle tratte
     private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

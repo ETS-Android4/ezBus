@@ -57,7 +57,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//classe che visualizza una google map
+/**
+ * Fragment che gestisce la mappa di Google.
+ * Visualizza bus e fermate in tempo reale e permette la ricerca di località.
+ */
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnInfoWindowClickListener {
@@ -83,7 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     public void onCreate(Bundle savedInstanceState) {
         sharedpref = new SharedPref(getContext());
         super.onCreate(savedInstanceState);
-        getLocationPermission(); //Richiesta permessi
+        getLocationPermission();
     }
 
     @Override
@@ -106,6 +109,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //Se è cliente viene aggiunta la possibilità di acquistare biglietti
         if (sharedpref.isClient()) mMap.setOnInfoWindowClickListener(this);
 
         if (WelcomeActivity.mLocationPermissionsGranted || mLocationPermissionsGranted) {
@@ -117,6 +121,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                 return;
             }
             mMap.setMyLocationEnabled(true);
+            //Abilitazione bottone posizione attuale
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.setPadding(0,160,0,0);
         }
@@ -124,8 +129,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         FirebaseDatabase.getInstance().getReference("/map").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Rimozione vecchi marker per evitare duplicati
                 mMap.clear();
                 markers.removeAll(markers);
+                //Aggiunta marker per le fermate
                 for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
                     String lon = child.child("position").child("coordY").getValue().toString();
@@ -143,6 +150,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                             .anchor(0.5f, 0.5f));
                     markers.add(stop);
                 }
+                //Aggiunta marker per gli autobus
                 for (DataSnapshot child : dataSnapshot.child("bus").getChildren()) {
                     String lat = child.child("position").child("coordX").getValue().toString();
                     String lon = child.child("position").child("coordY").getValue().toString();
@@ -166,6 +174,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             }
         });
 
+        //Visibilità dei marker a seconda dello zoom
         mMap.setOnCameraMoveListener(() -> {
             CameraPosition cameraPosition = mMap.getCameraPosition();
             for(Marker m:markers) {
@@ -174,7 +183,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         });
     }
 
-    //
+    //Converte un vector in una bitmap per l'icona dei marker
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
         Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_backgroundmap);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
@@ -187,6 +196,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+    //Mostra sulla mappa la posizione attuale
     private void getDeviceLocation(){
         FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -197,8 +207,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     if(task.isSuccessful()) {
                         Location currentLocation = task.getResult();
                         if (currentLocation!=null)
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    "My Location");
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
                     }
                 });
             }
@@ -206,18 +215,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         }
     }
 
-    private void moveCamera(LatLng latLng, String title){
+    private void moveCamera(LatLng latLng){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, MapFragment.DEFAULT_ZOOM));
-
-        /*if (!title.equals("My Location")) {
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
-            //Per ora non aggiungo marker
-        }*/
     }
 
+    //Prende i dati da GooglePlaces per i suggerimenti
     private void initSearch() {
         GoogleApiClient mGoogleApiClient = new GoogleApiClient
                 .Builder(this.getContext())
@@ -228,8 +230,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         AutocompleteMap autocompleteMap = new AutocompleteMap(getContext(), mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
+        //Genera la lista dove stampare i suggerimenti
         mSearchText.setAdapter(autocompleteMap);
-
         mSearchText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH
                     || actionId == EditorInfo.IME_ACTION_DONE
@@ -243,6 +245,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         });
     }
 
+    //Geolocalizza l'indirizzo cercato
     private void geoLocate(){
         String searchString = mSearchText.getText().toString();
 
@@ -256,8 +259,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
         if (list.size() > 0) {
             Address address = list.get(0);
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),
-                    address.getAddressLine(0));
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()));
         }
     }
 
@@ -266,24 +268,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
 
     }
 
+    //Permette di impostare partenza e destinazione per un biglietto
     @Override
     public void onInfoWindowClick(Marker m) {
         if (m.getSnippet()!=null) {
+            //Se la variabile start è falsa significa che la partenza non è stata impostata
             if (!start) {
                 idStart = m.getSnippet();
                 nomeStart = m.getTitle();
                 start = true;
                 Toast.makeText(getActivity(), "Partenza impostata", Toast.LENGTH_SHORT).show();
             } else {
+                //Se è già stata impostata la partenza
                 idDest = m.getSnippet();
                 nomeDest = m.getTitle();
                 if (idDest.equals(idStart)) {
                     Toast.makeText(getActivity(), "Non puoi comprare un biglietto con partenza e destinazione coincidenti", Toast.LENGTH_SHORT).show();
                 } else {
+                    //Viene chiesta la conferma per l'acquisto
                     AlertDialog.Builder choice = new AlertDialog.Builder(this.getActivity());
                     choice.setTitle("Vuoi acquistare un biglietto?");
                     choice.setMessage("Da " + nomeStart + " a " + nomeDest).setPositiveButton("Si", (dialog, id) -> {
-                        //Scelta confermata
+                        //Se confermata fa partire l'activity di acquisto inviando i dati del biglietto
                         if (LoginActivity.mAuth.getCurrentUser() != null) {
                             Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
                             intent.putExtra("Start", idStart);
@@ -305,6 +311,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         }
     }
 
+    //Richiesta permessi
     private void getLocationPermission(){
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
