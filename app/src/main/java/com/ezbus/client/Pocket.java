@@ -51,9 +51,16 @@ public class Pocket implements DataSync {
         return this.myPass;
     }
 
-    void add(Ticket newTicket) {
+    boolean add(Document newDocument) {
+        if (newDocument instanceof Ticket) return add((Ticket) newDocument);
+        else if (newDocument instanceof Card) return add((Card) newDocument);
+        else return add((Pass) newDocument);
+    }
+
+    boolean add(Ticket newTicket) {
         searchTicket(myTickets, newTicket);
         updateCredit(-newTicket.getPrice());
+        return false;
     }
 
     boolean add(Card newCard) {

@@ -1,5 +1,6 @@
 package com.ezbus.client;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -7,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,20 +53,17 @@ public class BuyPassActivity extends AppCompatActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                    for(DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
                         if (child.child("id").getValue().toString().equals(idPass.get(position))) {
-                            //Creazione nuovo abbonamento prendendo i dati dal database
+                            //Creazione nuova tessera prendendo i dati dal database
                             Pass newPass = child.getValue(Pass.class);
                             newPass.calculateExpiration(newPass.getValidity());
-                            Pocket myPocket = ProfileActivity.getClient().getMyPocket();
-                            if (myPocket.getCredit()>=newPass.getPrice()) {
-                                if (myPocket.add(newPass)) Toast.makeText(getApplicationContext(), "Già possiedi questo abbonamento", Toast.LENGTH_SHORT).show();
-                                else {
-                                    Toast.makeText(getApplicationContext(), "Abbonamento acquistato", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            } else
-                                Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), ViewDocumentActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("Document", newPass);
+                            intent.putExtras(bundle);
+                            intent.putExtra("Buy", true);
+                            startActivity(intent);
                             break;
                         }
                     }

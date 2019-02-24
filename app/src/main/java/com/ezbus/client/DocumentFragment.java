@@ -54,6 +54,7 @@ public class DocumentFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("Document", adapter.getItem(position));
             intent.putExtras(bundle);
+            intent.putExtra("Buy", false);
             startActivity(intent);
         });
     }

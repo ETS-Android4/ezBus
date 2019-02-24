@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/partenza"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Partenza"
             android:textSize="18sp" />
@@ -29,10 +29,11 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/buyTicket"
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Acquista" />
+            android:layout_marginTop="30dp"
+            android:text="Ricerca" />
 
     </LinearLayout>
 

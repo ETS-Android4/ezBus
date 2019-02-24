@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezbus.R;
+import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 
 import java.text.DateFormat;
@@ -17,6 +21,7 @@ import java.text.SimpleDateFormat;
 
 /**
  * Classe che permette di visualizzare i dettagli di un titolo di viaggio.
+ * Utilizzata per mostrare sia documenti già acquistati che pronti per essere acquistati.
  */
 
 public class ViewDocumentActivity extends AppCompatActivity {
@@ -37,16 +42,28 @@ public class ViewDocumentActivity extends AppCompatActivity {
 
         //Prende l'oggetto passato dall'activity precedente
         Document document = (Document) getIntent().getExtras().getSerializable("Document");
+        boolean buy = getIntent().getExtras().getBoolean("Buy");
         setDataToView(document);
+
+        //Se il documento proviene da un'activity per l'acquisto
+        if (buy) {
+            Button buttonBuy = findViewById(R.id.buttonBuy);
+            buttonBuy.setVisibility(View.VISIBLE);
+            buttonBuy.setOnClickListener(view -> {
+                Pocket myPocket = ProfileActivity.getClient().getMyPocket();
+                if (myPocket.getCredit()>=document.getPrice()) {
+                    if (myPocket.add(document)) Toast.makeText(getApplicationContext(), "Già possiedi questo titolo", Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(getApplicationContext(), "Titolo di viaggio acquistato", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } else
+                    Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
-    }
-
-    private void setDataToView (Document document) {
+    private void setDataToView(Document document) {
         NumberFormat formatter = new DecimalFormat("#0.00");
         ImageView docImage = findViewById(R.id.documentImage);
         docImage.setImageResource(document.giveImage());
@@ -58,8 +75,14 @@ public class ViewDocumentActivity extends AppCompatActivity {
         docPrice.setText("Prezzo: " + formatter.format(document.getPrice()) + " €");
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         docExpiration.setText("Scadenza: " + dateFormat.format(document.getExpiration()));
-        String number = document instanceof Ticket ?  Integer.toString(((Ticket) document).getNumber()) : "1";
+        String number = document instanceof Ticket ? Integer.toString(((Ticket) document).getNumber()) : "1";
         docNumber.setText("Quantità: " + number);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
 }

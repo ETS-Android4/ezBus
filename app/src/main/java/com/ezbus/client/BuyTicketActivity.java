@@ -1,5 +1,6 @@
 package com.ezbus.client;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -7,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,29 +40,34 @@ public class BuyTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_ticket);
 
+        setDataToView();
+    }
+
+    private void setDataToView() {
         //Prende i dati passati dall'activity precedente
         String idStart = getIntent().getSerializableExtra("Start").toString();
         String idDest = getIntent().getSerializableExtra("Dest").toString();
-        String nameTicket = getIntent().getSerializableExtra("Name").toString();
+        String nameStart = getIntent().getSerializableExtra("StartName").toString();
+        String nameDest = getIntent().getSerializableExtra("DestName").toString();
         TextView start = findViewById(R.id.partenza);
         TextView dest = findViewById(R.id.destinazione);
-        start.setText(idStart);
-        dest.setText(idDest);
-        Button buyTicket = findViewById(R.id.buyTicket);
-        buyTicket.setOnClickListener(v -> database.addListenerForSingleValueEvent(new ValueEventListener() {
+        start.setText(nameStart);
+        dest.setText(nameDest);
+        Button search = findViewById(R.id.search);
+        search.setOnClickListener(v -> database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)) {
                         String idCompany = child.child("companyId").getValue().toString();
                         //Creazione del biglietto in base alle fermate scelte
-                        Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameTicket);
-                        Pocket myPocket = ProfileActivity.getClient().getMyPocket();
-                        if (myPocket.getCredit()>=newTicket.getPrice()) {
-                            myPocket.add(newTicket);
-                            Toast.makeText(getApplicationContext(), "Biglietto acquistato", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+                        Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameStart + " - " + nameDest);
+                        Intent intent = new Intent(getApplicationContext(), ViewDocumentActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Document", newTicket);
+                        intent.putExtras(bundle);
+                        intent.putExtra("Buy", true);
+                        startActivity(intent);
                         finish();
                         break;
                     }

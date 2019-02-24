@@ -71,7 +71,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private AutoCompleteTextView mSearchText;
     private GoogleMap mMap;
     private boolean start = false;
-    private String idStart, idDest, nomeStart, nomeDest;
+    private String idStart, idDest, nameStart, nameDest;
     private List<Marker> markers = new ArrayList<>();
     private SharedPref sharedpref;
     private Boolean mLocationPermissionsGranted = false;
@@ -275,35 +275,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
             //Se la variabile start è falsa significa che la partenza non è stata impostata
             if (!start) {
                 idStart = m.getSnippet();
-                nomeStart = m.getTitle();
+                nameStart = m.getTitle();
                 start = true;
                 Toast.makeText(getActivity(), "Partenza impostata", Toast.LENGTH_SHORT).show();
             } else {
                 //Se è già stata impostata la partenza
                 idDest = m.getSnippet();
-                nomeDest = m.getTitle();
+                nameDest = m.getTitle();
                 if (idDest.equals(idStart)) {
                     Toast.makeText(getActivity(), "Non puoi comprare un biglietto con partenza e destinazione coincidenti", Toast.LENGTH_SHORT).show();
                 } else {
                     //Viene chiesta la conferma per l'acquisto
                     AlertDialog.Builder choice = new AlertDialog.Builder(this.getActivity());
                     choice.setTitle("Vuoi acquistare un biglietto?");
-                    choice.setMessage("Da " + nomeStart + " a " + nomeDest).setPositiveButton("Si", (dialog, id) -> {
+                    choice.setMessage("Da " + nameStart + " a " + nameDest).setPositiveButton("Si", (dialog, id) -> {
                         //Se confermata fa partire l'activity di acquisto inviando i dati del biglietto
                         if (LoginActivity.mAuth.getCurrentUser() != null) {
                             Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
                             intent.putExtra("Start", idStart);
                             intent.putExtra("Dest", idDest);
-                            intent.putExtra("Name", nomeStart + " - " + nomeDest);
+                            intent.putExtra("StartName", nameStart);
+                            intent.putExtra("DestName", nameDest);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getActivity(), "Devi essere loggato per acquistare", Toast.LENGTH_SHORT).show();
                         }
                         start = false;
                     })
-                            .setNegativeButton("No", (dialog, id) -> {
-                                //Operazione annullata
-                            });
+                    .setNegativeButton("No", (dialog, id) -> {
+                        //Operazione annullata
+                    });
                     choice.show();
                     start = false;
                 }
