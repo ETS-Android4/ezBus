@@ -56,8 +56,6 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         idRoute = getIntent().getSerializableExtra("Route").toString();
-        setDataToView();
-
         routeName = findViewById(R.id.nomeTratta);
         listStop1 = findViewById(R.id.scelta1);
         listStop2 = findViewById(R.id.scelta2);
@@ -80,6 +78,7 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
         mAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, initialList2);
         listStop1.setAdapter(mAdapter1);
         listStop2.setAdapter(mAdapter2);
+        setDataToView();
     }
 
     //Permette la modifica di una tratta
@@ -112,20 +111,31 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
 
     //Carica i dati della tratta da modificare
     private void setDataToView() {
-        FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("/map/stops").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter1.clear();
                 mAdapter2.clear();
-                for (DataSnapshot child : dataSnapshot.child("map").child("stops").getChildren())
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
                         mAdapter1.add(s.getName());
                         idStop1.add(s.getId());
                         mAdapter2.add(s.getName());
                         idStop2.add(s.getId());
                     }
-                for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        FirebaseDatabase.getInstance().getReference("/routes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if (child.child("id").getValue().equals(idRoute)) {
                         routeName.setText(child.child("name").getValue().toString());
                         String idStart = child.child("start").getValue().toString();
@@ -145,10 +155,10 @@ public class EditRouteActivity extends AppCompatActivity implements MyCallback {
 
     //Restituisce il nome della fermata dato il suo id
     private void getNameStop(final int i, final String idStop, final MyCallback myCallback) {
-        FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("/map/stops").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if (child.child("id").getValue().equals(idStop)) {
                         //Con myCallback viene estratto qualsiasi valore all'interno del onDataChange
                         if (i==1) myCallback.onCallback(child.child("name").getValue().toString());

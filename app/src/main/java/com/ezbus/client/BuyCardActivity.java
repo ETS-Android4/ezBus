@@ -28,7 +28,7 @@ import java.util.List;
 public class BuyCardActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/routes");
     private final ArrayList<String> idRoute = new ArrayList<>();
 
 
@@ -54,7 +54,7 @@ public class BuyCardActivity extends AppCompatActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
                         if (child.child("id").getValue().toString().equals(idRoute.get(position))) {
                             String idCompany = child.child("companyId").getValue().toString();
                             Route route = child.getValue(Route.class);
@@ -97,7 +97,7 @@ public class BuyCardActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Route r = child.getValue(Route.class);
                     if (r!=null) {
                         //Ogni volta che viene aggiunto un elemento all'array viene aggiunto anche alla lista

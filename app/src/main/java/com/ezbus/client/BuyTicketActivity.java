@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class BuyTicketActivity extends AppCompatActivity {
 
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/map/stops");
 
 
     @Override
@@ -57,7 +57,7 @@ public class BuyTicketActivity extends AppCompatActivity {
         search.setOnClickListener(v -> database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.child("/map/stops").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)) {
                         String idCompany = child.child("companyId").getValue().toString();
                         //Creazione del biglietto in base alle fermate scelte

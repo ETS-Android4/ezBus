@@ -30,7 +30,7 @@ import java.util.List;
 public class PassManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("pass");
     private final ArrayList<String> idPass = new ArrayList<>();
 
 
@@ -86,8 +86,8 @@ public class PassManagerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Pass p = child.getValue(Pass.class);
                         if (p != null) {
                             mAdapter.add(p.getName());

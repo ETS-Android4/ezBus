@@ -29,7 +29,7 @@ import java.util.List;
 public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/routes");
     private final ArrayList<String> idRoute1 = new ArrayList<>();
 
 
@@ -85,8 +85,8 @@ public class RouteManagerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Route r = child.getValue(Route.class);
                         mAdapter.add(r.getName());
                         idRoute1.add(r.getId());

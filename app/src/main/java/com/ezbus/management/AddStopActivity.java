@@ -13,7 +13,6 @@ import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
 import com.ezbus.main.SharedPref;
 import com.ezbus.tracking.Position;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -42,7 +41,7 @@ public class AddStopActivity extends AppCompatActivity {
 
         Button saveStop = findViewById(R.id.saveStop);
         saveStop.setOnClickListener(v -> {
-            String companyId = LoginActivity.mAuth.getUid();
+            String companyId = LoginActivity.getCurrentUser().getUid();
             //Controlla se i campi sono stati compilati
             if (!TextUtils.isEmpty(nameStop.getText().toString().trim()) &&
                     !TextUtils.isEmpty(lat.getText().toString().trim()) &&
@@ -57,9 +56,8 @@ public class AddStopActivity extends AppCompatActivity {
 
     //Aggiunge una nuova fermata al database
     private void addStop(Stop s) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("/map");
         String uid = s.getId();
-        rootRef.child("stops").child(uid).setValue(s);
+        FirebaseDatabase.getInstance().getReference("/map/stops/"+uid).setValue(s);
     }
 
     @Override
@@ -67,4 +65,5 @@ public class AddStopActivity extends AppCompatActivity {
         finish();
         return true;
     }
+
 }

@@ -290,7 +290,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     choice.setTitle("Vuoi acquistare un biglietto?");
                     choice.setMessage("Da " + nameStart + " a " + nameDest).setPositiveButton("Si", (dialog, id) -> {
                         //Se confermata fa partire l'activity di acquisto inviando i dati del biglietto
-                        if (LoginActivity.mAuth.getCurrentUser() != null) {
+                        if (LoginActivity.getCurrentUser() != null) {
                             Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
                             intent.putExtra("Start", idStart);
                             intent.putExtra("Dest", idDest);

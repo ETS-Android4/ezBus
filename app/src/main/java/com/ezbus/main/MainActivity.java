@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else {
             if (getIntent().getBooleanExtra("EXIT", false)) finish();
             //Passa al profilo il parametro clients o company in base alla scelta fatta
-            ProfileActivity.setUser(LoginActivity.mAuth.getCurrentUser(), sharedpref.getQuery());
+            ProfileActivity.setUser(LoginActivity.getCurrentUser(), sharedpref.getQuery());
 
             BottomNavigationView mMainNav = findViewById(R.id.main_nav);
             navigationView = findViewById(R.id.nav_view);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
             //Prende i dati dell'utente se è loggato
-            FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
+            FirebaseUser currentUser = LoginActivity.getCurrentUser();
             if (currentUser == null) {
                 navUsername.setText("Ospite");
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Imposta le azioni corrispondenti alle tab
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-                FirebaseUser currentUser = LoginActivity.mAuth.getInstance().getCurrentUser();
+                FirebaseUser currentUser = LoginActivity.getCurrentUser();
                 int id = item.getItemId();
                 if (currentUser == null && (id != R.id.tab0 && id != R.id.tab1)) {
                     startNewActivity(LoginActivity.class);
@@ -218,8 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         logout.setMessage(message).setPositiveButton("Si", (dialog, id) -> {
             //Se l'utente accetta di uscire
             ProfileActivity.resetUser();
-            LoginActivity.mAuth.getInstance().signOut();
-            if (LoginActivity.googleSignInClient!=null) LoginActivity.googleSignInClient.signOut();
+            LoginActivity.signOut();
             startNewActivity(act);
             finish();
         })

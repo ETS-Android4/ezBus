@@ -44,14 +44,14 @@ public class BuyFragment extends Fragment {
         buttonCredit.setOnClickListener(v -> startNewActivity(RechargeActivity.class));
 
         credit = view.findViewById(R.id.credit);
-        setCredit(LoginActivity.mAuth.getCurrentUser());
+        setCredit(LoginActivity.getCurrentUser());
 
         return view;
     }
 
     //Prende dal database il credito del cliente
     private void setCredit(FirebaseUser newUser) {
-        FirebaseDatabase.getInstance().getReference().child("clients").child(newUser.getUid()).child("myPocket").child("credit")
+        FirebaseDatabase.getInstance().getReference("/clients").child(newUser.getUid()).child("myPocket").child("credit")
         .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

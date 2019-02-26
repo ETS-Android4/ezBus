@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     public static GoogleSignInClient googleSignInClient;
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private EditText editTextEmail;
     private EditText editTextPassword;
     private SharedPref sharedpref;
@@ -119,6 +119,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public static FirebaseUser getCurrentUser() {
+        return mAuth.getCurrentUser();
+    }
+
     //Inserisce i dati di Google dentro Firebase
     private void loginClient(GoogleSignInAccount acct) {
         final GoogleSignInAccount account = acct;
@@ -176,6 +180,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void externalSignIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    //Esegue il logout dell'utente dall'applicazione
+    public static void signOut() {
+        mAuth.signOut();
+        if (googleSignInClient!=null) googleSignInClient.signOut();
     }
 
     //Aggiorna menù laterale dopo il login

@@ -49,7 +49,7 @@ public class PocketFragment extends Fragment {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
+        private FirebaseUser currentClient = LoginActivity.getCurrentUser();
         private DocumentFragment fragTickets = new DocumentFragment();
         private DocumentFragment fragCards = new DocumentFragment();
         private DocumentFragment fragPasses = new DocumentFragment();

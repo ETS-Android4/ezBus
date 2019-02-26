@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
                         new Company(currentUser.getUid(), company, iva, email);
-                        LoginActivity.mAuth.getInstance().signOut();
+                        LoginActivity.signOut();
                     }
                     Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
                     finish();

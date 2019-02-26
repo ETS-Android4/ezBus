@@ -27,7 +27,7 @@ import java.util.List;
 public class BuyPassActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/pass");
     private final ArrayList<String> idPass = new ArrayList<>();
 
 
@@ -53,7 +53,7 @@ public class BuyPassActivity extends AppCompatActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()) {
                         if (child.child("id").getValue().toString().equals(idPass.get(position))) {
                             //Creazione nuova tessera prendendo i dati dal database
                             Pass newPass = child.getValue(Pass.class);
@@ -95,7 +95,7 @@ public class BuyPassActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Pass p = child.getValue(Pass.class);
                     if (p!=null) {
                         //Ogni volta che viene aggiunto un elemento all'array viene aggiunto anche alla lista
