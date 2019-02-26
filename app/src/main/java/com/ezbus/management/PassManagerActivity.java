@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.client.Pass;
+import com.ezbus.purchase.Pass;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

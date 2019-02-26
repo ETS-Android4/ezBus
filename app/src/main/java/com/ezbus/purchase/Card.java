@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import com.ezbus.R.drawable;
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.client.Pocket;
+import com.ezbus.purchase.Pocket;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

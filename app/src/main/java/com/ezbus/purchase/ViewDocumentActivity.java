@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 /**
  * Classe che permette di visualizzare i dettagli di un titolo di viaggio.
@@ -41,25 +42,28 @@ public class ViewDocumentActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         //Prende l'oggetto passato dall'activity precedente
-        Document document = (Document) getIntent().getExtras().getSerializable("Document");
+        Document document = (Document) Objects.requireNonNull(getIntent().getExtras()).getSerializable("Document");
         boolean buy = getIntent().getExtras().getBoolean("Buy");
-        setDataToView(document);
 
-        //Se il documento proviene da un'activity per l'acquisto
-        if (buy) {
-            Button buttonBuy = findViewById(R.id.buttonBuy);
-            buttonBuy.setVisibility(View.VISIBLE);
-            buttonBuy.setOnClickListener(view -> {
-                Pocket myPocket = ProfileActivity.getClient().getMyPocket();
-                if (myPocket.getCredit()>=document.getPrice()) {
-                    if (myPocket.add(document)) Toast.makeText(getApplicationContext(), "Già possiedi questo titolo", Toast.LENGTH_SHORT).show();
-                    else {
-                        Toast.makeText(getApplicationContext(), "Titolo di viaggio acquistato", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                } else
-                    Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
-            });
+        if (document != null) {
+            setDataToView(document);
+            //Se il documento proviene da un'activity per l'acquisto
+            if (buy) {
+                Button buttonBuy = findViewById(R.id.buttonBuy);
+                buttonBuy.setVisibility(View.VISIBLE);
+                buttonBuy.setOnClickListener(view -> {
+                    Pocket myPocket = ProfileActivity.getClient().getMyPocket();
+                    if (myPocket.getCredit() >= document.getPrice()) {
+                        if (myPocket.add(document))
+                            Toast.makeText(getApplicationContext(), "Già possiedi questo titolo", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(getApplicationContext(), "Titolo di viaggio acquistato", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else
+                        Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+                });
+            }
         }
     }
 

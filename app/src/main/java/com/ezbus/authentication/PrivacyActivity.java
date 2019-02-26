@@ -25,11 +25,11 @@ public class PrivacyActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
         TextView privacy = findViewById(R.id.privacyfull);
-
     }
 
     public void onClick(View view) {

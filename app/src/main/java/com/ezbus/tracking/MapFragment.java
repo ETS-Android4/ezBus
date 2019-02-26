@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.client.BuyTicketActivity;
+import com.ezbus.purchase.BuyTicketActivity;
 import com.ezbus.main.SharedPref;
 import com.ezbus.main.WelcomeActivity;
 import com.google.android.gms.common.ConnectionResult;

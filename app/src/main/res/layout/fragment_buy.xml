@@ -7,7 +7,7 @@
     android:background="?attr/colorCard"
     android:fillViewport="true"
     android:gravity="fill"
-    tools:context="com.ezbus.client.BuyFragment">
+    tools:context="com.ezbus.purchase.BuyFragment">
 
     <ImageView
         android:id="@+id/bar"

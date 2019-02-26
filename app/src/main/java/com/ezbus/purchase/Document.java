@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import java.io.Serializable;
 import java.util.Calendar;

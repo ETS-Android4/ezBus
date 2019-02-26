@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.client.Pass;
+import com.ezbus.purchase.Pass;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.FirebaseDatabase;
 

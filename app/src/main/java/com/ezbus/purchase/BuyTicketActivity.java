@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import android.content.Intent;
 import android.os.Bundle;

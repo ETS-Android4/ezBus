@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import com.ezbus.authentication.DataSync;
 import com.ezbus.authentication.ProfileActivity;
@@ -16,9 +16,9 @@ import java.util.List;
 public class Pocket implements DataSync {
 
     private double credit;
-    private List<Ticket> myTickets = new ArrayList<>();
-    private List<Card> myCards = new ArrayList<>();
     private List<Pass> myPass = new ArrayList<>();
+    private List<Card> myCards = new ArrayList<>();
+    private List<Ticket> myTickets = new ArrayList<>();
 
 
     public Pocket() {
@@ -26,8 +26,7 @@ public class Pocket implements DataSync {
     }
 
     private boolean isEmpty() {
-        if (getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPass().size() == 0) return true;
-        else return false;
+        return (getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPass().size() == 0);
     }
 
     double getCredit() {
@@ -39,16 +38,16 @@ public class Pocket implements DataSync {
         databaseSync();
     }
 
-    List<Ticket> getMyTickets() {
-        return this.myTickets;
+    List<Pass> getMyPass() {
+        return this.myPass;
     }
 
     List<Card> getMyCards() {
         return this.myCards;
     }
 
-    List<Pass> getMyPass() {
-        return this.myPass;
+    List<Ticket> getMyTickets() {
+        return this.myTickets;
     }
 
     boolean add(Document newDocument) {
@@ -57,21 +56,7 @@ public class Pocket implements DataSync {
         else return add((Pass) newDocument);
     }
 
-    boolean add(Ticket newTicket) {
-        searchTicket(myTickets, newTicket);
-        updateCredit(-newTicket.getPrice());
-        return false;
-    }
-
-    boolean add(Card newCard) {
-        for(Card card : myCards)
-            if (newCard.getRouteId().equals(card.getRouteId())) return true;
-        myCards.add(newCard);
-        updateCredit(-newCard.getPrice());
-        return false;
-    }
-
-    boolean add(Pass newPass) {
+    private boolean add(Pass newPass) {
         for(Pass pass : myPass)
             if (newPass.getId().equals(pass.getId())) return true;
         myPass.add(newPass);
@@ -79,24 +64,42 @@ public class Pocket implements DataSync {
         return false;
     }
 
-    private void searchTicket(List<Ticket> list, Ticket newTicket) {
-        for(Ticket ticket : list) {
+    private boolean add(Card newCard) {
+        for(Card card : myCards)
+            if (newCard.getRouteId().equals(card.getRouteId())) return true;
+        myCards.add(newCard);
+        updateCredit(-newCard.getPrice());
+        return false;
+    }
+
+    private boolean add(Ticket newTicket) {
+        search(newTicket);
+        updateCredit(-newTicket.getPrice());
+        return false;
+    }
+
+    private void search(Ticket newTicket) {
+        for(Ticket ticket : getMyTickets()) {
             if (newTicket.getStart().equals(ticket.getStart()) && newTicket.getEnd().equals(ticket.getEnd())) {
                 ticket.setNumber(ticket.getNumber()+1);
                 return;
             }
         }
-        list.add(newTicket);
+        getMyTickets().add(newTicket);
     }
 
     //Controlla quali titoli di viaggio sono scaduti e in tal caso li elimina dal database
     void checkDocuments() {
         if (!isEmpty()) {
             boolean check = false;
-            List<Ticket> validTickets = new ArrayList<>();
-            List<Card> validCards = new ArrayList<>();
             List<Pass> validPass = new ArrayList<>();
+            List<Card> validCards = new ArrayList<>();
+            List<Ticket> validTickets = new ArrayList<>();
 
+            for(Pass pass : getMyPass()) {
+                if (pass.isValid()) validPass.add(pass);
+                else check = true;
+            }
             for(Card card : getMyCards()) {
                 if (card.isValid()) validCards.add(card);
                 else check = true;
@@ -105,14 +108,10 @@ public class Pocket implements DataSync {
                 if (ticket.isValid()) validTickets.add(ticket);
                 else check = true;
             }
-            for(Pass pass : getMyPass()) {
-                if (pass.isValid()) validPass.add(pass);
-                else check = true;
-            }
 
-            this.myTickets = validTickets;
-            this.myCards = validCards;
             this.myPass = validPass;
+            this.myCards = validCards;
+            this.myTickets = validTickets;
 
             if (check) databaseSync();
         }
