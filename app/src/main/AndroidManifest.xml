@@ -12,9 +12,9 @@
     <application
         android:allowBackup="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_ezbus"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_ezbus_round"
         android:supportsRtl="true"
         android:theme="@style/App.Blue">
         <activity
@@ -79,7 +79,7 @@
             android:label="Aggiungi Abbonamento" />
         <activity
             android:name=".main.WelcomeActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="screenSize"
             android:theme="@style/App.Green.NoActionBar" />
         <activity
             android:name=".authentication.PrivacyActivity"
