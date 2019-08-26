@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.client.Pass;
+import com.ezbus.purchase.Pass;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,11 +23,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity per la gestione degli abbonamenti da parte dell'azienda.
+ */
+
 public class PassManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("pass");
     private final ArrayList<String> idPass = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,6 @@ public class PassManagerActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
-
     }
 
     @Override
@@ -77,13 +80,14 @@ public class PassManagerActivity extends AppCompatActivity {
         setDataToView();
     }
 
+    //Aggiorna la lista degli abbonamenti
     private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Pass p = child.getValue(Pass.class);
                         if (p != null) {
                             mAdapter.add(p.getName());
@@ -99,4 +103,5 @@ public class PassManagerActivity extends AppCompatActivity {
             }
         });
     }
+
 }

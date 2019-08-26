@@ -11,10 +11,13 @@ import android.widget.Button;
 
 import com.ezbus.R;
 
+/**
+ * Fragment che rappresenta il menù manageriale per l'azienda.
+ */
+
 public class ManagerFragment extends Fragment {
 
     public ManagerFragment() {
-        //Required empty public constructor
     }
 
     @Override

@@ -14,10 +14,13 @@ import android.widget.Toast;
 
 import com.ezbus.R;
 import com.ezbus.authentication.LoginActivity;
-import com.ezbus.client.Pass;
+import com.ezbus.purchase.Pass;
 import com.ezbus.main.SharedPref;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+/**
+ * Activity che permette all'azienda di aggiungere un nuovo abbonamento al database.
+ */
 
 public class AddPassActivity extends AppCompatActivity {
 
@@ -42,7 +45,8 @@ public class AddPassActivity extends AppCompatActivity {
 
         Button savePass = findViewById(R.id.save_pass);
         savePass.setOnClickListener(view -> {
-            String companyId = LoginActivity.mAuth.getUid();
+            String companyId = LoginActivity.getCurrentUser().getUid();
+            //Controlla se i campi sono stati compilati
             if (!TextUtils.isEmpty(namePass.getText().toString().trim()) &&
                     !TextUtils.isEmpty(nameCity.getText().toString().trim()) &&
                     !TextUtils.isEmpty(nameDays.getText().toString().trim()) &&
@@ -59,10 +63,10 @@ public class AddPassActivity extends AppCompatActivity {
         });
     }
 
+    //Aggiunge il nuovo pass al database
     private void addPass(Pass p) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         String uid = p.getId();
-        rootRef.child("pass").child(uid).setValue(p);
+        FirebaseDatabase.getInstance().getReference("/pass/"+uid).setValue(p);
         Intent intent = new Intent(AddPassActivity.this, PassManagerActivity.class);
         startActivity(intent);
         finish();
@@ -98,6 +102,4 @@ public class AddPassActivity extends AppCompatActivity {
 
     }
 
-
 }
-

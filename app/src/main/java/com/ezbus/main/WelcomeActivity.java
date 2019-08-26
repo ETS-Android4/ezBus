@@ -13,6 +13,11 @@ import android.widget.Button;
 
 import com.ezbus.R;
 
+/**
+ * Schermata iniziale per la scelta al primo avvio.
+ * L'ospite puo decidere se avviare l'applicazione come cliente o come azienda.
+ */
+
 public class WelcomeActivity extends AppCompatActivity {
 
     public static Boolean mLocationPermissionsGranted = false;
@@ -31,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        getLocationPermission(); //Richiesta permessi
+        getLocationPermission();
 
         setAnswer("Empty");
         if (getIntent().getBooleanExtra("EXIT", false)) finish();
@@ -54,12 +59,14 @@ public class WelcomeActivity extends AppCompatActivity {
         finish();
     }
 
+    //Salva la preferenza di avvio dell'ospite
     private void setAnswer(String theAnswer) {
         SharedPreferences.Editor editor = getSharedPreferences("pref",0).edit();
         editor.putString("Scelta", theAnswer);
         editor.apply();
     }
 
+    //Richiesta permessi di geolocalizzazione
     private void getLocationPermission(){
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};

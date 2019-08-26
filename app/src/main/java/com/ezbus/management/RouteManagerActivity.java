@@ -22,10 +22,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity per la gestione delle tratte da parte dell'azienda.
+ */
+
 public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/routes");
     private final ArrayList<String> idRoute1 = new ArrayList<>();
 
 
@@ -75,13 +79,14 @@ public class RouteManagerActivity extends AppCompatActivity {
         setDataToView();
     }
 
+    //Aggiorna la lista delle tratte
     private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("routes").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Route r = child.getValue(Route.class);
                         mAdapter.add(r.getName());
                         idRoute1.add(r.getId());

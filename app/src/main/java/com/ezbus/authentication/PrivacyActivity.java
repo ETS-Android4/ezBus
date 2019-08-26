@@ -10,6 +10,10 @@ import android.widget.TextView;
 import com.ezbus.R;
 import com.ezbus.main.SharedPref;
 
+/**
+ * Classe che genera la pagina contenente le normative della privacy.
+ */
+
 public class PrivacyActivity extends AppCompatActivity {
 
     @Override
@@ -21,11 +25,11 @@ public class PrivacyActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
         TextView privacy = findViewById(R.id.privacyfull);
-
     }
 
     public void onClick(View view) {

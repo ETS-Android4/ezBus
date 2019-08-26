@@ -1,9 +1,13 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import com.ezbus.R.drawable;
 
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Card e il suo comportamento.
+ * La tessera è un particolare titolo di viaggio che consente di abbonarsi ad una specifica tratta.
+ */
 class Card extends Document {
 
     private String routeId;
@@ -11,12 +15,12 @@ class Card extends Document {
 
     public Card() {}
 
-    public Card(String companyId, int expiration, String routeId, String routeName) {
+    public Card(String companyId, int validity, String routeId, String routeName) {
         this.id = UUID.randomUUID().toString();
         this.companyId = companyId;
         this.name = routeName;
         this.price = 20; //Per ora prezzo fisso
-        this.expiration = expiration;
+        calculateExpiration(validity);
         this.routeId = routeId;
     }
 

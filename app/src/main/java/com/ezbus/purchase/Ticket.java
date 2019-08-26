@@ -1,8 +1,13 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import com.ezbus.R.drawable;
 
 import java.util.UUID;
+
+/**
+ * Classe che descrive l'oggetto Ticket e il suo comportamento.
+ * Il biglietto è un titolo di viaggio che consente di percorrere una determinata tratta.
+ */
 
 class Ticket extends Document {
 
@@ -19,7 +24,7 @@ class Ticket extends Document {
         this.companyId = companyId;
         this.name = name;
         this.price = 5; //Per ora prezzo fisso
-        this.expiration = 30;
+        calculateExpiration(3);
         this.start = start;
         this.end = end;
         this.number = 1;

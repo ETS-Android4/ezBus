@@ -7,7 +7,7 @@
     android:background="?attr/colorCard"
     android:fillViewport="true"
     android:gravity="fill"
-    tools:context="com.ezbus.client.BuyFragment">
+    tools:context="com.ezbus.purchase.BuyFragment">
 
     <ImageView
         android:id="@+id/bar"
@@ -19,18 +19,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="55dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
                 android:text="Acquista tessere o abbonamenti per poter viaggiare regolarmente sugli autobus ezBus. L'acquisto di biglietti deve essere effettuato sulla mappa."
                 android:textColor="?attr/colorText"
                 android:textSize="18sp" />

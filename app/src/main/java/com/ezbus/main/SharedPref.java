@@ -3,6 +3,10 @@ package com.ezbus.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Classe che salva le preferenze di sistema.
+ */
+
 public class SharedPref {
 
     private SharedPreferences MySharedPref;

@@ -15,6 +15,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Classe che mostra le informazioni dell'utente loggato.
+ */
+
+
 public class ProfileActivity extends AppCompatActivity {
 
     private static TextView email;
@@ -68,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         user = null;
     }
 
+    //Preleva da Firebase i dati dell'utente
     public static void setUser(FirebaseUser newUser, final String type) {
         if (newUser != null) {
             FirebaseDatabase.getInstance().getReference().child(type).child(newUser.getUid())

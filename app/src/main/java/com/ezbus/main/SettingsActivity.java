@@ -9,6 +9,10 @@ import android.widget.Switch;
 
 import com.ezbus.R;
 
+/**
+ * Activity dove è possibile settare le preferenze di sistema.
+ */
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -25,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
         if(sharedpref.loadNightModeState())
             change_theme.setChecked(true);
 
+        //Salva il cambio di tema
         change_theme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 sharedpref.setNightModeState(true);
@@ -42,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void startNewActivity(Class act) {
         Intent intent = new Intent(this, act);
+        //Ripulisce la coda dell'activity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
@@ -53,7 +59,6 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    //Se viene premuto il pulsante Indietro di sistema
     @Override
     public void onBackPressed() {
         startNewActivity(MainActivity.class);

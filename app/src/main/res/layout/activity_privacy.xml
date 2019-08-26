@@ -1,56 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:paddingLeft="0dp"
-    android:paddingTop="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="?attr/colorBackground"
     tools:context="com.ezbus.authentication.PrivacyActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorBackground"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:paddingBottom="0dp">
+        android:background="?attr/colorBackground">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/privacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:text="Termini e condizioni della Privacy. "
-                android:textSize="30dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal"
+                android:text="Termini e condizioni della Privacy"
+                android:textSize="25sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
-                <TextView
-                    android:id="@+id/privacyfull"
-                    android:layout_width="match_parent"
-                    android:layout_height="503dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:text="Questo è un testo di prova sulla normativa della Privacy. "
-                    android:textSize="15dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="0dp" />
+            <TextView
+                android:id="@+id/privacyfull"
+                android:layout_width="match_parent"
+                android:layout_height="503dp"
+                android:layout_margin="15dp"
+                android:text="Questo è un testo di prova sulla normativa della Privacy. "
+                android:textSize="15dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
         </LinearLayout>
 

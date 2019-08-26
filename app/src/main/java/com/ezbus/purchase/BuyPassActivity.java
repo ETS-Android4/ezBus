@@ -1,5 +1,6 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -7,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.authentication.ProfileActivity;
 import com.ezbus.main.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,10 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che permette l'acquisto di abbonamenti.
+ */
+
 public class BuyPassActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/pass");
     private final ArrayList<String> idPass = new ArrayList<>();
 
 
@@ -50,18 +53,17 @@ public class BuyPassActivity extends AppCompatActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()) {
                         if (child.child("id").getValue().toString().equals(idPass.get(position))) {
+                            //Creazione nuova tessera prendendo i dati dal database
                             Pass newPass = child.getValue(Pass.class);
-                            Pocket myPocket = ProfileActivity.getClient().getMyPocket();
-                            if (myPocket.getCredit()>=newPass.getPrice()) {
-                                if (myPocket.addPass(newPass)) Toast.makeText(getApplicationContext(), "Già possiedi questo abbonamento", Toast.LENGTH_SHORT).show();
-                                else {
-                                    Toast.makeText(getApplicationContext(), "Abbonamento acquistato", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            } else
-                                Toast.makeText(getApplicationContext(), "Credito insufficiente", Toast.LENGTH_SHORT).show();
+                            newPass.calculateExpiration(newPass.getValidity());
+                            Intent intent = new Intent(getApplicationContext(), ViewDocumentActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("Document", newPass);
+                            intent.putExtras(bundle);
+                            intent.putExtra("Buy", true);
+                            startActivity(intent);
                             break;
                         }
                     }
@@ -93,9 +95,10 @@ public class BuyPassActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
-                for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Pass p = child.getValue(Pass.class);
                     if (p!=null) {
+                        //Ogni volta che viene aggiunto un elemento all'array viene aggiunto anche alla lista
                         mAdapter.add(p.getName());
                         idPass.add(p.getId());
                     }

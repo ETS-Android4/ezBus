@@ -1,4 +1,4 @@
-package com.ezbus.client;
+package com.ezbus.purchase;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Fragment che contiene tutti i titoli di viaggio acquistati dividendoli in tre sezioni differenti.
+ */
 
 public class PocketFragment extends Fragment {
 
@@ -45,7 +49,7 @@ public class PocketFragment extends Fragment {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        private FirebaseUser currentClient = LoginActivity.mAuth.getCurrentUser();
+        private FirebaseUser currentClient = LoginActivity.getCurrentUser();
         private DocumentFragment fragTickets = new DocumentFragment();
         private DocumentFragment fragCards = new DocumentFragment();
         private DocumentFragment fragPasses = new DocumentFragment();
@@ -82,6 +86,7 @@ public class PocketFragment extends Fragment {
             fragmentTitle.add(title);
         }
 
+        //Applica la vista degli oggetti ai vari fragment, aggiornandola al variare dei dati
         private void setFragments() {
             if (currentClient != null) {
                 String id = currentClient.getUid();
@@ -90,6 +95,7 @@ public class PocketFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Pocket pocket = dataSnapshot.getValue(Pocket.class);
+                            pocket.checkDocuments();
                             fragTickets.updateDocuments(pocket.getMyTickets());
                             fragCards.updateDocuments(pocket.getMyCards());
                             fragPasses.updateDocuments(pocket.getMyPass());

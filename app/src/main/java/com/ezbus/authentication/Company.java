@@ -3,6 +3,11 @@ package com.ezbus.authentication;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Classe che descrive l'oggetto Company e il suo comportamento.
+ * L'azienda è un particolare tipo di utente che fornisce determinati servizi per il cliente.
+ */
+
 class Company extends User implements DataSync {
 
     private String iva;

@@ -17,6 +17,10 @@ import com.ezbus.main.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Classe che gestisce la registrazione per l'azienda.
+ */
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextCompany;
@@ -24,12 +28,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextEmail;
     private EditText editTextPassword;
     private CheckBox checkPrivacy;
-    private SharedPref sharedpref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.sharedpref = new SharedPref(this);
+        SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState())
             setTheme(R.style.App_Dark);
         else setTheme(R.style.App_Blue);
@@ -54,8 +57,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onConfigurationChanged(newConfig);
     }
 
+    //Inserisce l'azienda nel database, se non è già esistente
     private void registerCompany() {
-        //Parametri di Input
         String company = editTextCompany.getText().toString().trim();
         String iva = editTextIVA.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
@@ -63,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (!checkData(company, iva, email, password)) return;
 
-        //Creazione nuova azienda
         LoginActivity.mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, task -> {
                 //Se avvenuta con successo
@@ -71,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
                         new Company(currentUser.getUid(), company, iva, email);
-                        LoginActivity.mAuth.getInstance().signOut();
+                        LoginActivity.signOut();
                     }
                     Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();
                     finish();
@@ -92,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
+    //Restituisce messaggio d'errore personalizzato
     private boolean errorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         return false;

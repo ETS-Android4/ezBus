@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="?attr/colorBackground"
             android:orientation="vertical">
 
@@ -27,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Nome Abbonamento"
-                android:textColorHint="?attr/colorTextHint"
+                android:inputType="text"
                 android:textColor="?attr/colorText"
-                android:inputType="text" />
+                android:textColorHint="?attr/colorTextHint" />
 
             <EditText
                 android:id="@+id/cittaPass"
@@ -37,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Città"
-                android:textColorHint="?attr/colorTextHint"
+                android:inputType="text"
                 android:textColor="?attr/colorText"
-                android:inputType="text" />
+                android:textColorHint="?attr/colorTextHint" />
 
             <EditText
                 android:id="@+id/dataPass"
@@ -47,9 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Durata (Giorni)"
-                android:textColorHint="?attr/colorTextHint"
+                android:inputType="number"
                 android:textColor="?attr/colorText"
-                android:inputType="number" />
+                android:textColorHint="?attr/colorTextHint" />
 
             <EditText
                 android:id="@+id/prezzoPass"
@@ -57,9 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Prezzo"
-                android:textColorHint="?attr/colorTextHint"
+                android:inputType="numberDecimal"
                 android:textColor="?attr/colorText"
-                android:inputType="numberDecimal" />
+                android:textColorHint="?attr/colorTextHint" />
 
             <Button
                 android:id="@+id/salvaPass"

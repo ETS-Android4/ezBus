@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezbus.R;
-import com.ezbus.client.Pocket;
+import com.ezbus.purchase.Pocket;
 import com.ezbus.main.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,12 +34,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.ezbus.main.MainActivity.navigationView;
 
+/**
+ * Classe che permette l'autenticazione dell'utente all'interno del sistema.
+ */
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     public static GoogleSignInClient googleSignInClient;
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private EditText editTextEmail;
     private EditText editTextPassword;
     private SharedPref sharedpref;
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onConfigurationChanged(newConfig);
     }
 
+    //Aggiorna il layout dopo che si ritorna nell'activity
     @Override
     public void onStart() {
         super.onStart();
@@ -97,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         updateUI(currentUser);
     }
 
+    //Restituisce la risposta dopo la connessione con Google
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,6 +119,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public static FirebaseUser getCurrentUser() {
+        return mAuth.getCurrentUser();
+    }
+
+    //Inserisce i dati di Google dentro Firebase
     private void loginClient(GoogleSignInAccount acct) {
         final GoogleSignInAccount account = acct;
         Log.d(TAG, "loginClient:" + acct.getId());
@@ -146,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
     }
 
+    //Autentica l'azienda se i dati sono corretti
     private void loginCompany() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -164,11 +176,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //Genera schermata di Google per la selezione dell'account
     private void externalSignIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    //Esegue il logout dell'utente dall'applicazione
+    public static void signOut() {
+        mAuth.signOut();
+        if (googleSignInClient!=null) googleSignInClient.signOut();
+    }
+
+    //Aggiorna menù laterale dopo il login
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             //Se l'user è loggato

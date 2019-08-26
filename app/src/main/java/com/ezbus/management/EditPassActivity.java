@@ -19,11 +19,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Activity che permette all'azienda di modificare i propri abbonamenti.
+ */
+
 public class EditPassActivity extends AppCompatActivity {
 
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private String idPass;
     private EditText namePass, cityPass, dataPass, pricePass;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/pass");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +59,11 @@ public class EditPassActivity extends AppCompatActivity {
         deletePass.setOnClickListener(v -> removePass());
     }
 
+    //Permette la rimozione dell'abbonamento dal database
     private void removePass() {
         AlertDialog.Builder logout = new AlertDialog.Builder(EditPassActivity.this);
         logout.setMessage("Vuoi davvero eliminare l'abbonamento?").setPositiveButton("Si", (dialog, id) -> {
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            rootRef.child("pass").child(idPass).removeValue();
+            database.child(idPass).removeValue();
             finish();
         }).setNegativeButton("No", (dialog, id) -> {
             //Operaione annullata
@@ -66,24 +71,25 @@ public class EditPassActivity extends AppCompatActivity {
         logout.show();
     }
 
+    //Salva le modifiche effettuate nel database
     private void savePass() {
         if (!TextUtils.isEmpty(namePass.getText().toString().trim()) && !TextUtils.isEmpty(pricePass.getText().toString().trim()) &&
         !TextUtils.isEmpty(dataPass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            rootRef.child("pass").child(idPass).child("name").setValue(namePass.getText().toString().trim());
-            rootRef.child("pass").child(idPass).child("price").setValue(Double.parseDouble(pricePass.getText().toString().trim()));
-            rootRef.child("pass").child(idPass).child("expiration").setValue(Integer.parseInt(dataPass.getText().toString().trim()));
-            rootRef.child("pass").child(idPass).child("city").setValue(cityPass.getText().toString().trim());
+            database.child(idPass).child("name").setValue(namePass.getText().toString().trim());
+            database.child(idPass).child("price").setValue(Double.parseDouble(pricePass.getText().toString().trim()));
+            database.child(idPass).child("expiration").setValue(Integer.parseInt(dataPass.getText().toString().trim()));
+            database.child(idPass).child("city").setValue(cityPass.getText().toString().trim());
             finish();
         }
         else Toast.makeText(EditPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();
     }
 
+    //Carica i dati dell'abbonamento da modificare
     private void setDataToView() {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.child("pass").getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if (child.child("id").getValue().equals(idPass)) {
                         namePass.setText(child.child("name").getValue().toString());
                         pricePass.setText(child.child("price").getValue().toString());
@@ -105,4 +111,5 @@ public class EditPassActivity extends AppCompatActivity {
         finish();
         return true;
     }
+
 }

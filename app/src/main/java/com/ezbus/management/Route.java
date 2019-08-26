@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Route e il suo comportamento.
+ * Una tratta è costituita da una o più corse con differenti orari.
+ */
+
 public class Route {
 
     private String id;

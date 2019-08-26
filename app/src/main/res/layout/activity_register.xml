@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:paddingLeft="0dp"
@@ -58,6 +58,12 @@
                 android:textColor="?attr/colorText"
                 android:inputType="textEmailAddress" />
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/etPasswordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                android:layout_marginBottom="15dp">
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
@@ -67,6 +73,8 @@
                 android:textColorHint="?attr/colorTextHint"
                 android:textColor="?attr/colorText"
                 android:inputType="textPassword" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/buttonPrivacy"

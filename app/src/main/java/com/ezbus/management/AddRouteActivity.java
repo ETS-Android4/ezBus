@@ -27,9 +27,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity che permette all'azienda di aggiungere una nuova tratta al database.
+ */
+
 public class AddRouteActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter1, mAdapter2;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/map/stops");
     private final ArrayList<String> idStop1 = new ArrayList<>();
     private final ArrayList<String> idStop2 = new ArrayList<>();
 
@@ -62,7 +67,8 @@ public class AddRouteActivity extends AppCompatActivity {
 
         Button saveRoute = findViewById(R.id.saveRoute);
         saveRoute.setOnClickListener(v -> {
-            String companyId = LoginActivity.mAuth.getUid();
+            String companyId = LoginActivity.getCurrentUser().getUid();
+            //Controlla se i campi sono compilati
             if (!TextUtils.isEmpty(routeName.getText().toString().trim())) {
                 addRoute(new Route(companyId, routeName.getText().toString().trim(), idStop1.get(listStop1.getSelectedItemPosition()),
                         idStop2.get(listStop2.getSelectedItemPosition())));
@@ -80,23 +86,24 @@ public class AddRouteActivity extends AppCompatActivity {
         listStop2.setAdapter(mAdapter2);
     }
 
+    //Aggiunge una nuova tratta al database
     private void addRoute(Route r) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         String uid = r.getId();
-        rootRef.child("routes").child(uid).setValue(r);
+        FirebaseDatabase.getInstance().getReference("/routes/"+uid).setValue(r);
         Intent intent = new Intent(AddRouteActivity.this, RouteManagerActivity.class);
         startActivity(intent);
         finish();
     }
 
+    //Aggiorna la lista delle fermate
     private void setDataToView() {
-        FirebaseDatabase.getInstance().getReference("/map").addListenerForSingleValueEvent(new ValueEventListener() {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter1.clear();
                 mAdapter2.clear();
-                for (DataSnapshot child : dataSnapshot.child("stops").getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.mAuth.getCurrentUser().getUid())) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
                         mAdapter1.add(s.getName());
                         idStop1.add(s.getId());

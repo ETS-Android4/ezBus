@@ -12,9 +12,9 @@
     <application
         android:allowBackup="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_ezbus"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_ezbus_round"
         android:supportsRtl="true"
         android:theme="@style/App.Blue">
         <activity
@@ -42,15 +42,15 @@
                 android:value="com.ezbus.authentication.RegisterActivity" />
         </activity>
         <activity
-            android:name=".client.ViewDocumentActivity"
+            android:name=".purchase.ViewDocumentActivity"
             android:configChanges="orientation|screenSize"
             android:label="" />
         <activity
-            android:name=".client.BuyCardActivity"
+            android:name=".purchase.BuyCardActivity"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Tessera" />
         <activity
-            android:name=".client.BuyTicketActivity"
+            android:name=".purchase.BuyTicketActivity"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Biglietto" />
         <activity
@@ -62,11 +62,11 @@
             android:configChanges="orientation|screenSize"
             android:label="Modifica Tratta" />
         <activity
-            android:name=".client.RechargeActivity"
+            android:name=".purchase.RechargeActivity"
             android:configChanges="orientation|screenSize"
             android:label="Ricarica Credito" />
         <activity
-            android:name=".client.BuyPassActivity"
+            android:name=".purchase.BuyPassActivity"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Abbonamento" />
         <activity
@@ -79,7 +79,7 @@
             android:label="Aggiungi Abbonamento" />
         <activity
             android:name=".main.WelcomeActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="screenSize"
             android:theme="@style/App.Green.NoActionBar" />
         <activity
             android:name=".authentication.PrivacyActivity"

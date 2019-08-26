@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Classe che descrive l'oggetto Track e il suo comportamento.
+ * Una corsa è il tragitto che un autobus percorre in un determinato orario.
+ */
+
 class Track {
 
     private String time;
