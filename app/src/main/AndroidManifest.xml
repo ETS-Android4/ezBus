@@ -18,7 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/App.Blue">
         <activity
+            android:name=".main.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="screenSize"
+            android:theme="@style/App.Green.NoActionBar" />
+        <activity
             android:name=".main.MainActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="ezBus"
             android:theme="@style/NoApp.Blue">
@@ -31,10 +37,12 @@
         </activity>
         <activity
             android:name=".authentication.LoginActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Login" />
         <activity
             android:name=".authentication.RegisterActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Registrazione">
             <meta-data
@@ -43,67 +51,78 @@
         </activity>
         <activity
             android:name=".purchase.ViewDocumentActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="" />
         <activity
             android:name=".purchase.BuyCardActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Tessera" />
         <activity
             android:name=".purchase.BuyTicketActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Biglietto" />
         <activity
             android:name=".management.EditPassActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Modifica Abbonamento" />
         <activity
             android:name=".management.EditRouteActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Modifica Tratta" />
         <activity
             android:name=".purchase.RechargeActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Ricarica Credito" />
         <activity
             android:name=".purchase.BuyPassActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Acquista Abbonamento" />
         <activity
             android:name=".management.AddStopActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Aggiungi Fermata" />
         <activity
             android:name=".management.AddPassActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Aggiungi Abbonamento" />
         <activity
-            android:name=".main.WelcomeActivity"
-            android:configChanges="screenSize"
-            android:theme="@style/App.Green.NoActionBar" />
-        <activity
             android:name=".authentication.PrivacyActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:theme="@style/App.Green.NoActionBar"
             tools:ignore="DuplicateActivity" />
         <activity
             android:name=".authentication.ProfileActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Profilo" />
         <activity
             android:name=".main.SettingsActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Impostazioni" />
         <activity
             android:name=".management.RouteManagerActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Gestione Tratte" />
         <activity
             android:name=".management.AddRouteActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Aggiungi Tratta" />
         <activity
             android:name=".management.PassManagerActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:label="Gestione Abbonamenti" />
 
