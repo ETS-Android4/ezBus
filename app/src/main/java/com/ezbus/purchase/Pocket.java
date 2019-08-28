@@ -29,7 +29,7 @@ public class Pocket implements DataSync {
         return (getMyTickets().size() == 0 && getMyCards().size() == 0 && getMyPass().size() == 0);
     }
 
-    double getCredit() {
+    public double getCredit() {
         return this.credit;
     }
 
@@ -38,15 +38,15 @@ public class Pocket implements DataSync {
         databaseSync();
     }
 
-    List<Pass> getMyPass() {
+    public List<Pass> getMyPass() {
         return this.myPass;
     }
 
-    List<Card> getMyCards() {
+    public List<Card> getMyCards() {
         return this.myCards;
     }
 
-    List<Ticket> getMyTickets() {
+    public List<Ticket> getMyTickets() {
         return this.myTickets;
     }
 

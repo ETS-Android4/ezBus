@@ -16,8 +16,7 @@ class Ticket extends Document {
     private int number;
 
 
-    public Ticket() {
-    }
+    public Ticket() {}
 
     public Ticket(String companyId, String start, String end, String name) {
         this.id = UUID.randomUUID().toString();
@@ -30,15 +29,15 @@ class Ticket extends Document {
         this.number = 1;
     }
 
-    String getStart() {
+    public String getStart() {
         return this.start;
     }
 
-    String getEnd() {
+    public String getEnd() {
         return this.end;
     }
 
-    int getNumber() {
+    public int getNumber() {
         return this.number;
     }
 

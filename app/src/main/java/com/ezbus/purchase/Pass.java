@@ -27,11 +27,11 @@ public class Pass extends Document {
         this.city = city;
     }
 
-    String getCity() {
+    public String getCity() {
         return this.city;
     }
 
-    int getValidity() {
+    public int getValidity() {
         return this.validity;
     }
 

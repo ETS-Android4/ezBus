@@ -30,18 +30,6 @@ public class Route {
         this.tracks  = new ArrayList<>();
     }
 
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public String getStart() {
-        return this.idStartStop;
-    }
-
-    public String getEnd() {
-        return this.idEndStop;
-    }
-
     public String getCompanyId() {
         return companyId;
     }
@@ -52,6 +40,18 @@ public class Route {
 
     public String getName() {
         return name;
+    }
+
+    public String getStart() {
+        return this.idStartStop;
+    }
+
+    public String getEnd() {
+        return this.idEndStop;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
     }
 
 }

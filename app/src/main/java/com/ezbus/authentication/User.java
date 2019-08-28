@@ -19,11 +19,11 @@ abstract class User {
         this.uid = uid;
     }
 
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 

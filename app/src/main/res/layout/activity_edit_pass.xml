@@ -43,7 +43,7 @@
                 android:textColorHint="?attr/colorTextHint" />
 
             <EditText
-                android:id="@+id/dataPass"
+                android:id="@+id/durataPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"

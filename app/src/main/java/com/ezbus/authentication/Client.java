@@ -34,6 +34,10 @@ public class Client extends User implements DataSync {
         return myPocket;
     }
 
+    public void setMyPocket(Pocket pocket) {
+        this.myPocket = pocket;
+    }
+
     public void databaseSync() {
         DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients/"+this.getUid());
         path.setValue(this);

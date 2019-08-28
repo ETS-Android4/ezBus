@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class EditPassActivity extends AppCompatActivity {
 
     private String idPass;
-    private EditText namePass, cityPass, dataPass, pricePass;
+    private EditText namePass, cityPass, durataPass, pricePass;
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/pass");
 
 
@@ -49,7 +49,7 @@ public class EditPassActivity extends AppCompatActivity {
         namePass = findViewById(R.id.nomePass);
         pricePass = findViewById(R.id.prezzoPass);
         cityPass = findViewById(R.id.cittaPass);
-        dataPass = findViewById(R.id.dataPass);
+        durataPass = findViewById(R.id.durataPass);
 
         setDataToView();
 
@@ -74,10 +74,10 @@ public class EditPassActivity extends AppCompatActivity {
     //Salva le modifiche effettuate nel database
     private void savePass() {
         if (!TextUtils.isEmpty(namePass.getText().toString().trim()) && !TextUtils.isEmpty(pricePass.getText().toString().trim()) &&
-        !TextUtils.isEmpty(dataPass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
+        !TextUtils.isEmpty(durataPass.getText().toString().trim()) && !TextUtils.isEmpty(cityPass.getText().toString().trim())) {
             database.child(idPass).child("name").setValue(namePass.getText().toString().trim());
             database.child(idPass).child("price").setValue(Double.parseDouble(pricePass.getText().toString().trim()));
-            database.child(idPass).child("expiration").setValue(Integer.parseInt(dataPass.getText().toString().trim()));
+            database.child(idPass).child("validity").setValue(Integer.parseInt(durataPass.getText().toString().trim()));
             database.child(idPass).child("city").setValue(cityPass.getText().toString().trim());
             finish();
         }
@@ -94,7 +94,7 @@ public class EditPassActivity extends AppCompatActivity {
                         namePass.setText(child.child("name").getValue().toString());
                         pricePass.setText(child.child("price").getValue().toString());
                         cityPass.setText(child.child("city").getValue().toString());
-                        dataPass.setText(child.child("expiration").getValue().toString());
+                        durataPass.setText(child.child("validity").getValue().toString());
                     }
                 }
             }

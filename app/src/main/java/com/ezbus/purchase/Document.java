@@ -22,7 +22,7 @@ abstract class Document implements Serializable {
         return this.id;
     }
 
-    String getCompanyId() {
+    public String getCompanyId() {
         return this.companyId;
     }
 
@@ -30,11 +30,11 @@ abstract class Document implements Serializable {
         return this.name;
     }
 
-    double getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    Date getExpiration() {
+    public Date getExpiration() {
         return this.expiration;
     }
 
