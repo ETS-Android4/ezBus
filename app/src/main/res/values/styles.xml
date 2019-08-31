@@ -8,7 +8,7 @@
         <item name="colorPrimaryDark">#303F4B</item>
         <item name="colorAccent">#354C5E</item>
         <item name="colorBackground">#fefefe</item>
-        <item name="colorCard">#efefef</item>
+        <item name="colorCard">#e6e6e6</item>
         <item name="colorText">#808080</item>
         <item name="colorTextHint">#aaa</item>
         <item name="colorTint">#ffffff</item>
@@ -31,7 +31,7 @@
         <item name="colorTint">#ffffff</item>
         <item name="colorButton">#388E3C</item>
         <item name="colorActiveTab">#303F4B</item>
-        <item name="colorInactiveTab">#999999</item>
+        <item name="colorInactiveTab">#303F4B</item>
         <item name="colorNavItem">#303F4B</item>
         <item name="toolbarStyle">@style/ToolBar.Blue</item>
         <item name="android:fontFamily">@font/argentum</item>

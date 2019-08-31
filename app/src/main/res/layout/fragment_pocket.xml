@@ -8,7 +8,9 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:elevation="3dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="3dp">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -24,7 +26,7 @@
             app:tabIndicatorHeight="3dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="?android:attr/textAppearanceSmall"
-            app:tabTextColor="@color/colorWhite" />
+            app:tabTextColor="@color/white" />
 
     </android.support.design.widget.AppBarLayout>
 

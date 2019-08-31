@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static NavigationView navigationView;
     private SharedPref sharedpref;
-    private DrawerLayout mDrawerLayout;
 
 
     @Override
@@ -60,26 +60,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Passa al profilo il parametro clients o company in base alla scelta fatta
             ProfileActivity.setUser(LoginActivity.getCurrentUser(), sharedpref.getQuery());
 
+            FloatingActionButton mapTab = findViewById(R.id.tab5);
             BottomNavigationView mMainNav = findViewById(R.id.main_nav);
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
             //In base alla scelta fatta, vengono modificati i menù
             if (getAnswer().equals("Client")) {
-                mMainNav.getMenu().getItem(2).setTitle("POCKET");
+                mMainNav.getMenu().removeItem(R.id.tab3);
                 mMainNav.getMenu().removeItem(R.id.tab4);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(false);
                 sharedpref.setClient(true); //Client
             } else if (getAnswer().equals("Company")) {
-                mMainNav.getMenu().getItem(2).setTitle("MANAGER");
-                mMainNav.getMenu().removeItem(R.id.tab3);
+                mMainNav.getMenu().removeItem(R.id.tab1);
+                mMainNav.getMenu().removeItem(R.id.tab2);
                 navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
                 sharedpref.setClient(false); //Company
             }
 
             mMainNav.getMenu().getItem(1).setChecked(true);
-            mDrawerLayout = findViewById(R.id.drag_layout);
-
             View headerLayout = navigationView.getHeaderView(0);
             TextView navUsername = headerLayout.findViewById(R.id.textView);
 
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_profilo).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-                if (!sharedpref.isClient()) navigationView.getMenu().findItem(R.id.nav_register).setVisible(true);
             } else {
                 navUsername.setText(currentUser.getEmail());
                 navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
@@ -100,8 +98,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             //Imposta come fragment iniziale la mappa
-            setFragment(1);
+            setFragment(5);
             navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
+            mapTab.setOnClickListener(view -> setFragment(5));
             mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
     }
@@ -111,15 +110,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             = item -> {
                 FirebaseUser currentUser = LoginActivity.getCurrentUser();
                 int id = item.getItemId();
-                if (currentUser == null && (id != R.id.tab0 && id != R.id.tab1)) {
+                if (currentUser == null)
                     startNewActivity(LoginActivity.class);
-                    return false;
-                } else {
+                else {
                     switch (id) {
-                        case R.id.tab0:
-                            //Apre il menù laterale a sinistra
-                            if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) mDrawerLayout.openDrawer(Gravity.LEFT);
-                            return true;
                         case R.id.tab1:
                             setFragment(1);
                             return true;
@@ -144,36 +138,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment2 = fragmentManager.findFragmentByTag("2");
         Fragment fragment3 = fragmentManager.findFragmentByTag("3");
         Fragment fragment4 = fragmentManager.findFragmentByTag("4");
+        Fragment fragment5 = fragmentManager.findFragmentByTag("5");
 
         switch(fragmentId) {
             case 1:
                 if (fragment1 != null) fragmentManager.beginTransaction().show(fragment1).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), Integer.toString(fragmentId)).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
-                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
-                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 2:
                 if (fragment2 != null) fragmentManager.beginTransaction().show(fragment2).commit();
-                else {
-                    if (sharedpref.isClient()) fragmentManager.beginTransaction().add(R.id.main_frame, new PocketFragment(), Integer.toString(fragmentId)).commit();
-                    else fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), Integer.toString(fragmentId)).commit();
-                }
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
-                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
-                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 3:
                 if (fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
-                else fragmentManager.beginTransaction().add(R.id.main_frame, new BuyFragment(), Integer.toString(fragmentId)).commit();
-                if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
-                if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new ManagerFragment(), Integer.toString(fragmentId)).commit();
+                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
                 break;
             case 4:
                 if (fragment4 != null) fragmentManager.beginTransaction().show(fragment4).commit();
                 else fragmentManager.beginTransaction().add(R.id.main_frame, new DriverFragment(), Integer.toString(fragmentId)).commit();
+                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
+                if (fragment5 != null) fragmentManager.beginTransaction().hide(fragment5).commit();
+                break;
+            case 5:
+                if (fragment5 != null) fragmentManager.beginTransaction().show(fragment5).commit();
+                else fragmentManager.beginTransaction().add(R.id.main_frame, new MapFragment(), Integer.toString(fragmentId)).commit();
                 if (fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                 if (fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
+                if (fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
+                if (fragment4 != null) fragmentManager.beginTransaction().hide(fragment4).commit();
                 break;
         }
     }

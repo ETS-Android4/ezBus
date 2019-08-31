@@ -2,32 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/tab0"
-        android:icon="@drawable/ic_menu_black_24dp"
-        android:orderInCategory="100"
-        android:title="MENU"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/tab1"
-        android:icon="@drawable/ic_menu_map"
-        android:orderInCategory="100"
-        android:title="MAPPA"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/tab2"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_nav_pocket"
         android:orderInCategory="100"
         android:title="POCKET"
         app:showAsAction="never" />
     <item
-        android:id="@+id/tab3"
-        android:icon="@drawable/ic_menu_buy"
+        android:id="@+id/tab2"
+        android:icon="@drawable/ic_nav_buy"
         android:orderInCategory="100"
         android:title="ACQUISTA"
         app:showAsAction="never" />
     <item
+        android:id="@+id/tab3"
+        android:icon="@drawable/ic_nav_dashboard"
+        android:orderInCategory="100"
+        android:title="MANAGER"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/tab4"
-        android:icon="@drawable/ic_menu_manager"
+        android:icon="@drawable/ic_nav_manager"
         android:orderInCategory="100"
         android:title="DRIVER"
         app:showAsAction="never" />
