@@ -17,13 +17,13 @@ public class Pass extends Document {
 
     public Pass() {}
 
-    public Pass(String companyId, double price, int validity, String name, String city) {
+    public Pass(String idCompany, double price, int validity, String name, String city) {
         this.id = UUID.randomUUID().toString();
-        this.companyId = companyId;
+        this.idCompany = idCompany;
         this.name = name;
         this.price = price;
         this.validity = validity;
-        calculateExpiration(3);
+        //calculateExpiration(3);
         this.city = city;
     }
 

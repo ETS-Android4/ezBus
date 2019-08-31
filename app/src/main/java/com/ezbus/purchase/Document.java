@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
 abstract class Document implements Serializable {
 
     String id;
-    String companyId;
+    String idCompany;
     String name;
     double price;
     Date expiration;
@@ -22,8 +22,8 @@ abstract class Document implements Serializable {
         return this.id;
     }
 
-    public String getCompanyId() {
-        return this.companyId;
+    public String getIdCompany() {
+        return this.idCompany;
     }
 
     public String getName() {

@@ -56,7 +56,7 @@ public class BuyCardActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         if (child.child("id").getValue().toString().equals(idRoute.get(position))) {
-                            String idCompany = child.child("companyId").getValue().toString();
+                            String idCompany = child.child("idCompany").getValue().toString();
                             Route route = child.getValue(Route.class);
                             //Creazione nuova tessera in base all'id della route selezionata
                             Card newCard = new Card(idCompany, 30, route.getId(), route.getName());

@@ -12,18 +12,26 @@ import java.util.UUID;
 public class Stop {
 
     private String id;
-    private String companyId;
+    private String idCompany;
     private Position position;
     private String name;
 
 
     Stop() {}
 
-    Stop (String companyId, Position position, String name) {
+    Stop (String idCompany, Position position, String name) {
         this.id = UUID.randomUUID().toString();
-        this.companyId = companyId;
+        this.idCompany = idCompany;
         this.position = position;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getIdCompany() {
+        return idCompany;
     }
 
     public Position getPosition() {
@@ -32,14 +40,6 @@ public class Stop {
 
     public String getName() {
         return name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCompanyId() {
-        return companyId;
     }
 
 }

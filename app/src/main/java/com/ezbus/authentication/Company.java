@@ -15,8 +15,8 @@ class Company extends User implements DataSync {
 
     Company() { }
 
-    Company(String uid, String name, String iva, String email) {
-        this.setUid(uid);
+    Company(String id, String name, String iva, String email) {
+        this.setId(id);
         this.name = name;
         this.email = email;
         this.iva = iva;
@@ -28,7 +28,7 @@ class Company extends User implements DataSync {
     }
 
     public void databaseSync() {
-        DatabaseReference path = FirebaseDatabase.getInstance().getReference("/companies/"+this.getUid());
+        DatabaseReference path = FirebaseDatabase.getInstance().getReference("/companies/"+this.getId());
         path.setValue(this);
     }
 

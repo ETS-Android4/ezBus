@@ -6,17 +6,17 @@ package com.ezbus.authentication;
 
 abstract class User {
 
-    private String uid;
+    private String id;
     String name;
     String email;
 
 
-    public String getUid() {
-        return this.uid;
+    public String getId() {
+        return this.id;
     }
 
-    void setUid(String uid) {
-        this.uid = uid;
+    void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

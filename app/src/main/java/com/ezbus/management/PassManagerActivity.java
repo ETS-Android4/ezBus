@@ -87,7 +87,7 @@ public class PassManagerActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mAdapter.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
+                    if (child.child("idCompany").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Pass p = child.getValue(Pass.class);
                         if (p != null) {
                             mAdapter.add(p.getName());

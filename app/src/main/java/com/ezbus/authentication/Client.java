@@ -17,8 +17,8 @@ public class Client extends User implements DataSync {
 
     Client() { }
 
-    Client(String uid, String name, String surname, String email, Pocket pocket) {
-        this.setUid(uid);
+    Client(String id, String name, String surname, String email, Pocket pocket) {
+        this.setId(id);
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -39,7 +39,7 @@ public class Client extends User implements DataSync {
     }
 
     public void databaseSync() {
-        DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients/"+this.getUid());
+        DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients/"+this.getId());
         path.setValue(this);
     }
 

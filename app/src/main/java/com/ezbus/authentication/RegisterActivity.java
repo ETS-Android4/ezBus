@@ -70,9 +70,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             .addOnCompleteListener(this, task -> {
                 //Se avvenuta con successo
                 if (task.isSuccessful()) {
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currentUser != null) {
-                        new Company(currentUser.getUid(), company, iva, email);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        new Company(user.getUid(), company, iva, email);
                         LoginActivity.signOut();
                     }
                     Toast.makeText(RegisterActivity.this, "Registrazione completata", Toast.LENGTH_LONG).show();

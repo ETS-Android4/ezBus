@@ -18,9 +18,9 @@ class Ticket extends Document {
 
     public Ticket() {}
 
-    public Ticket(String companyId, String start, String end, String name) {
+    public Ticket(String idCompany, String start, String end, String name) {
         this.id = UUID.randomUUID().toString();
-        this.companyId = companyId;
+        this.idCompany = idCompany;
         this.name = name;
         this.price = 5; //Per ora prezzo fisso
         calculateExpiration(3);

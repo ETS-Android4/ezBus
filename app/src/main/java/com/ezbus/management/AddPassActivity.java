@@ -45,7 +45,7 @@ public class AddPassActivity extends AppCompatActivity {
 
         Button savePass = findViewById(R.id.save_pass);
         savePass.setOnClickListener(view -> {
-            String companyId = LoginActivity.getCurrentUser().getUid();
+            String idCompany = LoginActivity.getCurrentUser().getUid();
             //Controlla se i campi sono stati compilati
             if (!TextUtils.isEmpty(namePass.getText().toString().trim()) &&
                     !TextUtils.isEmpty(nameCity.getText().toString().trim()) &&
@@ -56,7 +56,7 @@ public class AddPassActivity extends AppCompatActivity {
                 int expiration = Integer.parseInt(nameDays.getText().toString().trim());
                 String name = namePass.getText().toString().trim();
                 String city = nameCity.getText().toString().trim();
-                addPass(new Pass(companyId, price, expiration, name, city));
+                addPass(new Pass(idCompany, price, expiration, name, city));
 
             }
             else Toast.makeText(AddPassActivity.this, "Devi compilare tutti i campi", Toast.LENGTH_SHORT).show();

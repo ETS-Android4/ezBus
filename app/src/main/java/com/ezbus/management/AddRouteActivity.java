@@ -103,7 +103,7 @@ public class AddRouteActivity extends AppCompatActivity {
                 mAdapter1.clear();
                 mAdapter2.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if (child.child("companyId").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
+                    if (child.child("idCompany").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Stop s = child.getValue(Stop.class);
                         mAdapter1.add(s.getName());
                         idStop1.add(s.getId());

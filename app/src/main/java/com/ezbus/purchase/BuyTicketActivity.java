@@ -59,7 +59,7 @@ public class BuyTicketActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if (child.child("id").getValue().toString().equals(idStart)) {
-                        String idCompany = child.child("companyId").getValue().toString();
+                        String idCompany = child.child("idCompany").getValue().toString();
                         //Creazione del biglietto in base alle fermate scelte
                         Ticket newTicket = new Ticket(idCompany, idStart, idDest, nameStart + " - " + nameDest);
                         Intent intent = new Intent(getApplicationContext(), ViewDocumentActivity.class);

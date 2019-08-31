@@ -59,6 +59,7 @@ public class Pocket implements DataSync {
     private boolean add(Pass newPass) {
         for(Pass pass : myPass)
             if (newPass.getId().equals(pass.getId())) return true;
+        newPass.calculateExpiration(newPass.getValidity());
         myPass.add(newPass);
         updateCredit(-newPass.getPrice());
         return false;
@@ -119,7 +120,7 @@ public class Pocket implements DataSync {
 
     public void databaseSync() {
         DatabaseReference path = FirebaseDatabase.getInstance().getReference("/clients");
-        path.child(ProfileActivity.getClient().getUid()).child("myPocket").setValue(this);
+        path.child(ProfileActivity.getClient().getId()).child("myPocket").setValue(this);
     }
 
 }

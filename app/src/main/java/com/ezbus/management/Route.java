@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Route {
 
     private String id;
-    private String companyId;
+    private String idCompany;
     private String name;
     private String idStartStop;
     private String idEndStop;
@@ -21,21 +21,21 @@ public class Route {
 
     public Route() { }
 
-    Route (String companyId, String name, String idStartStop, String idEndStop) {
+    Route (String idCompany, String name, String idStartStop, String idEndStop) {
         this.id = UUID.randomUUID().toString();
-        this.companyId = companyId;
+        this.idCompany = idCompany;
         this.name = name;
         this.idStartStop = idStartStop;
         this.idEndStop = idEndStop;
         this.tracks  = new ArrayList<>();
     }
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
     public String getId() {
         return id;
+    }
+
+    public String getIdCompany() {
+        return idCompany;
     }
 
     public String getName() {

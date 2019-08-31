@@ -41,12 +41,12 @@ public class AddStopActivity extends AppCompatActivity {
 
         Button saveStop = findViewById(R.id.saveStop);
         saveStop.setOnClickListener(v -> {
-            String companyId = LoginActivity.getCurrentUser().getUid();
+            String idCompany = LoginActivity.getCurrentUser().getUid();
             //Controlla se i campi sono stati compilati
             if (!TextUtils.isEmpty(nameStop.getText().toString().trim()) &&
                     !TextUtils.isEmpty(lat.getText().toString().trim()) &&
                     !TextUtils.isEmpty(lon.getText().toString().trim())) {
-                addStop(new Stop( companyId, new Position(Double.parseDouble(lat.getText().toString()),
+                addStop(new Stop( idCompany, new Position(Double.parseDouble(lat.getText().toString()),
                         Double.parseDouble(lon.getText().toString())), nameStop.getText().toString()));
                 finish();
             }
