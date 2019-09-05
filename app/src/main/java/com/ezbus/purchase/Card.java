@@ -10,22 +10,22 @@ import java.util.UUID;
  */
 class Card extends Document {
 
-    private String routeId;
+    private String idRoute;
 
 
     public Card() {}
 
-    public Card(String idCompany, int validity, String routeId, String routeName) {
+    public Card(String idCompany, int validity, String idRoute, String routeName) {
         this.id = UUID.randomUUID().toString();
         this.idCompany = idCompany;
         this.name = routeName;
         this.price = 20; //Per ora prezzo fisso
         calculateExpiration(validity);
-        this.routeId = routeId;
+        this.idRoute = idRoute;
     }
 
-    public String getRouteId() {
-        return this.routeId;
+    public String getIdRoute() {
+        return this.idRoute;
     }
 
     int giveImage() {

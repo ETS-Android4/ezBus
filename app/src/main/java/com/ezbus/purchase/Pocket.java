@@ -67,7 +67,7 @@ public class Pocket implements DataSync {
 
     private boolean add(Card newCard) {
         for(Card card : myCards)
-            if (newCard.getRouteId().equals(card.getRouteId())) return true;
+            if (newCard.getIdRoute().equals(card.getIdRoute())) return true;
         myCards.add(newCard);
         updateCredit(-newCard.getPrice());
         return false;

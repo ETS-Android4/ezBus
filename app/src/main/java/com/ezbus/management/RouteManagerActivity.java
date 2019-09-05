@@ -30,7 +30,7 @@ public class RouteManagerActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference("/routes");
-    private final ArrayList<String> idRoute1 = new ArrayList<>();
+    private final ArrayList<String> idRoutes = new ArrayList<>();
 
 
     @Override
@@ -53,7 +53,7 @@ public class RouteManagerActivity extends AppCompatActivity {
         listRoute.setAdapter(mAdapter);
         listRoute.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(RouteManagerActivity.this, EditRouteActivity.class);
-            intent.putExtra("Route", idRoute1.get(position));
+            intent.putExtra("Route", idRoutes.get(position));
             startActivity(intent);
         });
 
@@ -89,7 +89,7 @@ public class RouteManagerActivity extends AppCompatActivity {
                     if (child.child("idCompany").getValue().equals(LoginActivity.getCurrentUser().getUid())) {
                         Route r = child.getValue(Route.class);
                         mAdapter.add(r.getName());
-                        idRoute1.add(r.getId());
+                        idRoutes.add(r.getId());
                     }
                 }
             }
