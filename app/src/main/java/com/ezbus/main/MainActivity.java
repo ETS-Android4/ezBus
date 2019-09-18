@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Passa al profilo il parametro clients o company in base alla scelta fatta
             ProfileActivity.setUser(LoginActivity.getCurrentUser(), sharedpref.getQuery());
 
-            FloatingActionButton mapTab = findViewById(R.id.tab5);
             BottomNavigationView mMainNav = findViewById(R.id.main_nav);
             navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Imposta come fragment iniziale la mappa
             setFragment(5);
             navigationView.getMenu().findItem(R.id.nav_settings).setVisible(true);
-            mapTab.setOnClickListener(view -> setFragment(5));
             mMainNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
     }
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             = item -> {
                 FirebaseUser currentUser = LoginActivity.getCurrentUser();
                 int id = item.getItemId();
-                if (currentUser == null)
+                if (currentUser == null && id != R.id.tab5)
                     startNewActivity(LoginActivity.class);
                 else {
                     switch (id) {
@@ -125,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return true;
                         case R.id.tab4:
                             setFragment(4);
+                            return true;
+                        case R.id.tab5:
+                            setFragment(5);
                             return true;
                     }
                 }

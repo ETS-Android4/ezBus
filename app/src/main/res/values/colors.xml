@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#124063</color>
     <color name="colorAccent">#416988</color>
 
-    <color name="blue">#203A4E</color>
-    <color name="azure">#ADF0E0</color>
-    <color name="lightGray">#E6E6E6</color>
-    <color name="white">#F6F6F6</color>
+    <color name="blue">#353645</color>
+    <color name="desBlue">#4D182F3F</color>
+    <color name="purple">#5156B6</color>
+    <color name="gray">#343454</color>
+    <color name="lightGray">#AAAAAA</color>
+    <color name="white">#F7F9FC</color>
 </resources>

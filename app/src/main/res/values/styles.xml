@@ -4,11 +4,11 @@
 
     <!-- blue/day mode theme -->
     <style name="App.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#303F4B</item>
-        <item name="colorPrimaryDark">#303F4B</item>
-        <item name="colorAccent">#354C5E</item>
-        <item name="colorBackground">#fefefe</item>
-        <item name="colorCard">#e6e6e6</item>
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/purple</item>
+        <item name="colorAccent">@color/purple</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorCard">@color/white</item>
         <item name="colorText">#808080</item>
         <item name="colorTextHint">#aaa</item>
         <item name="colorTint">#ffffff</item>
@@ -21,17 +21,17 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="NoApp.Blue" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#303F4B</item>
-        <item name="colorPrimaryDark">#303F4B</item>
-        <item name="colorAccent">#354C5E</item>
-        <item name="colorBackground">#f1f1f1</item>
-        <item name="colorCard">#efefef</item>
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/purple</item>
+        <item name="colorAccent">@color/purple</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorCard">@color/white</item>
         <item name="colorText">#808080</item>
         <item name="colorTextHint">#aaa</item>
         <item name="colorTint">#ffffff</item>
         <item name="colorButton">#388E3C</item>
-        <item name="colorActiveTab">#303F4B</item>
-        <item name="colorInactiveTab">#303F4B</item>
+        <item name="colorActiveTab">@color/purple</item>
+        <item name="colorInactiveTab">@color/lightGray</item>
         <item name="colorNavItem">#303F4B</item>
         <item name="toolbarStyle">@style/ToolBar.Blue</item>
         <item name="android:fontFamily">@font/argentum</item>
