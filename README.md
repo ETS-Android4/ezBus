@@ -12,7 +12,6 @@ Per iniziare
 Contatti
 -------
 Per informazioni o problemi:
-- piatanesi.samuel@gmail.com
 - luca.ruschioni@hotmail.it
 - ludovicoguercio88@gmail.com
 - roberto.vellucci@studenti.unicam.it
